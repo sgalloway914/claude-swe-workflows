@@ -102,7 +102,7 @@ Systematically introduces mutations (small deliberate changes) into source code 
 
 [Detailed documentation](skills/test-mutate/README.md)
 
-### /fix - Automated Bug-Fixing Workflow
+### /bugfix - Automated Bug-Fixing Workflow
 
 Coordinates specialist agents through a bug-fixing cycle: clarify bug, reproduce with failing test, diagnose root cause, implement fix, verify, review, and document. Uses `swe-diagnostician` for root-cause analysis and the appropriate SME for implementation.
 

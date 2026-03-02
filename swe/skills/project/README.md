@@ -21,7 +21,7 @@ The `/project` skill takes a batch of tickets, plans their execution order, impl
 - Batches where you want autonomous execution with quality gates
 
 **Don't use `/project` for:**
-- Single tickets (use `/iterate` or `/fix` directly)
+- Single tickets (use `/iterate` or `/bugfix` directly)
 - Exploratory work or prototyping
 - Tickets that need heavy user collaboration during implementation (use `/iterate` interactively)
 
@@ -308,7 +308,7 @@ Awaiting your guidance.
 |----------------|------------------------------------------------------------------------------------------|
 | `/scope`       | Creates tickets that `/project` consumes. Typical flow: `/scope` then `/project`.        |
 | `/iterate`     | Runs inside `/project` for each ticket. `/project` adds batching, ordering, and branching. |
-| `/fix`         | Not used by `/project` currently — all tickets go through `/iterate`.                    |
+| `/bugfix`         | Not used by `/project` currently — all tickets go through `/iterate`.                    |
 | `/test-review` | Runs as cross-cutting quality pass after all tickets.                                    |
 | `/refactor`    | Runs as cross-cutting quality pass (SAFE aggression).                                    |
 | `/doc-review`  | Runs as cross-cutting quality pass.                                                      |

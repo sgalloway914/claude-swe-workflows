@@ -1,5 +1,5 @@
 ---
-name: fix
+name: bugfix
 description: Bug-fixing workflow that coordinates diagnosis, test-driven reproduction, root-cause analysis, and targeted fixes. Use when the user wants to fix a bug with thorough investigation and regression testing.
 model: opus
 ---
