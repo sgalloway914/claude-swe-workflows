@@ -63,33 +63,17 @@ Analyzes codebase architecture via noun analysis, produces a target blueprint, t
 
 [Detailed documentation](skills/arch-review/README.md)
 
-### /test-audit - Test Suite Quality Review
+### /test-review - Comprehensive Test Suite Review
 
-Reviews test quality interactively: scans for brittle, tautological, and useless tests, presents findings for user selection, then fixes or removes the selected issues.
-
-**Use when:**
-- After a burst of agent-written tests
-- When test suite maintenance cost feels disproportionate to value
-- Before trusting a test suite you didn't write
-- Periodically, to keep test quality from drifting
-
-**Key principle:** Tests exist to catch bugs, not to exist. A bad test is worse than no test.
-
-[Detailed documentation](skills/test-audit/README.md)
-
-### /test-cover - Test Coverage Gap Filler
-
-Analyzes coverage reports (or generates them), identifies untested code paths prioritized by risk, and fills selected gaps through specialist agents. Reports refactoring suggestions for hard-to-test code.
+Three-phase test suite review: fills coverage gaps, identifies missing fuzz tests, and audits test quality. Each phase has its own analysis → present → select → implement → verify cycle.
 
 **Use when:**
-- Coverage metrics are below target
-- After inheriting or onboarding to an under-tested codebase
-- Before a release, to strengthen test coverage in critical areas
-- After adding new features that may lack thorough testing
+- Coverage metrics are below target or you're onboarding to an under-tested codebase
+- After a burst of agent-written tests that may need quality review
+- Before a release, to strengthen and clean up the test suite
+- Periodically, as a comprehensive test health check
 
-**Key principle:** Cover what matters most. Prioritize error handling, security, and business logic over boilerplate.
-
-[Detailed documentation](skills/test-cover/README.md)
+**Key principle:** Tests are a system, not a checklist. Add what's missing, then clean up what's broken.
 
 ### /release-review - Pre-Release Readiness Check
 
@@ -132,7 +116,7 @@ Coordinates specialist agents through a bug-fixing cycle: clarify bug, reproduce
 
 ### /project - Multi-Ticket Orchestration
 
-Orchestrates a batch of tickets as a cohesive project. Creates a project branch, implements each ticket sequentially using `/iterate` in autonomous mode, runs cross-cutting quality passes (`/test-audit`, `/refactor`, `/doc-review`), and presents results for final human review.
+Orchestrates a batch of tickets as a cohesive project. Creates a project branch, implements each ticket sequentially using `/iterate` in autonomous mode, runs cross-cutting quality passes (`/test-review`, `/refactor`, `/doc-review`), and presents results for final human review.
 
 **Use when:**
 - Implementing a batch of related tickets from your issue tracker
@@ -172,6 +156,7 @@ Specialist agents spawned by the skills above:
 | `qa-engineer` | Practical verification and test coverage |
 | `qa-test-auditor` | Test quality reviewer (brittle, tautological, useless tests) |
 | `qa-coverage-analyst` | Coverage gap analyst (coverage reports, risk prioritization, testability suggestions) |
+| `qa-fuzz-analyst` | Fuzz testing gap analyst (fuzz infrastructure detection, candidate identification) |
 | `qa-test-mutator` | Mutation testing worker (applies mutations, records results) |
 | `qa-release-eng` | Pre-release scanner (debug artifacts, versioning, changelog, git hygiene, breaking changes, licenses) |
 | `sec-reviewer` | Security vulnerability analysis |

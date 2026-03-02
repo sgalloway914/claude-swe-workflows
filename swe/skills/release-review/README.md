@@ -21,7 +21,7 @@ The `/release-review` skill performs a comprehensive pre-flight check before cut
 
 **Don't use `/release-review` for:**
 - Routine development checks (use `/iterate` or `/refactor`)
-- Test quality concerns (use `/test-audit` or `/test-mutate`)
+- Test quality concerns (use `/test-review` or `/test-mutate`)
 - Documentation updates (use `/doc-review`)
 - Security audits (the sec-reviewer agent handles that during `/iterate`)
 

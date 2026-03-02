@@ -67,6 +67,9 @@ Tests that break when you refactor without changing behavior. They test *how* co
 - Tests coupled to specific data structures when only the logical result matters
 - Snapshot tests of large structures where most fields are irrelevant to the test
 - Tests that assert on log output, debug strings, or formatting details
+- Using a weaker assertion mechanism when a stronger one is available (e.g., matching error strings when sentinel errors or error types exist, checking status codes when typed error values are available, or comparing string representations when structured comparisons are possible)
+
+**Robustness principle:** Always recommend the most robust assertion available. Prefer, in order: typed errors/sentinel values > error codes/status codes > string matching. If the code under test provides structured error information, tests should use it — not fall back to string comparison.
 
 **Example:**
 ```
@@ -167,6 +170,45 @@ Tests that technically work but are problematic in structure.
 
 ---
 
+## Category 7: Inconsistent — Mixed Assertion Strategies
+
+Tests across the suite that verify the same kind of behavior in different ways. Inconsistency makes tests harder to maintain, harder to review, and easier to get wrong when writing new tests — contributors copy the nearest example, which may be the worst one.
+
+**What to look for:**
+
+- Error checking that mixes strategies: some tests use `errors.Is()`, others match error strings, others check status codes — for the same kind of error
+- Assertion style varies: some tests use the project's assertion library, others use raw `if` checks
+- Setup patterns differ: some tests build fixtures inline, others use helpers, for no apparent reason
+- Response validation mixes full-body comparison, field-by-field checks, and substring matching
+- Naming conventions vary across test files (e.g., `TestFoo_Bar` vs `TestFooBar` vs `Test_Foo_bar`)
+
+**Focus on substance over style.** Flag inconsistencies that affect robustness or maintainability. Don't flag purely cosmetic variation unless it's pervasive enough to cause confusion.
+
+**When recommending a consistent approach, prefer the most robust option already in use in the suite.** For example, if half the tests use `errors.Is()` and half match error strings, recommend standardizing on `errors.Is()` — not the other way around.
+
+**Example:**
+```
+// Inconsistent error checking in the same test suite:
+
+// Test A: checks error type (robust)
+err := doThing(badInput)
+assert(errors.Is(err, ErrValidation))
+
+// Test B: checks error string (fragile)
+err := doThing(otherBadInput)
+assert(err.Error() == "validation failed: missing field")
+
+// Test C: checks only that err != nil (weak)
+err := doThing(anotherBadInput)
+assert(err != nil)
+
+// Recommendation: standardize on errors.Is() (Test A's approach)
+```
+
+**Typical recommendation:** REWRITE the outlier tests to match the most robust pattern already established in the suite. When reporting, identify which pattern is the target and which tests are the outliers.
+
+---
+
 # Workflow
 
 1. **Survey test files**: Use Glob to find all test files in scope. Understand the test framework and conventions used.
@@ -213,6 +255,12 @@ X findings across N test files
 ## TEST SMELLS
 - **[file:test_name]** SIMPLIFY — [rationale]
   - Problem: [structural issue]
+
+## INCONSISTENT
+- **[file:test_name]** REWRITE — [rationale]
+  - Current: [what assertion strategy this test uses]
+  - Suite standard: [what the majority/best tests use]
+  - Affected tests: [list of tests that should be brought into alignment]
 
 ## OTHER
 - **[file:test_name]** [action] — [rationale]

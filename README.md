@@ -68,7 +68,7 @@ Software engineering workflow with specialist agents.
 - `/project` - Multi-ticket orchestration with cross-cutting quality passes
 - `/refactor` - Autonomous iterative codebase improvement
 - `/arch-review` - Interactive architectural review and restructuring
-- `/test-audit` - Interactive test suite quality review
+- `/test-review` - Comprehensive test suite review (coverage, fuzz, quality audit)
 - `/test-mutate` - Mutation testing workflow (verify tests catch bugs)
 - `/release-review` - Pre-release readiness check
 - `/doc-review` - Documentation quality audit

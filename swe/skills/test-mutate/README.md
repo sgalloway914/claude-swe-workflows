@@ -168,7 +168,7 @@ Commit? > yes
 
 2. **Incremental approach.** Test one module per session. Mutation testing is inherently slow (one test run per mutation).
 
-3. **Pair with /test-audit.** Run `/test-audit` first to remove bad tests, then `/test-mutate` to find missing ones. Audit cleans, mutate strengthens.
+3. **Pair with /test-review.** Run `/test-review` first to fill coverage gaps and clean up bad tests, then `/test-mutate` to find remaining weaknesses. Review builds, mutate strengthens.
 
 4. **Don't chase 100%.** Address high-value survivors (business logic, error handling), accept diminishing returns on the rest.
 
@@ -178,11 +178,11 @@ Commit? > yes
 
 ## Integration with Other Skills
 
-`/test-mutate`, `/test-audit`, `/iterate`, and `/refactor` are complementary:
+`/test-mutate`, `/test-review`, `/iterate`, and `/refactor` are complementary:
 
-- **Use /test-audit** to remove bad tests (quality)
-- **Use /test-mutate** to find missing tests (coverage)
+- **Use /test-review** to fill coverage gaps and audit test quality
+- **Use /test-mutate** to find tests that run code without verifying behavior
 - **Use /iterate** to build features with quality gates
 - **Use /refactor** for code cleanup, then `/test-mutate` to verify tests weren't weakened
 
-Recommended sequence for test improvement: `/test-audit` first (clean up), then `/test-mutate` (strengthen).
+Recommended sequence for test improvement: `/test-review` first (fill gaps, clean up), then `/test-mutate` (strengthen).
