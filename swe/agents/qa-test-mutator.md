@@ -111,11 +111,11 @@ Remove or neutralize statements:
 
 Modify control flow:
 
-| Original                 | Mutated                                   |
-|--------------------------|--------------------------------------------|
-| `if (condition)`         | `if (!condition)` / `if (not condition)`   |
-| `if x { A } else { B }` | `if x { B } else { A }` (swap branches)   |
-| `while (condition)`      | `while (!condition)`                       |
+| Original                | Mutated                                  |
+|-------------------------|------------------------------------------|
+| `if (condition)`        | `if (!condition)` / `if (not condition)` |
+| `if x { A } else { B }` | `if x { B } else { A }` (swap branches)  |
+| `while (condition)`     | `while (!condition)`                     |
 
 ---
 

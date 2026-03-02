@@ -71,11 +71,11 @@ Produce a frequency table sorted by count descending:
 
 | Noun     | Count | Has Namespace? | Modules Where It Appears |
 |----------|-------|----------------|--------------------------|
-| request  | 14    | No             | Server, App, Middleware   |
-| config   | 9     | No             | Widget, App, Server       |
-| plugins  | 7     | No             | App                       |
-| response | 4     | No             | Server                    |
-| session  | 0     | No             | (brainstormed — absent)   |
+| request  | 14    | No             | Server, App, Middleware  |
+| config   | 9     | No             | Widget, App, Server      |
+| plugins  | 7     | No             | App                      |
+| response | 4     | No             | Server                   |
+| session  | 0     | No             | (brainstormed — absent)  |
 
 A noun ranking high in the frequency table without its own namespace is a strong extraction candidate. A noun appearing across multiple modules is a concept the codebase revolves around — it almost certainly deserves its own namespace. A noun concentrated in one module with a high count may indicate that module is doing too much. A brainstormed noun with a count of 0 is a concept the codebase may be missing entirely.
 

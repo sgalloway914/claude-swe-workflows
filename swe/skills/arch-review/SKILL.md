@@ -331,9 +331,9 @@ Analysis complete. Here's what I found:
 
 | Noun     | Count | Has Namespace? | Modules Where It Appears |
 |----------|-------|----------------|--------------------------|
-| request  | 14    | No             | Server, App, Middleware   |
+| request  | 14    | No             | Server, App, Middleware  |
 | config   | 9     | No             | Widget, App, Server      |
-| response | 7     | No             | Server, App, Middleware   |
+| response | 7     | No             | Server, App, Middleware  |
 | plugins  | 5     | No             | App                      |
 | helper   | 4     | Yes (helpers)  | helpers                  |
 

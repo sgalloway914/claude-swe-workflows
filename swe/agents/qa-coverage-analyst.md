@@ -26,14 +26,14 @@ You receive a coverage report file. Parse it to identify uncovered lines, branch
 
 **Supported formats:**
 
-| Format       | Files                                          | Key patterns                                                                            |
-|--------------|------------------------------------------------|-----------------------------------------------------------------------------------------|
-| Go           | `coverage.out`, `cover.out`                    | `mode: set/count/atomic`, lines ending in `0` are uncovered                             |
-| lcov         | `lcov.info`, `coverage/lcov.info`              | `DA:line,count` — count 0 is uncovered; `BRDA` for branches                            |
-| Istanbul/nyc | `coverage-summary.json`, `coverage-final.json` | JSON with `statements`, `branches`, `functions`, `lines` objects                        |
+| Format       | Files                                                          | Key patterns                                                                             |
+|--------------|----------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| Go           | `coverage.out`, `cover.out`                                    | `mode: set/count/atomic`, lines ending in `0` are uncovered                              |
+| lcov         | `lcov.info`, `coverage/lcov.info`                              | `DA:line,count` — count 0 is uncovered; `BRDA` for branches                              |
+| Istanbul/nyc | `coverage-summary.json`, `coverage-final.json`                 | JSON with `statements`, `branches`, `functions`, `lines` objects                         |
 | coverage.py  | `.coverage` (XML/JSON export), `coverage.xml`, `coverage.json` | XML: `<line>` elements with `hits` attribute; JSON: `executed_lines` and `missing_lines` |
-| JaCoCo       | `jacoco.xml`                                   | `<counter>` elements with `type`, `missed`, `covered`                                   |
-| Cobertura    | `coverage.xml`, `cobertura.xml`                | `<line>` elements with `hits` attribute                                                 |
+| JaCoCo       | `jacoco.xml`                                                   | `<counter>` elements with `type`, `missed`, `covered`                                    |
+| Cobertura    | `coverage.xml`, `cobertura.xml`                                | `<line>` elements with `hits` attribute                                                  |
 
 If the report is a binary format (e.g., `.coverage` SQLite database), tell the orchestrator which command to run to produce a readable export (e.g., `coverage json` or `coverage xml`).
 

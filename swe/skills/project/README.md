@@ -304,14 +304,14 @@ Awaiting your guidance.
 
 ## Integration with Other Skills
 
-| Skill          | Relationship                                                                             |
-|----------------|------------------------------------------------------------------------------------------|
-| `/scope`       | Creates tickets that `/project` consumes. Typical flow: `/scope` then `/project`.        |
+| Skill          | Relationship                                                                               |
+|----------------|--------------------------------------------------------------------------------------------|
+| `/scope`       | Creates tickets that `/project` consumes. Typical flow: `/scope` then `/project`.          |
 | `/iterate`     | Runs inside `/project` for each ticket. `/project` adds batching, ordering, and branching. |
-| `/bugfix`         | Not used by `/project` currently — all tickets go through `/iterate`.                    |
-| `/test-review` | Runs as cross-cutting quality pass after all tickets.                                    |
-| `/refactor`    | Runs as cross-cutting quality pass (SAFE aggression).                                    |
-| `/doc-review`  | Runs as cross-cutting quality pass.                                                      |
+| `/bugfix`      | Not used by `/project` currently — all tickets go through `/iterate`.                      |
+| `/test-review` | Runs as cross-cutting quality pass after all tickets.                                      |
+| `/refactor`    | Runs as cross-cutting quality pass (SAFE aggression).                                      |
+| `/doc-review`  | Runs as cross-cutting quality pass.                                                        |
 
 ## Tips
 

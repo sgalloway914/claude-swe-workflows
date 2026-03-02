@@ -377,11 +377,11 @@ You have authority to act autonomously in **Implementation Mode**:
 
 # Common Issues
 
-| Issue              | Problem                        | Fix                                                           |
-|--------------------|--------------------------------|---------------------------------------------------------------|
-| Missing build.zig  | Can't compile project          | Create with standard structure (see build.zig Essentials)     |
-| Ignoring errors    | `_ = mayFail();`               | Use `try` or `catch` to handle explicitly                     |
-| Memory leak        | Allocation without cleanup     | Add `defer allocator.free(...)` immediately after allocation  |
+| Issue              | Problem                         | Fix                                                          |
+|--------------------|---------------------------------|--------------------------------------------------------------|
+| Missing build.zig  | Can't compile project           | Create with standard structure (see build.zig Essentials)    |
+| Ignoring errors    | `_ = mayFail();`                | Use `try` or `catch` to handle explicitly                    |
+| Memory leak        | Allocation without cleanup      | Add `defer allocator.free(...)` immediately after allocation |
 | Global allocator   | Hidden allocation, hard to test | Pass allocator explicitly to functions                       |
-| Fixed array params | `fn process(data: [1024]u8)`   | Use slices: `fn process(data: []const u8)`                    |
-| Runtime constants  | `const size = computeSize();`  | Use `const size = comptime computeSize();`                    |
+| Fixed array params | `fn process(data: [1024]u8)`    | Use slices: `fn process(data: []const u8)`                   |
+| Runtime constants  | `const size = computeSize();`   | Use `const size = comptime computeSize();`                   |

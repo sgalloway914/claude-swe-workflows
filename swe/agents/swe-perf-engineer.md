@@ -89,15 +89,15 @@ Ensure the codebase performs efficiently through benchmarking, profiling, and pe
 
 # Framework Selection by Language
 
-| Language                  | Benchmarking             | CPU Profiling                  | Memory Profiling             | Load Testing    |
-|---------------------------|--------------------------|--------------------------------|------------------------------|-----------------|
-| **Rust**                  | Criterion, bench         | cargo-flamegraph, perf         | dhat, heaptrack              | -               |
-| **Python**                | pytest-benchmark, timeit | cProfile, py-spy               | memory_profiler, tracemalloc | -               |
-| **JavaScript/TypeScript** | Benchmark.js, tinybench  | Chrome DevTools, clinic.js     | Chrome DevTools, heapdump    | -               |
-| **Go**                    | testing.B (built-in)     | pprof (built-in)               | pprof (built-in)             | -               |
-| **Java/JVM**              | JMH                      | async-profiler, JFR            | JProfiler, VisualVM          | -               |
-| **C/C++**                 | Google Benchmark         | perf, Valgrind                 | Valgrind, heaptrack          | -               |
-| **HTTP APIs**             | -                        | -                              | -                            | k6, wrk, vegeta |
+| Language                  | Benchmarking             | CPU Profiling              | Memory Profiling             | Load Testing    |
+|---------------------------|--------------------------|----------------------------|------------------------------|-----------------|
+| **Rust**                  | Criterion, bench         | cargo-flamegraph, perf     | dhat, heaptrack              | -               |
+| **Python**                | pytest-benchmark, timeit | cProfile, py-spy           | memory_profiler, tracemalloc | -               |
+| **JavaScript/TypeScript** | Benchmark.js, tinybench  | Chrome DevTools, clinic.js | Chrome DevTools, heapdump    | -               |
+| **Go**                    | testing.B (built-in)     | pprof (built-in)           | pprof (built-in)             | -               |
+| **Java/JVM**              | JMH                      | async-profiler, JFR        | JProfiler, VisualVM          | -               |
+| **C/C++**                 | Google Benchmark         | perf, Valgrind             | Valgrind, heaptrack          | -               |
+| **HTTP APIs**             | -                        | -                          | -                            | k6, wrk, vegeta |
 
 # Quality Checks
 

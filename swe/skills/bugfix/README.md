@@ -32,7 +32,7 @@ The `/bugfix` skill orchestrates a diagnosis-first bug-fixing workflow through s
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│ /bugfix Workflow                                                   │
+│ /bugfix Workflow                                                │
 └─────────────────────────────────────────────────────────────────┘
 
  ┌──────────────────────────────────────────────┐
@@ -181,13 +181,13 @@ The `/bugfix` skill orchestrates a diagnosis-first bug-fixing workflow through s
 
 The `/bugfix` workflow diverges from `/iterate` in steps 2-4, then rejoins for the review pipeline:
 
-| Step | `/iterate`             | `/bugfix`                                   |
-|------|------------------------|------------------------------------------|
-| 1    | Gather requirements    | Clarify bug symptoms                     |
-| 2    | Planning (conditional) | **Write failing test** (SME)             |
-| 3    | Implementation         | **Diagnosis** (swe-diagnostician)        |
-| 4    | QA acceptance gate     | **Implement fix** (guided by diagnosis)  |
-| 5+   | Reviews, docs, commit  | Same as `/iterate` steps 5-11            |
+| Step | `/iterate`             | `/bugfix`                               |
+|------|------------------------|-----------------------------------------|
+| 1    | Gather requirements    | Clarify bug symptoms                    |
+| 2    | Planning (conditional) | **Write failing test** (SME)            |
+| 3    | Implementation         | **Diagnosis** (swe-diagnostician)       |
+| 4    | QA acceptance gate     | **Implement fix** (guided by diagnosis) |
+| 5+   | Reviews, docs, commit  | Same as `/iterate` steps 5-11           |
 
 Key differences:
 - **Test first, then fix.** `/iterate` implements then tests. `/bugfix` writes a failing test before any fix attempt.

@@ -58,14 +58,14 @@ Follow this waterfall — stop at the first step that produces a usable report.
 
 Search for coverage files in common locations:
 
-| Format       | Files to search for                                                                |
-|--------------|------------------------------------------------------------------------------------|
-| Go           | `coverage.out`, `cover.out`, `c.out`                                               |
-| lcov         | `lcov.info`, `coverage/lcov.info`                                                  |
-| Istanbul/nyc | `coverage/coverage-summary.json`, `coverage/coverage-final.json`, `.nyc_output/`   |
-| coverage.py  | `coverage.xml`, `coverage.json`, `htmlcov/`                                        |
-| JaCoCo       | `target/site/jacoco/jacoco.xml`, `build/reports/jacoco/*/jacoco.xml`               |
-| Cobertura    | `coverage.xml`, `cobertura.xml`                                                    |
+| Format       | Files to search for                                                              |
+|--------------|----------------------------------------------------------------------------------|
+| Go           | `coverage.out`, `cover.out`, `c.out`                                             |
+| lcov         | `lcov.info`, `coverage/lcov.info`                                                |
+| Istanbul/nyc | `coverage/coverage-summary.json`, `coverage/coverage-final.json`, `.nyc_output/` |
+| coverage.py  | `coverage.xml`, `coverage.json`, `htmlcov/`                                      |
+| JaCoCo       | `target/site/jacoco/jacoco.xml`, `build/reports/jacoco/*/jacoco.xml`             |
+| Cobertura    | `coverage.xml`, `cobertura.xml`                                                  |
 
 If a report is found, verify it's reasonably recent (warn if older than the most recent source change). Use the report and proceed.
 

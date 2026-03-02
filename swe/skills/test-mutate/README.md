@@ -83,12 +83,12 @@ Surviving mutations are presented as a numbered list. You select which to addres
 
 ## Mutation Score Interpretation
 
-| Score   | Meaning                                                    |
-|---------|------------------------------------------------------------|
-| 95-100% | Excellent — tests catch nearly all synthetic bugs          |
-| 80-94%  | Good — some gaps, worth addressing for critical code       |
-| 60-79%  | Adequate for non-critical code, weak for critical paths    |
-| < 60%   | Significant gaps — tests provide limited protection        |
+| Score   | Meaning                                                 |
+|---------|---------------------------------------------------------|
+| 95-100% | Excellent — tests catch nearly all synthetic bugs       |
+| 80-94%  | Good — some gaps, worth addressing for critical code    |
+| 60-79%  | Adequate for non-critical code, weak for critical paths |
+| < 60%   | Significant gaps — tests provide limited protection     |
 
 100% isn't always necessary or practical. Focus effort on critical code paths.
 
