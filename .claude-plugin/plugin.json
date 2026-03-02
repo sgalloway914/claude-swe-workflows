@@ -1,5 +1,5 @@
 {
-  "name": "swe",
+  "name": "claude-swe-workflows",
   "version": "1.0.0",
   "description": "Software engineering workflow with deliberation, planning, implementation, and quality skills plus specialist agents",
   "author": {

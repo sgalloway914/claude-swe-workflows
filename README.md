@@ -1,17 +1,17 @@
-# SWE Plugin
+# claude-swe-workflows
 
-A software engineering workflow for Claude Code, providing skills and specialist agents for systematic development.
+Software engineering workflows for Claude Code, providing skills and specialist agents for systematic development.
 
 ## Installation
 
 ```bash
-claude plugin install swe@chrisallenlane
+claude plugin install claude-swe-workflows@chrisallenlane
 ```
 
 Or for development:
 
 ```bash
-claude --plugin-dir /path/to/claude-plugins
+claude --plugin-dir /path/to/claude-swe-workflows
 ```
 
 ## Skills
