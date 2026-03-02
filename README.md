@@ -211,6 +211,10 @@ create tickets, and `/iterate` to implement.
 Enter at any stage. Complex decisions benefit from the full workflow.
 Straightforward changes can go directly to `/iterate`.
 
+## Development
+
+See [HACKING.md](HACKING.md) for local development and testing instructions.
+
 ## Requirements
 
 - `git` repository

@@ -63,6 +63,8 @@ The `/iterate` skill orchestrates a complete development workflow through specia
  │  • GraphQL  → swe-sme-graphql                │
  │  • Docker   → swe-sme-docker                 │
  │  • Makefile → swe-sme-makefile               │
+ │  • Ansible  → swe-sme-ansible                │
+ │  • Zig      → swe-sme-zig                    │
  │  • Other    → Generalist implementation      │
  │                                              │
  │  Implements feature + writes unit tests      │
@@ -199,6 +201,8 @@ A language-specific specialist (or generalist) implements the feature:
 - `swe-sme-graphql` - GraphQL schemas/resolvers
 - `swe-sme-docker` - Dockerfiles and containers
 - `swe-sme-makefile` - Makefiles and build systems
+- `swe-sme-ansible` - Ansible playbooks and roles
+- `swe-sme-zig` - Zig projects
 
 ### 4. Quality Assurance - Acceptance Verification (CRITICAL GATE)
 The `qa-engineer` performs practical verification before writing tests:
@@ -334,7 +338,7 @@ Workflow:
 4. QA (acceptance): qa-engineer runs CLI with --format json and --format yaml,
                    verifies output actually works, writes additional test cases
 5. Review: swe-refactor suggests extracting common formatting logic
-          (security/performance/fuzz reviews skipped - not applicable)
+          (security/performance reviews skipped - not applicable)
 6. Respond: swe-sme-golang reviews refactoring suggestions, implements extraction
 7. Peer review: Fresh swe-sme-golang reviews, fixes minor naming inconsistency
 8. QA (coverage): Checks coverage, runs linters, verifies changes didn't break tests
@@ -355,7 +359,7 @@ Workflow:
                     flow end-to-end, verifies feature works
 5. Review: sec-reviewer finds timing attack vulnerability, recommends constant-time comparison
           swe-refactor suggests extracting email service
-          (performance/fuzz reviews skipped - not applicable)
+          (performance reviews skipped - not applicable)
 6. Respond: swe-sme-graphql addresses security issue (must fix), implements email extraction
 7. Peer review: Fresh swe-sme-graphql reviews, cleans up error message formatting
 8. QA (coverage): Coverage check, linters, verify changes didn't break tests

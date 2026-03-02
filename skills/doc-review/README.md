@@ -17,7 +17,7 @@ The `/doc-review` skill spawns a doc-maintainer agent to comprehensively review 
 - Before a release (catch stale docs)
 - Periodic documentation hygiene
 - When you suspect docs have drifted from the code
-- As part of `/refactor` completion (it runs automatically)
+- As part of `/refactor` or `/arch-review` completion (it runs automatically)
 
 **Don't use `/doc-review` for:**
 - Updating docs for a specific change (the `/iterate` and `/bugfix` workflows do this as part of their flow)
@@ -56,11 +56,11 @@ Spawning doc-maintainer agent for comprehensive review...
 ## Documentation Audit Report
 
 ### Changes Made
-1. README.md — Added missing /bugfix skill to skills list
-2. README.md — Added swe-diagnostician to agents table
+1. skills/iterate/README.md — Updated example to match current CLI flags
+2. CLAUDE.md — Fixed skill list ordering to match directory structure
 
 ### Issues Requiring User Approval
-- Three skills missing README.md files (doc-review, bugfix, project)
+- README.md installation section references deprecated flag (needs user decision on replacement)
 
 ### No Issues Found
 - Link validation: all links resolve

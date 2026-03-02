@@ -218,6 +218,8 @@ A language-specific SME writes test(s) that encode the expected behavior:
 - `swe-sme-graphql` - GraphQL schemas/resolvers
 - `swe-sme-docker` - Dockerfiles and containers
 - `swe-sme-makefile` - Makefiles and build systems
+- `swe-sme-ansible` - Ansible playbooks and roles
+- `swe-sme-zig` - Zig projects
 
 ### 3. Diagnosis
 The `swe-diagnostician` agent performs read-only root-cause analysis:
