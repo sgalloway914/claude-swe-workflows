@@ -127,21 +127,21 @@ For each ticket in the planned order:
 
 Follow the `/iterate` workflow with these overrides for autonomous operation:
 
-| `/iterate` Step | Autonomous Override |
-|---|---|
-| **Step 1** (requirements) | Pre-loaded from ticket body. Do not prompt user for requirements. If the ticket lacks explicit acceptance criteria, derive them from the description. If the description is empty or incoherent, **andon cord**. |
-| **Step 2** (planning) | Follow normal conditional logic — invoke `swe-planner` for complex tasks, skip for simple ones. |
-| **Steps 3-4** (implementation + acceptance gate) | Follow normal logic. If acceptance verification fails 3 times, **andon cord** (do not escalate to user within `/iterate` — escalate here at the project level). |
-| **Step 5a** (security review) | Follow normal logic. If critical/high findings cannot be resolved by the implementation agent, **andon cord**. |
-| **Steps 5b-5c** (refactoring/performance review) | Follow normal logic — these are advisory. |
-| **Step 6** (implement review feedback) | Follow normal logic. |
-| **Step 7** (peer review) | Follow normal logic. Handle deep issues autonomously — trust agents. If peer review breaks tests, revert peer review changes per standard `/iterate` logic. |
-| **Step 8** (coverage/quality verification) | Follow normal logic. Handle autonomously — if tests pass, proceed. Do not prompt user for approval of minor issues. |
-| **Step 9** (documentation) | Follow normal logic. |
-| **Step 10** (final verification) | Follow normal logic. |
-| **Step 11a** (commit) | Auto-commit with ticket reference. Use `Fixes #<number>` in the commit message. |
-| **Step 11b** (ticket update/close) | Post a comment on the ticket summarizing changes made. **Do not close** the ticket — leave that for the user after final review. |
-| **Step 11c** (rebase on main) | **Skip entirely.** We're on topic branches off the project branch, not main. |
+| `/iterate` Step                                | Autonomous Override                                                                                                                                                                                              |
+|------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Step 1** (requirements)                      | Pre-loaded from ticket body. Do not prompt user for requirements. If the ticket lacks explicit acceptance criteria, derive them from the description. If the description is empty or incoherent, **andon cord**. |
+| **Step 2** (planning)                          | Follow normal conditional logic — invoke `swe-planner` for complex tasks, skip for simple ones.                                                                                                                  |
+| **Steps 3-4** (implementation + acceptance)    | Follow normal logic. If acceptance verification fails 3 times, **andon cord** (do not escalate to user within `/iterate` — escalate here at the project level).                                                 |
+| **Step 5a** (security review)                  | Follow normal logic. If critical/high findings cannot be resolved by the implementation agent, **andon cord**.                                                                                                   |
+| **Steps 5b-5c** (refactoring/perf review)      | Follow normal logic — these are advisory.                                                                                                                                                                        |
+| **Step 6** (implement review feedback)         | Follow normal logic.                                                                                                                                                                                             |
+| **Step 7** (peer review)                       | Follow normal logic. Handle deep issues autonomously — trust agents. If peer review breaks tests, revert peer review changes per standard `/iterate` logic.                                                      |
+| **Step 8** (coverage/quality verification)     | Follow normal logic. Handle autonomously — if tests pass, proceed. Do not prompt user for approval of minor issues.                                                                                              |
+| **Step 9** (documentation)                     | Follow normal logic.                                                                                                                                                                                             |
+| **Step 10** (final verification)               | Follow normal logic.                                                                                                                                                                                             |
+| **Step 11a** (commit)                          | Auto-commit with ticket reference. Use `Fixes #<number>` in the commit message.                                                                                                                                 |
+| **Step 11b** (ticket update/close)             | Post a comment on the ticket summarizing changes made. **Do not close** the ticket — leave that for the user after final review.                                                                                 |
+| **Step 11c** (rebase on main)                  | **Skip entirely.** We're on topic branches off the project branch, not main.                                                                                                                                     |
 
 #### 5c. Merge Topic Branch into Project Branch
 

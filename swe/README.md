@@ -140,27 +140,27 @@ Spawns a doc-maintainer agent to comprehensively review all project documentatio
 
 Specialist agents spawned by the skills above:
 
-| Agent | Purpose |
-|-------|---------|
-| `swe-planner` | Decomposes complex tasks into implementation plans |
-| `swe-sme-golang` | Go implementation specialist |
-| `swe-sme-graphql` | GraphQL schema and resolver specialist |
-| `swe-sme-docker` | Dockerfile and container specialist |
-| `swe-sme-makefile` | Makefile and build system specialist |
-| `swe-sme-ansible` | Ansible automation specialist |
-| `swe-sme-zig` | Zig implementation specialist |
-| `swe-refactor` | Tactical code quality reviewer (DRY, dead code, naming, complexity) |
-| `swe-arch-review` | Architecture reviewer (noun analysis, module boundaries, blueprints) |
-| `swe-diagnostician` | Bug root-cause analyst (execution tracing, git archaeology, diagnosis reports) |
-| `swe-perf-engineer` | Performance testing and optimization |
-| `qa-engineer` | Practical verification and test coverage |
-| `qa-test-auditor` | Test quality reviewer (brittle, tautological, useless tests) |
-| `qa-coverage-analyst` | Coverage gap analyst (coverage reports, risk prioritization, testability suggestions) |
-| `qa-fuzz-analyst` | Fuzz testing gap analyst (fuzz infrastructure detection, candidate identification) |
-| `qa-test-mutator` | Mutation testing worker (applies mutations, records results) |
-| `qa-release-eng` | Pre-release scanner (debug artifacts, versioning, changelog, git hygiene, breaking changes, licenses) |
-| `sec-reviewer` | Security vulnerability analysis |
-| `doc-maintainer` | Documentation updates and verification |
+| Agent                  | Purpose                                                                                  |
+|------------------------|------------------------------------------------------------------------------------------|
+| `swe-planner`          | Decomposes complex tasks into implementation plans                                       |
+| `swe-sme-golang`       | Go implementation specialist                                                             |
+| `swe-sme-graphql`      | GraphQL schema and resolver specialist                                                   |
+| `swe-sme-docker`       | Dockerfile and container specialist                                                      |
+| `swe-sme-makefile`     | Makefile and build system specialist                                                     |
+| `swe-sme-ansible`      | Ansible automation specialist                                                            |
+| `swe-sme-zig`          | Zig implementation specialist                                                            |
+| `swe-refactor`         | Tactical code quality reviewer (DRY, dead code, naming, complexity)                      |
+| `swe-arch-review`      | Architecture reviewer (noun analysis, module boundaries, blueprints)                     |
+| `swe-diagnostician`    | Bug root-cause analyst (execution tracing, git archaeology, diagnosis reports)            |
+| `swe-perf-engineer`    | Performance testing and optimization                                                     |
+| `qa-engineer`          | Practical verification and test coverage                                                 |
+| `qa-test-auditor`      | Test quality reviewer (brittle, tautological, useless tests)                             |
+| `qa-coverage-analyst`  | Coverage gap analyst (coverage reports, risk prioritization, testability suggestions)     |
+| `qa-fuzz-analyst`      | Fuzz testing gap analyst (fuzz infrastructure detection, candidate identification)        |
+| `qa-test-mutator`      | Mutation testing worker (applies mutations, records results)                              |
+| `qa-release-eng`       | Pre-release scanner (debug artifacts, versioning, changelog, git hygiene, breaking changes, licenses) |
+| `sec-reviewer`         | Security vulnerability analysis                                                          |
+| `doc-maintainer`       | Documentation updates and verification                                                   |
 
 ## Workflow Integration
 

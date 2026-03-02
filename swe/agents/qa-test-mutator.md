@@ -42,13 +42,13 @@ Swap arithmetic operators:
 
 | Original | Mutated |
 |----------|---------|
-| `+` | `-` |
-| `-` | `+` |
-| `*` | `/` |
-| `/` | `*` |
-| `%` | `*` |
-| `+=` | `-=` |
-| `-=` | `+=` |
+| `+`      | `-`     |
+| `-`      | `+`     |
+| `*`      | `/`     |
+| `/`      | `*`     |
+| `%`      | `*`     |
+| `+=`     | `-=`    |
+| `-=`     | `+=`    |
 
 **Skip:** Operators inside string literals, comments, or import paths.
 
@@ -58,41 +58,41 @@ Swap comparison operators:
 
 | Original | Mutated |
 |----------|---------|
-| `<` | `<=` |
-| `<=` | `<` |
-| `>` | `>=` |
-| `>=` | `>` |
-| `==` | `!=` |
-| `!=` | `==` |
-| `===` | `!==` |
-| `!==` | `===` |
+| `<`      | `<=`    |
+| `<=`     | `<`     |
+| `>`      | `>=`    |
+| `>=`     | `>`     |
+| `==`     | `!=`    |
+| `!=`     | `==`    |
+| `===`    | `!==`   |
+| `!==`    | `===`   |
 
 ## 3. Logical
 
 Swap logical operators:
 
-| Original | Mutated |
-|----------|---------|
-| `&&` | `\|\|` |
-| `\|\|` | `&&` |
-| `and` | `or` |
-| `or` | `and` |
-| `!expr` | `expr` (remove negation) |
+| Original   | Mutated                  |
+|------------|--------------------------|
+| `&&`       | `\|\|`                   |
+| `\|\|`     | `&&`                     |
+| `and`      | `or`                     |
+| `or`       | `and`                    |
+| `!expr`    | `expr` (remove negation) |
 | `not expr` | `expr` (remove negation) |
 
 ## 4. Constants
 
 Change literal values:
 
-| Original | Mutated |
-|----------|---------|
-| `true` | `false` |
-| `false` | `true` |
-| `0` | `1` |
-| Any positive integer `n` | `n + 1` |
-| Any negative integer `n` | `n + 1` |
-| `""` (empty string) | `"MUTATED"` |
-| Non-empty string | `""` |
+| Original                 | Mutated     |
+|--------------------------|-------------|
+| `true`                   | `false`     |
+| `false`                  | `true`      |
+| `0`                      | `1`         |
+| Any positive integer `n` | `n + 1`     |
+| Any negative integer `n` | `n + 1`     |
+| `""` (empty string)      | `"MUTATED"` |
+| Non-empty string         | `""`        |
 
 **Skip:** Constants in test files, configuration constants that would cause compile errors, enum definitions.
 
@@ -111,11 +111,11 @@ Remove or neutralize statements:
 
 Modify control flow:
 
-| Original | Mutated |
-|----------|---------|
-| `if (condition)` | `if (!condition)` / `if (not condition)` |
-| `if x { A } else { B }` | `if x { B } else { A }` (swap branches) |
-| `while (condition)` | `while (!condition)` |
+| Original                 | Mutated                                   |
+|--------------------------|--------------------------------------------|
+| `if (condition)`         | `if (!condition)` / `if (not condition)`   |
+| `if x { A } else { B }` | `if x { B } else { A }` (swap branches)   |
+| `while (condition)`      | `while (!condition)`                       |
 
 ---
 
@@ -189,11 +189,11 @@ When finished, present your results in this format:
 
 ### Detailed Results
 
-| Line | Type | Original | Mutated | Result | Caught By |
-|------|------|----------|---------|--------|-----------|
-| 42 | arithmetic | count + 1 | count - 1 | survived | — |
-| 55 | relational | x < 10 | x <= 10 | killed | TestBoundary |
-| ... | ... | ... | ... | ... | ... |
+| Line | Type       | Original  | Mutated   | Result   | Caught By    |
+|------|------------|-----------|-----------|----------|--------------|
+| 42   | arithmetic | count + 1 | count - 1 | survived | —            |
+| 55   | relational | x < 10    | x <= 10   | killed   | TestBoundary |
+| ...  | ...        | ...       | ...       | ...      | ...          |
 ```
 
 **Always include the full detailed results table.** The orchestrator needs this to update the tracking file.

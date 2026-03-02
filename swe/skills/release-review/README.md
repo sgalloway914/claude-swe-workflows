@@ -29,19 +29,19 @@ The `/release-review` skill performs a comprehensive pre-flight check before cut
 
 ## What It Checks
 
-| Check | What it looks for | Severity |
-|-------|-------------------|----------|
-| **Debug artifacts** | console.log, print(), breakpoint(), debugger statements | BLOCKER |
-| **Work markers** | TODO, FIXME, HACK, XXX, REMOVEME | WARNING |
-| **Hardcoded URLs** | localhost, 127.0.0.1 in production code | WARNING |
-| **Version consistency** | Mismatched versions across manifests and source | BLOCKER |
-| **Changelog coverage** | Changelog not updated since last tag | WARNING |
-| **Git hygiene** | Merge conflict markers, tracked secrets, dirty working tree | BLOCKER |
-| **Breaking changes** | Removed public API without changelog mention | BLOCKER |
-| **License compliance** | New deps with incompatible or unknown licenses | BLOCKER/WARNING |
-| **Test suite** | Test failures | BLOCKER |
-| **Build verification** | Build failures | BLOCKER |
-| **Doc freshness** | Documentation referencing removed/renamed code | WARNING |
+| Check                    | What it looks for                                        | Severity        |
+|--------------------------|----------------------------------------------------------|-----------------|
+| **Debug artifacts**      | console.log, print(), breakpoint(), debugger statements  | BLOCKER         |
+| **Work markers**         | TODO, FIXME, HACK, XXX, REMOVEME                        | WARNING         |
+| **Hardcoded URLs**       | localhost, 127.0.0.1 in production code                  | WARNING         |
+| **Version consistency**  | Mismatched versions across manifests and source           | BLOCKER         |
+| **Changelog coverage**   | Changelog not updated since last tag                     | WARNING         |
+| **Git hygiene**          | Merge conflict markers, tracked secrets, dirty working tree | BLOCKER      |
+| **Breaking changes**     | Removed public API without changelog mention              | BLOCKER         |
+| **License compliance**   | New deps with incompatible or unknown licenses            | BLOCKER/WARNING |
+| **Test suite**           | Test failures                                            | BLOCKER         |
+| **Build verification**   | Build failures                                           | BLOCKER         |
+| **Doc freshness**        | Documentation referencing removed/renamed code            | WARNING         |
 
 ## Workflow Diagram
 

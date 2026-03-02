@@ -22,14 +22,14 @@ Before analyzing code, determine whether the project has fuzz testing support.
 
 ### Language-specific checks
 
-| Language | What to check | Infrastructure present if... |
-|----------|--------------|------------------------------|
-| Go | `go.mod` version | Go version ≥ 1.18 (native `testing.F` support) |
-| Rust | `Cargo.toml` | `cargo-fuzz` or `afl` in dev-dependencies, or `fuzz/` directory exists |
-| Python | `requirements*.txt`, `pyproject.toml`, `setup.cfg` | `hypothesis`, `atheris`, or `pythonfuzz` listed as dependency |
-| JavaScript/TypeScript | `package.json` | `fast-check`, `jsfuzz`, or `@jazzer.js/core` in devDependencies |
-| C/C++ | Build system files (`CMakeLists.txt`, `Makefile`) | libFuzzer flags (`-fsanitize=fuzzer`), AFL integration, or `fuzz/` directory |
-| Java/Kotlin | `build.gradle`, `pom.xml` | `jazzer` or `junit-quickcheck` in dependencies |
+| Language               | What to check                                    | Infrastructure present if...                                                   |
+|------------------------|--------------------------------------------------|--------------------------------------------------------------------------------|
+| Go                     | `go.mod` version                                 | Go version ≥ 1.18 (native `testing.F` support)                                |
+| Rust                   | `Cargo.toml`                                     | `cargo-fuzz` or `afl` in dev-dependencies, or `fuzz/` directory exists         |
+| Python                 | `requirements*.txt`, `pyproject.toml`, `setup.cfg` | `hypothesis`, `atheris`, or `pythonfuzz` listed as dependency                |
+| JavaScript/TypeScript  | `package.json`                                   | `fast-check`, `jsfuzz`, or `@jazzer.js/core` in devDependencies                |
+| C/C++                  | Build system files (`CMakeLists.txt`, `Makefile`) | libFuzzer flags (`-fsanitize=fuzzer`), AFL integration, or `fuzz/` directory  |
+| Java/Kotlin            | `build.gradle`, `pom.xml`                        | `jazzer` or `junit-quickcheck` in dependencies                                 |
 
 Also check for existing fuzz test files:
 - Go: files containing `func Fuzz` with `*testing.F` parameter

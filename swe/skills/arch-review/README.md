@@ -187,12 +187,12 @@ These instructions are passed to the QA agent on every verification cycle. If yo
 ### 3. Analyze Codebase
 A fresh `swe-arch-review` agent performs four sequential analysis steps:
 
-| Step | What it does |
-|------|-------------|
-| 1. Prune dead code | Catalogs unused functions, dead imports, legacy assumptions |
-| 2. Noun analysis | Builds domain model - identifies what nouns exist, what's missing, what's misnamed |
-| 3. Identify repetition | Catalogs duplication patterns as inputs to the blueprint |
-| 4. Produce blueprint | Synthesizes steps 1-3 into a target architecture |
+| Step                   | What it does                                                                       |
+|------------------------|-------------------------------------------------------------------------------------|
+| 1. Prune dead code     | Catalogs unused functions, dead imports, legacy assumptions                         |
+| 2. Noun analysis       | Builds domain model - identifies what nouns exist, what's missing, what's misnamed  |
+| 3. Identify repetition | Catalogs duplication patterns as inputs to the blueprint                            |
+| 4. Produce blueprint   | Synthesizes steps 1-3 into a target architecture                                   |
 
 The blueprint describes each module's target state: what it owns, what it absorbs from other modules, what gets renamed, and what implementation simplifications are possible.
 

@@ -181,13 +181,13 @@ The `/fix` skill orchestrates a diagnosis-first bug-fixing workflow through spec
 
 The `/fix` workflow diverges from `/iterate` in steps 2-4, then rejoins for the review pipeline:
 
-| Step | `/iterate` | `/fix` |
-|------|-----------|--------|
-| 1 | Gather requirements | Clarify bug symptoms |
-| 2 | Planning (conditional) | **Write failing test** (SME) |
-| 3 | Implementation | **Diagnosis** (swe-diagnostician) |
-| 4 | QA acceptance gate | **Implement fix** (guided by diagnosis) |
-| 5+ | Reviews, docs, commit | Same as `/iterate` steps 5-11 |
+| Step | `/iterate`             | `/fix`                                   |
+|------|------------------------|------------------------------------------|
+| 1    | Gather requirements    | Clarify bug symptoms                     |
+| 2    | Planning (conditional) | **Write failing test** (SME)             |
+| 3    | Implementation         | **Diagnosis** (swe-diagnostician)        |
+| 4    | QA acceptance gate     | **Implement fix** (guided by diagnosis)  |
+| 5+   | Reviews, docs, commit  | Same as `/iterate` steps 5-11            |
 
 Key differences:
 - **Test first, then fix.** `/iterate` implements then tests. `/fix` writes a failing test before any fix attempt.
