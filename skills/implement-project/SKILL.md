@@ -1,10 +1,10 @@
 ---
-name: project
+name: implement-project
 description: Full-lifecycle project workflow. Takes batched tickets, implements via /batch, runs smoke tests, then executes a comprehensive quality pipeline (refactor, arch-review, test-review, doc-review, release-review). Maximizes autonomy with andon cord escape.
 model: opus
 ---
 
-# Project - Full-Lifecycle Project Workflow
+# Implement-Project - Full-Lifecycle Project Workflow
 
 Orchestrates an entire project from tickets to release-ready code. Implements batched tickets via `/batch`, runs smoke tests, then executes a comprehensive quality pipeline. Maximizes autonomy — the andon cord is the only planned escalation path.
 
@@ -380,16 +380,16 @@ Status: <current phase>
 ## Integration with Other Skills
 
 **Relationship to `/batch`:**
-- `/project` is a higher-level orchestrator that runs `/batch` for each batch of tickets
+- `/implement-project` is a higher-level orchestrator that runs `/batch` for each batch of tickets
 - `/batch` handles the per-ticket implementation loop via `/implement`
-- `/project` adds: multi-batch coordination, smoke testing, comprehensive quality pipeline
+- `/implement-project` adds: multi-batch coordination, smoke testing, comprehensive quality pipeline
 
 **Relationship to `/scope`:**
-- `/scope` creates tickets; `/project` consumes them
-- Typical flow: `/scope` to plan → organize tickets into batches → `/project` to implement
+- `/scope` creates tickets; `/implement-project` consumes them
+- Typical flow: `/scope` to plan → organize tickets into batches → `/implement-project` to implement
 
 **Relationship to quality passes:**
-- `/project` runs each quality pass as a complete workflow
+- `/implement-project` runs each quality pass as a complete workflow
 - Each pass operates on the full codebase with fresh context
 - Passes build on each other: refactor → arch-review → refactor → test → doc → release
 

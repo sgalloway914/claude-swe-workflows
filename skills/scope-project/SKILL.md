@@ -371,10 +371,10 @@ The implementer evaluates tickets against these criteria:
 - `/scope-project` uses a lighter-weight ticket drafting process (subagents with project context) rather than invoking full `/scope` per ticket
 - For individual tickets that prove deeply underspecified during adversarial review, the orchestrator may invoke `/scope` as targeted escalation
 
-**Relationship to `/project`:**
-- `/scope-project` creates tickets; `/project` implements them
-- Tickets go upstream already tagged with batch labels that `/project` consumes
-- Typical flow: `/scope-project` → `/project`
+**Relationship to `/implement-project`:**
+- `/scope-project` creates tickets; `/implement-project` implements them
+- Tickets go upstream already tagged with batch labels that `/implement-project` consumes
+- Typical flow: `/scope-project` → `/implement-project`
 
 **Relationship to `/deliberate`:**
 - `/scope-project`'s adversarial review is specialized for planning quality

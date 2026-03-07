@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `/scope-project` skill plans an entire project through adversarial review. It explores the problem space, drafts tickets organized into batches, then pits a planner against an implementer agent to find gaps, ambiguities, and missing work. Only when the implementer is satisfied that every ticket could be implemented without unanswered questions do the tickets go upstream — already tagged with batch labels ready for `/project` to consume.
+The `/scope-project` skill plans an entire project through adversarial review. It explores the problem space, drafts tickets organized into batches, then pits a planner against an implementer agent to find gaps, ambiguities, and missing work. Only when the implementer is satisfied that every ticket could be implemented without unanswered questions do the tickets go upstream — already tagged with batch labels ready for `/implement-project` to consume.
 
 **Key benefits:**
 - Adversarial review catches planning gaps before they become implementation problems
@@ -16,7 +16,7 @@ The `/scope-project` skill plans an entire project through adversarial review. I
 **Use `/scope-project` for:**
 - Multi-ticket projects that need careful planning before implementation
 - Work that naturally divides into phases or batches
-- Projects where you want to hand off a complete, well-specified plan to `/project`
+- Projects where you want to hand off a complete, well-specified plan to `/implement-project`
 - Complex features where gaps between tickets could cause implementation problems
 
 **Don't use `/scope-project` for:**
@@ -183,7 +183,7 @@ After implementer approval, the complete ticket set is presented for your final 
 
 ### 8. Cut Tickets Upstream
 
-Batch labels are created first, then tickets are created with labels applied. Each ticket includes the batch tag so `/project` can consume them directly.
+Batch labels are created first, then tickets are created with labels applied. Each ticket includes the batch tag so `/implement-project` can consume them directly.
 
 ### 9. Clean Up
 
@@ -263,7 +263,7 @@ Approve?
 - batch-2: #35-#37
 - batch-3: #38-#40
 
-Ready for: /project all tickets tagged batch-1, batch-2, batch-3
+Ready for: /implement-project all tickets tagged batch-1, batch-2, batch-3
 ```
 
 ### Example 2: Review Catches Missing Work
@@ -291,14 +291,14 @@ and adds a missing ticket for shutdown handling.
 | Skill          | Relationship                                                                                                                                       |
 |----------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
 | `/scope`       | Plans a single ticket interactively. `/scope-project` plans an entire project with adversarial review.                                             |
-| `/project`     | Implements what `/scope-project` plans. Tickets go upstream with batch labels that `/project` consumes directly. Typical flow: `/scope-project` → `/project`. |
+| `/implement-project`     | Implements what `/scope-project` plans. Tickets go upstream with batch labels that `/implement-project` consumes directly. Typical flow: `/scope-project` → `/implement-project`. |
 | `/batch`       | Can also consume `/scope-project`'s tagged tickets if only one batch needs implementation.                                                         |
-| `/implement`     | Can implement individual tickets from `/scope-project` if full `/project` orchestration isn't needed.                                              |
+| `/implement`     | Can implement individual tickets from `/scope-project` if full `/implement-project` orchestration isn't needed.                                              |
 | `/deliberate`  | Available within `/scope-project` for difficult design decisions during planning.                                                                   |
 
 **The full pipeline:**
 ```
-/scope-project  →  /project
+/scope-project  →  /implement-project
     plan             implement
 ```
 

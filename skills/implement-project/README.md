@@ -1,10 +1,10 @@
-# /project - Full-Lifecycle Project Workflow
+# /implement-project - Full-Lifecycle Project Workflow
 
-> **Upgrading from v1.x?** The v1.x `/project` skill (single-batch orchestration) has been renamed to [`/batch`](../batch/README.md). The `/project` name now refers to this multi-batch full-lifecycle workflow, which invokes `/batch` internally for each batch. If you were using v1.x `/project` for a single batch of tickets, use `/batch` instead.
+> **Upgrading from v1.x?** The v1.x `/implement-project` skill (single-batch orchestration) has been renamed to [`/batch`](../batch/README.md). The `/implement-project` name now refers to this multi-batch full-lifecycle workflow, which invokes `/batch` internally for each batch. If you were using v1.x `/implement-project` for a single batch of tickets, use `/batch` instead.
 
 ## Overview
 
-The `/project` skill orchestrates an entire project from tickets to release-ready code. It takes batched tickets, implements each batch via the `/batch` workflow in autonomous mode, runs smoke tests, then executes a comprehensive quality pipeline (refactor, arch-review, test-review, doc-review, release-review). The result is a single project branch ready for human review and merge.
+The `/implement-project` skill orchestrates an entire project from tickets to release-ready code. It takes batched tickets, implements each batch via the `/batch` workflow in autonomous mode, runs smoke tests, then executes a comprehensive quality pipeline (refactor, arch-review, test-review, doc-review, release-review). The result is a single project branch ready for human review and merge.
 
 **Key benefits:**
 - Full project lifecycle in a single invocation
@@ -17,25 +17,25 @@ The `/project` skill orchestrates an entire project from tickets to release-read
 
 ## When to Use
 
-**Use `/project` for:**
+**Use `/implement-project` for:**
 - Multi-batch projects spanning multiple features or subsystems
 - Milestone implementations where tickets are naturally grouped into phases
 - Projects where the full quality pipeline adds value (refactoring, arch review, test review, doc review, release review)
 - Work where you want to walk away and come back to a finished, polished result
 
-**Don't use `/project` for:**
+**Don't use `/implement-project` for:**
 - A single batch of tickets (use `/batch` directly)
 - Single tickets (use `/implement` or `/bugfix` directly)
 - Exploratory work or prototyping
 - Projects with heavy user collaboration needed during implementation
 
-**Rule of thumb:** If you have multiple batches of tickets that form a cohesive project, use `/project`. If it's a single batch, use `/batch`.
+**Rule of thumb:** If you have multiple batches of tickets that form a cohesive project, use `/implement-project`. If it's a single batch, use `/batch`.
 
 ## Workflow Diagram
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│ /project Workflow                                               │
+│ /implement-project Workflow                                               │
 └─────────────────────────────────────────────────────────────────┘
 
  ┌──────────────────────────────────────────────┐
@@ -351,7 +351,7 @@ The orchestrator is encouraged to `/deliberate` before pulling the andon cord fo
 ### Example 1: Multi-Batch Project
 
 ```
-User: /project
+User: /implement-project
 
 Which tickets belong to this project?
 > All tickets tagged "v2.0" — they're grouped as batch-1 and batch-2
@@ -507,8 +507,8 @@ Skipping /refactor (pass 2): arch-review was skipped
 
 | Skill              | Relationship                                                                                        |
 |--------------------|-----------------------------------------------------------------------------------------------------|
-| `/scope`           | Creates tickets that `/project` consumes. Typical flow: `/scope` → organize into batches → `/project`. |
-| `/batch`           | Runs inside `/project` for each batch. `/project` adds multi-batch coordination, smoke testing, and the quality pipeline. |
+| `/scope`           | Creates tickets that `/implement-project` consumes. Typical flow: `/scope` → organize into batches → `/implement-project`. |
+| `/batch`           | Runs inside `/implement-project` for each batch. `/implement-project` adds multi-batch coordination, smoke testing, and the quality pipeline. |
 | `/implement`         | Runs inside `/batch` for each ticket. The innermost implementation loop.                            |
 | `/refactor`        | Runs as project-level quality pass (MAXIMUM aggression) and within each batch (SAFE aggression).    |
 | `/arch-review`     | Runs as project-level quality pass in autonomous mode.                                              |
@@ -520,7 +520,7 @@ Skipping /refactor (pass 2): arch-review was skipped
 
 **Hierarchy:**
 ```
-/project
+/implement-project
 ├── /batch (per batch)
 │   ├── /implement (per ticket)
 │   ├── /refactor (per-batch quality)

@@ -18,7 +18,7 @@ orchestrate lower-level ones. Each layer adds coordination, quality gates,
 and autonomy.
 
 ```
-/project                              ← full project lifecycle
+/implement-project                              ← full project lifecycle
 ├── /batch (per batch)                ← multi-ticket orchestration
 │   ├── /implement (per ticket)         ← single-ticket implementation
 │   │   ├── SME implementation        ← language-specific specialist
@@ -36,11 +36,11 @@ and autonomy.
 ```
 
 Planning feeds implementation. `/scope-project` plans a multi-batch
-project with adversarial review, producing tagged tickets that `/project`
+project with adversarial review, producing tagged tickets that `/implement-project`
 consumes directly:
 
 ```
-/scope-project  →  /project
+/scope-project  →  /implement-project
     plan             implement + verify + polish
 ```
 
@@ -57,7 +57,7 @@ your task:
 
 | You want to...                                          | Use              |
 |---------------------------------------------------------|------------------|
-| Implement an entire multi-batch project autonomously    | `/project`       |
+| Implement an entire multi-batch project autonomously    | `/implement-project`       |
 | Implement a batch of related tickets                    | `/batch`         |
 | Implement a single ticket or feature                    | `/implement`       |
 | Plan a multi-batch project with adversarial review      | `/scope-project` |
@@ -72,7 +72,7 @@ your task:
 | Pre-release readiness check                             | `/release-review`|
 
 **Rules of thumb:**
-- Multiple batches of tickets forming a project? `/project`
+- Multiple batches of tickets forming a project? `/implement-project`
 - One batch of 2+ related tickets? `/batch`
 - One ticket? `/implement` (or `/bugfix` if it's a bug)
 - Not sure what to build yet? Start with `/scope` or `/scope-project`
@@ -84,7 +84,7 @@ your task:
 These workflows manage the lifecycle of tickets — from implementation
 through quality passes to a merge-ready branch.
 
-#### /project — Full-Lifecycle Project Workflow
+#### /implement-project — Full-Lifecycle Project Workflow
 
 Orchestrates an entire project from tickets to release-ready code. Takes
 batched tickets, implements each batch via `/batch` in autonomous mode,
@@ -95,7 +95,7 @@ single project branch ready for human review and merge.
 Maximizes autonomy — the andon cord (stop-the-line escalation) is the only
 planned intervention path.
 
-[Detailed documentation](skills/project/README.md)
+[Detailed documentation](skills/implement-project/README.md)
 
 #### /batch — Multi-Ticket Orchestration
 
@@ -126,7 +126,7 @@ Plans an entire project through adversarial review. Explores the problem
 space, drafts tickets organized into batches, then pits a planner against
 an implementer agent to find gaps, ambiguities, and missing work. Only
 when the implementer is satisfied do tickets go upstream — already tagged
-with batch labels ready for `/project` to consume.
+with batch labels ready for `/implement-project` to consume.
 
 [Detailed documentation](skills/scope-project/README.md)
 
@@ -141,7 +141,7 @@ bug investigations, or refactoring proposals.
 ### Quality
 
 These workflows improve code, tests, architecture, and documentation.
-They run as part of `/project`'s quality pipeline, but each works
+They run as part of `/implement-project`'s quality pipeline, but each works
 standalone too.
 
 #### /refactor — Iterative Code Quality Improvement
