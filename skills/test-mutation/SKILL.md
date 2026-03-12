@@ -1,5 +1,5 @@
 ---
-name: test-mutate
+name: test-mutation
 description: Mutation testing workflow. Systematically mutates source code to verify tests actually catch bugs. Multi-session with progress tracking.
 model: opus
 ---
@@ -356,7 +356,7 @@ EOF
 ## Example Session
 
 ```
-> /test-mutate
+> /test-mutation
 
 No tracking file found. Detecting test command...
 Found go.mod — using `go test ./...`

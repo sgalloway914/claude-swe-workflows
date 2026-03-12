@@ -1,5 +1,5 @@
 ---
-name: arch-review
+name: review-arch
 description: Interactive architectural review workflow. Analyzes codebase organization via noun analysis, produces a target blueprint, then collaborates with the user to decide what to implement. Changes are made through SMEs, verified with QA, and committed atomically.
 model: opus
 ---
@@ -24,7 +24,7 @@ Interactive workflow that analyzes codebase architecture, produces a target blue
 ├─────────────────────────────────────────────────────┤
 │  1. Determine scope                                 │
 │  2. Gather QA instructions                          │
-│  3. Spawn swe-arch-review agent (full analysis)     │
+│  3. Spawn swe-review-arch agent (full analysis)     │
 │     → returns dead code list + target blueprint     │
 │  4. Present analysis to user                        │
 │  5. Iterate on plan with user                       │
@@ -34,7 +34,7 @@ Interactive workflow that analyzes codebase architecture, produces a target blue
 │     ├─ For each item: SME → QA → commit             │
 │     └─ On persistent failure: skip item             │
 │  9. Completion summary                              │
-│ 10. Update documentation (/doc-review)              │
+│ 10. Update documentation (/review-doc)              │
 └─────────────────────────────────────────────────────┘
 ```
 
@@ -62,7 +62,7 @@ Interactive workflow that analyzes codebase architecture, produces a target blue
 
 ### 3. Analyze Codebase
 
-**Spawn fresh `swe-arch-review` agent:**
+**Spawn fresh `swe-review-arch` agent:**
 
 The agent performs four sequential analysis steps:
 1. Catalogs dead code for removal
@@ -252,11 +252,11 @@ When workflow completes, present summary:
 
 ### 10. Update Documentation
 
-After the summary, run the `/doc-review` workflow to bring project documentation up to date. Architectural changes often rename modules, move functions, and change the project structure — documentation that references the old structure becomes stale.
+After the summary, run the `/review-doc` workflow to bring project documentation up to date. Architectural changes often rename modules, move functions, and change the project structure — documentation that references the old structure becomes stale.
 
 Invoke the skill directly:
 ```
-/doc-review
+/review-doc
 ```
 
 This spawns a doc-maintainer agent that audits all project documentation and fixes issues it finds. Any changes are committed separately from the refactoring commits.
@@ -299,22 +299,22 @@ This spawns a doc-maintainer agent that audits all project documentation and fix
 
 **Relationship to `/refactor`:**
 - `/refactor` is a tactical workflow for code quality improvements within existing architecture (DRY, dead code, naming, complexity)
-- `/arch-review` is a strategic workflow that questions and restructures the architecture itself (noun analysis, module boundaries, blueprints)
-- Use `/refactor` for routine cleanup; use `/arch-review` when the module structure itself needs rethinking
+- `/review-arch` is a strategic workflow that questions and restructures the architecture itself (noun analysis, module boundaries, blueprints)
+- Use `/refactor` for routine cleanup; use `/review-arch` when the module structure itself needs rethinking
 
 **Relationship to `/implement`:**
 - `/implement` is a feature development workflow that optionally invokes `swe-refactor` (tactical) for code review after implementation
-- `/arch-review` is a dedicated architectural improvement workflow
+- `/review-arch` is a dedicated architectural improvement workflow
 
 **Relationship to `/scope`:**
 - `/scope` explores and creates tickets
-- `/arch-review` analyzes architecture and collaborates with the user on what to change
-- Could use `/scope` first to plan a large restructuring, then `/arch-review` to execute
+- `/review-arch` analyzes architecture and collaborates with the user on what to change
+- Could use `/scope` first to plan a large restructuring, then `/review-arch` to execute
 
 ## Example Session
 
 ```
-> /arch-review
+> /review-arch
 
 Scope: entire codebase
 
@@ -323,7 +323,7 @@ Any special QA instructions?
 
 Starting analysis...
 
-Spawning swe-arch-review agent...
+Spawning swe-review-arch agent...
 
 Analysis complete. Here's what I found:
 
@@ -442,5 +442,5 @@ Implementing item 3/3: dissolve helpers.go
 - Net lines changed: -128
 - Blueprint items completed: 3/3
 
-Running /doc-review to update documentation...
+Running /review-doc to update documentation...
 ```

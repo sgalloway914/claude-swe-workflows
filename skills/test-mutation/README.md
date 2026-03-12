@@ -1,8 +1,8 @@
-# /test-mutate - Mutation Testing Workflow
+# /test-mutation - Mutation Testing Workflow
 
 ## Overview
 
-The `/test-mutate` skill verifies your tests actually catch bugs by systematically introducing mutations (deliberate small changes) into your source code and checking if the test suite detects them. A mutation that "survives" (tests still pass) reveals a genuine coverage gap.
+The `/test-mutation` skill verifies your tests actually catch bugs by systematically introducing mutations (deliberate small changes) into your source code and checking if the test suite detects them. A mutation that "survives" (tests still pass) reveals a genuine coverage gap.
 
 **Key benefits:**
 - Finds test weaknesses that line coverage metrics miss
@@ -13,14 +13,14 @@ The `/test-mutate` skill verifies your tests actually catch bugs by systematical
 
 ## When to Use
 
-**Use `/test-mutate` for:**
+**Use `/test-mutation` for:**
 - Verifying test quality for critical code (auth, payment, data processing)
 - Finding blind spots after writing tests for a new feature
 - Quality gate before shipping high-stakes changes
 - Objective test quality measurement (mutation score is harder to game than line coverage)
 - After refactoring, to ensure tests still catch bugs
 
-**Don't use `/test-mutate` for:**
+**Don't use `/test-mutation` for:**
 - Projects with no tests yet (write tests first)
 - Quick prototypes or throwaway code
 - Code that doesn't need high reliability (simple scripts, one-off tools)
@@ -123,7 +123,7 @@ This file persists across sessions. You can commit it to share mutation scores w
 ## Example Session
 
 ```
-> /test-mutate
+> /test-mutation
 
 Loading .test-mutations.json...
 Project: 3/10 modules tested (overall score: 85%)
@@ -168,21 +168,21 @@ Commit? > yes
 
 2. **Incremental approach.** Test one module per session. Mutation testing is inherently slow (one test run per mutation).
 
-3. **Pair with /test-review.** Run `/test-review` first to fill coverage gaps and clean up bad tests, then `/test-mutate` to find remaining weaknesses. Review builds, mutate strengthens.
+3. **Pair with /review-test.** Run `/review-test` first to fill coverage gaps and clean up bad tests, then `/test-mutation` to find remaining weaknesses. Review builds, mutate strengthens.
 
 4. **Don't chase 100%.** Address high-value survivors (business logic, error handling), accept diminishing returns on the rest.
 
 5. **Commit the tracking file.** Share mutation scores with your team. Track improvements over time.
 
-6. **Re-test after refactoring.** Refactoring can weaken tests (they still pass but catch fewer mutations). Run `/test-mutate` on refactored modules to verify.
+6. **Re-test after refactoring.** Refactoring can weaken tests (they still pass but catch fewer mutations). Run `/test-mutation` on refactored modules to verify.
 
 ## Integration with Other Skills
 
-`/test-mutate`, `/test-review`, `/implement`, and `/refactor` are complementary:
+`/test-mutation`, `/review-test`, `/implement`, and `/refactor` are complementary:
 
-- **Use /test-review** to fill coverage gaps and audit test quality
-- **Use /test-mutate** to find tests that run code without verifying behavior
+- **Use /review-test** to fill coverage gaps and audit test quality
+- **Use /test-mutation** to find tests that run code without verifying behavior
 - **Use /implement** to build features with quality gates
-- **Use /refactor** for code cleanup, then `/test-mutate` to verify tests weren't weakened
+- **Use /refactor** for code cleanup, then `/test-mutation` to verify tests weren't weakened
 
-Recommended sequence for test improvement: `/test-review` first (fill gaps, clean up), then `/test-mutate` (strengthen).
+Recommended sequence for test improvement: `/review-test` first (fill gaps, clean up), then `/test-mutation` (strengthen).

@@ -29,8 +29,8 @@ etc.). Any local references to the old skill names in scripts or documentation s
 
 - **`/implement-project` — Full-lifecycle project workflow.** Orchestrates an entire
   multi-batch project: implements batches via `/implement-batch`, runs smoke tests, then
-  executes a comprehensive quality pipeline (refactor, arch-review,
-  test-review, doc-review, release-review). Maximizes autonomy with andon cord
+  executes a comprehensive quality pipeline (refactor, review-arch,
+  review-test, review-doc, review-release). Maximizes autonomy with andon cord
   escalation.
 
 - **`/scope-project` — Adversarial project planning.** Plans a multi-batch

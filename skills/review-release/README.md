@@ -1,8 +1,8 @@
-# /release-review - Pre-Release Readiness Check
+# /review-release - Pre-Release Readiness Check
 
 ## Overview
 
-The `/release-review` skill performs a comprehensive pre-flight check before cutting a release. It spawns a scanner agent for fast static analysis, then runs execution-based checks (tests, build, doc freshness), and presents all findings interactively for human review.
+The `/review-release` skill performs a comprehensive pre-flight check before cutting a release. It spawns a scanner agent for fast static analysis, then runs execution-based checks (tests, build, doc freshness), and presents all findings interactively for human review.
 
 **Key benefits:**
 - Fast feedback first — static analysis runs before expensive test/build checks
@@ -13,16 +13,16 @@ The `/release-review` skill performs a comprehensive pre-flight check before cut
 
 ## When to Use
 
-**Use `/release-review` for:**
+**Use `/review-release` for:**
 - Preparing to tag and release a new version
 - Final quality gate before shipping to users
 - Validating that a codebase is ready for distribution
 - Catching things that development workflows don't focus on
 
-**Don't use `/release-review` for:**
+**Don't use `/review-release` for:**
 - Routine development checks (use `/implement` or `/refactor`)
-- Test quality concerns (use `/test-review` or `/test-mutate`)
-- Documentation updates (use `/doc-review`)
+- Test quality concerns (use `/review-test` or `/test-mutation`)
+- Documentation updates (use `/review-doc`)
 - Security audits (the sec-reviewer agent handles that during `/implement`)
 
 **Key principle:** Releases deserve human review. This workflow surfaces issues — it doesn't silently fix them.
@@ -47,7 +47,7 @@ The `/release-review` skill performs a comprehensive pre-flight check before cut
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│ /release-review Workflow                                        │
+│ /review-release Workflow                                        │
 └─────────────────────────────────────────────────────────────────┘
 
  ┌──────────────────────────────────────────────┐
@@ -119,7 +119,7 @@ The `/release-review` skill performs a comprehensive pre-flight check before cut
  │  • Test/build failures (investigate)         │
  │  • Changelog gaps (scaffold offered)         │
  │  • License issues (user decides)             │
- │  • Doc staleness (suggest /doc-review)       │
+ │  • Doc staleness (suggest /review-doc)       │
  │  • Breaking changes (document or revert)     │
  └──────────────────┬───────────────────────────┘
                     ▼
@@ -145,7 +145,7 @@ The `/release-review` skill performs a comprehensive pre-flight check before cut
 ### Example 1: Clean Release
 
 ```
-User: /release-review
+User: /review-release
 
 What version are you releasing?
 > 3.1.0
@@ -189,7 +189,7 @@ READY TO RELEASE
 ### Example 2: Issues Found
 
 ```
-User: /release-review
+User: /review-release
 
 What version?
 > 2.0.0
@@ -254,7 +254,7 @@ Continue with execution checks?
 > Fix blockers first
 
 Understood. Resolve the merge conflict in src/auth.go and
-remove .env from tracking, then re-run /release-review.
+remove .env from tracking, then re-run /review-release.
 ```
 
 ## Tips for Effective Use
@@ -265,7 +265,7 @@ remove .env from tracking, then re-run /release-review.
 
 3. **Fix blockers before execution checks.** If the static analysis finds obvious blockers, use the "Fix blockers first" option to save time.
 
-4. **Run `/doc-review` for stale docs.** The release review only flags staleness — it doesn't fix documentation. Run `/doc-review` separately to update docs.
+4. **Run `/review-doc` for stale docs.** The release review only flags staleness — it doesn't fix documentation. Run `/review-doc` separately to update docs.
 
 5. **Review the changelog manually.** The review can detect that the changelog wasn't updated, and can scaffold entries from git history, but meaningful release notes require human authorship.
 

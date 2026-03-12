@@ -1,5 +1,5 @@
 ---
-name: doc-review
+name: review-doc
 description: Review all project documentation for correctness, completeness, and freshness. Spawns a doc-maintainer agent to audit and fix docs.
 model: opus
 ---

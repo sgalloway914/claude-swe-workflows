@@ -1,8 +1,8 @@
-# /test-review - Comprehensive Test Suite Review
+# /review-test - Comprehensive Test Suite Review
 
 ## Overview
 
-The `/test-review` skill performs a three-phase test suite review: fill coverage gaps, identify missing fuzz tests, and audit test quality. Each phase runs its own analysis → present → select → implement → verify cycle.
+The `/review-test` skill performs a three-phase test suite review: fill coverage gaps, identify missing fuzz tests, and audit test quality. Each phase runs its own analysis → present → select → implement → verify cycle.
 
 **Key benefits:**
 - Systematic: addresses coverage, fuzz, and quality in deliberate order
@@ -13,24 +13,24 @@ The `/test-review` skill performs a three-phase test suite review: fill coverage
 
 ## When to Use
 
-**Use `/test-review` for:**
+**Use `/review-test` for:**
 - Coverage metrics below target or onboarding to an under-tested codebase
 - After a burst of agent-written tests that may need quality review
 - Before a release, to strengthen and clean up the test suite
 - Periodic comprehensive test health checks
 
-**Don't use `/test-review` for:**
+**Don't use `/review-test` for:**
 - Projects with no tests yet (write initial tests first)
 - Quick one-off test additions (just write them directly)
-- Mutation testing (use `/test-mutate` for that)
+- Mutation testing (use `/test-mutation` for that)
 
-**Rule of thumb:** `/test-review` builds breadth (fill gaps, clean up). `/test-mutate` builds depth (verify tests actually catch bugs).
+**Rule of thumb:** `/review-test` builds breadth (fill gaps, clean up). `/test-mutation` builds depth (verify tests actually catch bugs).
 
 ## Workflow Diagram
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│ /test-review Workflow                                            │
+│ /review-test Workflow                                            │
 └─────────────────────────────────────────────────────────────────┘
 
  ┌──────────────────────────────────────────────┐
@@ -133,7 +133,7 @@ SMEs receiving DELETE recommendations may choose to REWRITE instead if the test 
 ## Example Session
 
 ```
-> /test-review
+> /review-test
 
 What should I review?
 > Entire project
@@ -230,8 +230,8 @@ Implementation is always parallelized by target test file — findings targeting
 
 | Skill          | Relationship                                                                              |
 |----------------|-------------------------------------------------------------------------------------------|
-| `/test-mutate` | Complementary. `/test-review` builds breadth, `/test-mutate` builds depth.                |
-| `/implement`     | `/implement` includes QA as part of feature development. `/test-review` is a standalone audit. |
-| `/refactor`    | Run `/test-review` before refactoring to ensure tests are strong enough to catch regressions. |
+| `/test-mutation` | Complementary. `/review-test` builds breadth, `/test-mutation` builds depth.                |
+| `/implement`     | `/implement` includes QA as part of feature development. `/review-test` is a standalone audit. |
+| `/refactor`    | Run `/review-test` before refactoring to ensure tests are strong enough to catch regressions. |
 
-Recommended sequence for test improvement: `/test-review` first (fill gaps, clean up), then `/test-mutate` (verify tests catch bugs).
+Recommended sequence for test improvement: `/review-test` first (fill gaps, clean up), then `/test-mutation` (verify tests catch bugs).

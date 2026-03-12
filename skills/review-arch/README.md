@@ -1,8 +1,8 @@
-# /arch-review - Blueprint-Driven Architectural Improvement
+# /review-arch - Blueprint-Driven Architectural Improvement
 
 ## Overview
 
-The `/arch-review` skill analyzes codebase architecture and collaborates with the user to improve it. It spawns an analysis agent that builds a domain model via noun analysis and produces a target architecture blueprint, then presents those findings to the user for review and refinement. The user decides what to implement and how to proceed — changes are made through specialist agents with QA verification at each step.
+The `/review-arch` skill analyzes codebase architecture and collaborates with the user to improve it. It spawns an analysis agent that builds a domain model via noun analysis and produces a target architecture blueprint, then presents those findings to the user for review and refinement. The user decides what to implement and how to proceed — changes are made through specialist agents with QA verification at each step.
 
 **Key benefits:**
 - Blueprint-driven - implements a coherent architectural target, not a grab-bag of independent fixes
@@ -13,26 +13,26 @@ The `/arch-review` skill analyzes codebase architecture and collaborates with th
 
 ## When to Use
 
-**Use `/arch-review` for:**
+**Use `/review-arch` for:**
 - Rethinking module boundaries and responsibilities
 - When modules have unclear identities or overlap
 - After a codebase has grown organically and needs structural cleanup
 - When "helpers.go" or "utils.py" has become a dumping ground
 - Preparing a codebase for a major new feature that needs clean abstractions
 
-**Don't use `/arch-review` for:**
+**Don't use `/review-arch` for:**
 - Routine code cleanup (use `/refactor` instead)
 - Quick DRY fixes or dead code removal (use `/refactor` instead)
 - Codebases without tests (restructuring needs verification)
 - Active development where changes are still in flux
 
-**Rule of thumb:** Use `/arch-review` when the module structure itself needs rethinking. Use `/refactor` when the code within modules needs cleaning up.
+**Rule of thumb:** Use `/review-arch` when the module structure itself needs rethinking. Use `/refactor` when the code within modules needs cleaning up.
 
 ## Workflow Diagram
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│ /arch-review Workflow                                           │
+│ /review-arch Workflow                                           │
 └─────────────────────────────────────────────────────────────────┘
 
  ┌──────────────────────────────────────────────┐
@@ -55,7 +55,7 @@ The `/arch-review` skill analyzes codebase architecture and collaborates with th
  ┌──────────────────────────────────────────────┐
  │  3. ANALYZE CODEBASE                         │
  │  ────────────────────────────────────────    │
- │  Agent: swe-arch-review (fresh instance)     │
+ │  Agent: swe-review-arch (fresh instance)     │
  │                                              │
  │  Four sequential analysis steps:             │
  │  • Step 1: Catalog dead code                 │
@@ -158,7 +158,7 @@ The `/arch-review` skill analyzes codebase architecture and collaborates with th
  ┌──────────────────────────────────────────────┐
  │  10. UPDATE DOCUMENTATION                    │
  │  ────────────────────────────────────────    │
- │  Run /doc-review to fix stale docs           │
+ │  Run /review-doc to fix stale docs           │
  │  (module renames, moved functions, etc.)     │
  └──────────────────────────────────────────────┘
 ```
@@ -169,8 +169,8 @@ The `/arch-review` skill analyzes codebase architecture and collaborates with th
 By default, the workflow operates on the entire codebase. You can specify a narrower scope:
 
 ```
-/arch-review                     # Entire codebase
-/arch-review src/parser/         # Just the parser module
+/review-arch                     # Entire codebase
+/review-arch src/parser/         # Just the parser module
 ```
 
 The scope is passed to all spawned agents.
@@ -185,7 +185,7 @@ Before starting, the workflow asks if you have custom verification steps beyond 
 These instructions are passed to the QA agent on every verification cycle. If you have no special requirements, standard verification (tests + linters) runs.
 
 ### 3. Analyze Codebase
-A fresh `swe-arch-review` agent performs four sequential analysis steps:
+A fresh `swe-review-arch` agent performs four sequential analysis steps:
 
 | Step                   | What it does                                                                       |
 |------------------------|------------------------------------------------------------------------------------|
@@ -259,7 +259,7 @@ After each item, the `qa-engineer` agent verifies the change didn't break anythi
 ```
 
 ### 10. Update Documentation
-After the summary, the workflow runs `/doc-review` to bring project documentation up to date. Architectural changes rename modules, move functions, and change project structure — documentation that references the old structure becomes stale. The doc-review agent audits all documentation files and fixes issues it finds, committing separately from the refactoring commits.
+After the summary, the workflow runs `/review-doc` to bring project documentation up to date. Architectural changes rename modules, move functions, and change project structure — documentation that references the old structure becomes stale. The review-doc agent audits all documentation files and fixes issues it finds, committing separately from the refactoring commits.
 
 ## Tips for Effective Use
 
@@ -273,7 +273,7 @@ After the summary, the workflow runs `/doc-review` to bring project documentatio
 
 5. **Consider running `/refactor` first.** Cleaning up dead code and DRY violations with `/refactor` simplifies the architectural analysis.
 
-6. **Scope aggressively if needed.** For large codebases, target specific modules: `/arch-review src/core/` rather than everything.
+6. **Scope aggressively if needed.** For large codebases, target specific modules: `/review-arch src/core/` rather than everything.
 
 ## Agent Coordination
 
@@ -306,7 +306,7 @@ After the summary, the workflow runs `/doc-review` to bring project documentatio
 
 ## Philosophy
 
-The `/arch-review` workflow embodies several key principles:
+The `/review-arch` workflow embodies several key principles:
 
 **Organization first:**
 - Every module should own a clear domain noun

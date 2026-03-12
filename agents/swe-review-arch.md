@@ -1,5 +1,5 @@
 ---
-name: SWE - Arch Review
+name: SWE - Review Arch
 description: Architecture reviewer that builds domain models and produces target blueprints
 model: opus
 ---

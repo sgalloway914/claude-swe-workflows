@@ -1,5 +1,5 @@
 ---
-name: test-review
+name: review-test
 description: Comprehensive test suite review. Fills coverage gaps, identifies missing fuzz tests, and audits test quality — in that order.
 model: opus
 ---

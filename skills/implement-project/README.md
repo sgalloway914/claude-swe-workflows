@@ -4,7 +4,7 @@
 
 ## Overview
 
-The `/implement-project` skill orchestrates an entire project from tickets to release-ready code. It takes batched tickets, implements each batch via the `/implement-batch` workflow in autonomous mode, runs smoke tests, then executes a comprehensive quality pipeline (refactor, arch-review, test-review, doc-review, release-review). The result is a single project branch ready for human review and merge.
+The `/implement-project` skill orchestrates an entire project from tickets to release-ready code. It takes batched tickets, implements each batch via the `/implement-batch` workflow in autonomous mode, runs smoke tests, then executes a comprehensive quality pipeline (refactor, review-arch, review-test, review-doc, review-release). The result is a single project branch ready for human review and merge.
 
 **Key benefits:**
 - Full project lifecycle in a single invocation
@@ -122,11 +122,11 @@ The `/implement-project` skill orchestrates an entire project from tickets to re
  │  7. QUALITY PIPELINE                         │
  │  ────────────────────────────────────────    │
  │  7a. /refactor (MAXIMUM aggression)          │
- │  7b. /arch-review (autonomous mode)          │
+ │  7b. /review-arch (autonomous mode)          │
  │  7c. /refactor again (if 7b made changes)    │
- │  7d. /test-review                            │
- │  7e. /doc-review                             │
- │  7f. /release-review                         │
+ │  7d. /review-test                            │
+ │  7e. /review-doc                             │
+ │  7f. /review-release                         │
  │                                              │
  │  Orchestrator may skip passes for            │
  │  trivial projects (logged in report)         │
@@ -196,7 +196,7 @@ For each batch:
 - Tickets are pre-loaded (no user prompting for ticket specification)
 - The batch execution plan is approved by the orchestrator autonomously (using `/deliberate` for unclear ordering decisions)
 - Branch creation is skipped — the batch branch is already set up
-- Quality passes (refactor + doc-review) run normally within the batch
+- Quality passes (refactor + review-doc) run normally within the batch
 - The final review summary is logged to `PROJECT_PROGRESS.md` instead of waiting for user input
 - Andon cord triggers cascade up to the project orchestrator
 
@@ -223,13 +223,13 @@ Six sequential quality passes, each running its full workflow:
 | Pass                   | Parameters                                                                        | Notes                                                                                                    |
 |------------------------|-----------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
 | **7a. `/refactor`**    | MAXIMUM aggression, smoke test QA instructions, entire codebase                   | Tactical code cleanup                                                                                    |
-| **7b. `/arch-review`** | Entire codebase, autonomous mode (orchestrator reviews blueprint and decides what to implement) | Strategic architectural improvement                                                              |
-| **7c. `/refactor`**    | Same as 7a                                                                        | Only runs if arch-review made substantive changes (module restructuring, function moves — not just dead code or naming) |
-| **7d. `/test-review`** | Full test suite review                                                            | Coverage gaps, test quality audit                                                                        |
-| **7e. `/doc-review`**  | Full documentation audit                                                          |                                                                                                          |
-| **7f. `/release-review`** | Autonomous mode (orchestrator triages findings)                                | Pre-release readiness check                                                                              |
+| **7b. `/review-arch`** | Entire codebase, autonomous mode (orchestrator reviews blueprint and decides what to implement) | Strategic architectural improvement                                                              |
+| **7c. `/refactor`**    | Same as 7a                                                                        | Only runs if review-arch made substantive changes (module restructuring, function moves — not just dead code or naming) |
+| **7d. `/review-test`** | Full test suite review                                                            | Coverage gaps, test quality audit                                                                        |
+| **7e. `/review-doc`**  | Full documentation audit                                                          |                                                                                                          |
+| **7f. `/review-release`** | Autonomous mode (orchestrator triages findings)                                | Pre-release readiness check                                                                              |
 
-Each pass runs its complete workflow including any embedded sub-passes (e.g., `/refactor` runs its own `/doc-review`). This redundancy is intentional — each agent sees the project with fresh context.
+Each pass runs its complete workflow including any embedded sub-passes (e.g., `/refactor` runs its own `/review-doc`). This redundancy is intentional — each agent sees the project with fresh context.
 
 The orchestrator may skip passes for trivial projects. If skipped, the reason is noted in the final report.
 
@@ -388,7 +388,7 @@ Running /implement-batch (autonomous mode)...
   [#18] Implemented metrics — Prometheus endpoint
   [#15] Fixed cache — added RWMutex protection
   /refactor: 1 DRY improvement (-12 lines)
-  /doc-review: README updated
+  /review-doc: README updated
 Merging feat/batch-core-features → feat/project-v2-release
 Post-merge verification: all tests pass
 
@@ -398,7 +398,7 @@ Running /implement-batch (autonomous mode)...
   [#22] Implemented dashboard — React components
   [#25] Implemented responsive layout — CSS grid
   /refactor: no changes needed
-  /doc-review: 1 update
+  /review-doc: 1 update
 Merging feat/batch-ui-overhaul → feat/project-v2-release
 Post-merge verification: all tests pass
 
@@ -409,11 +409,11 @@ All smoke tests pass
 
 [Quality Pipeline]
 /refactor (MAXIMUM): 5 commits, -89 lines
-/arch-review: 2 items implemented (extracted request module, dissolved helpers)
+/review-arch: 2 items implemented (extracted request module, dissolved helpers)
 /refactor (pass 2): 2 commits, -31 lines
-/test-review: 8 tests added, 2 coverage gaps filled
-/doc-review: 3 documentation updates
-/release-review: 2 findings resolved (debug printf removed, version bumped)
+/review-test: 8 tests added, 2 coverage gaps filled
+/review-doc: 3 documentation updates
+/review-release: 2 findings resolved (debug printf removed, version bumped)
 
 ## Project Complete
 
@@ -495,12 +495,12 @@ Awaiting your guidance.
 ```
 [Quality Pipeline]
 /refactor (MAXIMUM): 1 commit, -8 lines
-Skipping /arch-review: project scope is trivial (2 small bug fixes,
+Skipping /review-arch: project scope is trivial (2 small bug fixes,
   no architectural impact). Noted in final report.
-Skipping /refactor (pass 2): arch-review was skipped
-/test-review: 2 tests added
-/doc-review: no changes needed
-/release-review: no findings
+Skipping /refactor (pass 2): review-arch was skipped
+/review-test: 2 tests added
+/review-doc: no changes needed
+/review-release: no findings
 ```
 
 ## Integration with Other Skills
@@ -511,10 +511,10 @@ Skipping /refactor (pass 2): arch-review was skipped
 | `/implement-batch`           | Runs inside `/implement-project` for each batch. `/implement-project` adds multi-batch coordination, smoke testing, and the quality pipeline. |
 | `/implement`         | Runs inside `/implement-batch` for each ticket. The innermost implementation loop.                            |
 | `/refactor`        | Runs as project-level quality pass (MAXIMUM aggression) and within each batch (SAFE aggression).    |
-| `/arch-review`     | Runs as project-level quality pass in autonomous mode.                                              |
-| `/test-review`     | Runs as project-level quality pass.                                                                 |
-| `/doc-review`      | Runs as project-level quality pass and within each batch and within `/refactor` and `/arch-review`. |
-| `/release-review`  | Runs as the final quality pass before reporting.                                                    |
+| `/review-arch`     | Runs as project-level quality pass in autonomous mode.                                              |
+| `/review-test`     | Runs as project-level quality pass.                                                                 |
+| `/review-doc`      | Runs as project-level quality pass and within each batch and within `/refactor` and `/review-arch`. |
+| `/review-release`  | Runs as the final quality pass before reporting.                                                    |
 | `/deliberate`      | Available throughout for difficult autonomous decisions.                                            |
 | `/bugfix`          | Available for complex bugs found during smoke testing or quality passes.                            |
 
@@ -524,13 +524,13 @@ Skipping /refactor (pass 2): arch-review was skipped
 ├── /implement-batch (per batch)
 │   ├── /implement (per ticket)
 │   ├── /refactor (per-batch quality)
-│   └── /doc-review (per-batch quality)
+│   └── /review-doc (per-batch quality)
 ├── /refactor (project-level quality)
-├── /arch-review (project-level quality)
+├── /review-arch (project-level quality)
 ├── /refactor (conditional second pass)
-├── /test-review (project-level quality)
-├── /doc-review (project-level quality)
-└── /release-review (project-level quality)
+├── /review-test (project-level quality)
+├── /review-doc (project-level quality)
+└── /review-release (project-level quality)
 ```
 
 ## Tips

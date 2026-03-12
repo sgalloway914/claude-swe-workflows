@@ -1,5 +1,5 @@
 ---
-name: release-review
+name: review-release
 description: Pre-release readiness review. Scans for debug artifacts, version mismatches, changelog gaps, git hygiene issues, breaking changes, and license compliance. Runs tests and build verification. Interactive — presents findings for human review before release.
 model: opus
 ---
@@ -103,7 +103,7 @@ Last tag: v1.2.3 → Target: v1.3.0
 
 Present options:
 - **Continue**: Proceed with test suite, build verification, doc freshness
-- **Fix blockers first**: Stop here, address blockers, then re-run `/release-review`
+- **Fix blockers first**: Stop here, address blockers, then re-run `/review-release`
 - **Skip to selection**: Go directly to item selection without running execution checks
 
 This pause is important. If there are clear blockers, there's no point waiting for a full test suite.
@@ -151,7 +151,7 @@ for staleness relative to the current codebase.
 Report which documents appear outdated and what specifically seems wrong.
 ```
 
-**Add findings as WARNINGs.** Include a note: "Run `/doc-review` to update documentation before release."
+**Add findings as WARNINGs.** Include a note: "Run `/review-doc` to update documentation before release."
 
 ### 8. Present Full Consolidated Report
 
@@ -213,7 +213,7 @@ If the user provided a target version, offer to update version numbers in manife
 Report only. The user must decide whether the dependency is acceptable.
 
 #### Doc staleness
-Suggest running `/doc-review`. Do not attempt fixes.
+Suggest running `/review-doc`. Do not attempt fixes.
 
 #### Breaking changes
 Report only. The user must decide whether to document, revert, or accept.
@@ -323,7 +323,7 @@ EOF
 ## Example Session
 
 ```
-> /release-review
+> /review-release
 
 What version are you releasing?
 > 2.0.0
@@ -409,7 +409,7 @@ Re-verifying... no debug artifacts remain, versions consistent.
 ### Remaining Issues
 - [WARNING] CHANGELOG.md not updated
 - [WARNING] Removed ParseConfig() not documented as breaking change
-- [WARNING] README.md references removed function (run /doc-review)
+- [WARNING] README.md references removed function (run /review-doc)
 
 ### Recommendation
 PROCEED WITH CAUTION — 3 warnings remain

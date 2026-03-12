@@ -14,7 +14,7 @@ Autonomous refactoring workflow that iteratively improves code quality within th
 
 **Err on the side of trying.** When uncertain whether a refactoring is worthwhile, attempt it anyway. Git makes failed experiments free - the workflow will revert changes that don't pass QA. Missed opportunities are invisible; failed attempts teach you something. Be bold, knowing that version control provides the safety net.
 
-**Work within the existing architecture.** This workflow improves code quality - DRY, dead code, naming, complexity - without questioning module boundaries or reorganizing the system. For architectural analysis (noun extraction, module dissolution, blueprint-driven restructuring), use `/arch-review` instead.
+**Work within the existing architecture.** This workflow improves code quality - DRY, dead code, naming, complexity - without questioning module boundaries or reorganizing the system. For architectural analysis (noun extraction, module dissolution, blueprint-driven restructuring), use `/review-arch` instead.
 
 ## Workflow Overview
 
@@ -33,7 +33,7 @@ Autonomous refactoring workflow that iteratively improves code quality within th
 │     ├─ PASS → commit, goto 4                        │
 │     └─ FAIL → retry (max 3), then abort batch       │
 │  9. Completion summary                              │
-│ 10. Update documentation (/doc-review)              │
+│ 10. Update documentation (/review-doc)              │
 └─────────────────────────────────────────────────────┘
 ```
 
@@ -249,11 +249,11 @@ When workflow completes, present summary:
 
 ### 7. Update Documentation
 
-After the refactoring summary, run the `/doc-review` workflow to bring project documentation up to date. Even tactical refactoring can rename functions, move code between files, and change APIs — documentation that references the old state becomes stale.
+After the refactoring summary, run the `/review-doc` workflow to bring project documentation up to date. Even tactical refactoring can rename functions, move code between files, and change APIs — documentation that references the old state becomes stale.
 
 Invoke the skill directly:
 ```
-/doc-review
+/review-doc
 ```
 
 This spawns a doc-maintainer agent that audits all project documentation and fixes issues it finds. Any changes are committed separately from the refactoring commits.
@@ -300,10 +300,10 @@ This spawns a doc-maintainer agent that audits all project documentation and fix
 
 ## Integration with Other Skills
 
-**Relationship to `/arch-review`:**
+**Relationship to `/review-arch`:**
 - `/refactor` is a tactical workflow for code quality improvements within existing architecture
-- `/arch-review` is a strategic workflow that questions and restructures the architecture itself (noun analysis, module boundaries, blueprints)
-- Use `/refactor` for routine cleanup; use `/arch-review` when the module structure itself needs rethinking
+- `/review-arch` is a strategic workflow that questions and restructures the architecture itself (noun analysis, module boundaries, blueprints)
+- Use `/refactor` for routine cleanup; use `/review-arch` when the module structure itself needs rethinking
 
 **Relationship to `/implement`:**
 - `/implement` is a feature development workflow that optionally invokes `swe-refactor` for code review after implementation
@@ -388,7 +388,7 @@ No opportunities found at any level.
 - DRY consolidation: 5 instances
 - Lint fixes: 2 instances
 
-Running /doc-review to update documentation...
+Running /review-doc to update documentation...
 
 Spawning doc-maintainer agent...
   No documentation changes needed.

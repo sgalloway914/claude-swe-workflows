@@ -22,12 +22,12 @@ The `/refactor` skill autonomously improves code quality within the existing arc
 - When you want a quick, low-risk cleanup pass
 
 **Don't use `/refactor` for:**
-- Rethinking module boundaries or system architecture (use `/arch-review`)
-- Module dissolution, creation, or reorganization (use `/arch-review`)
+- Rethinking module boundaries or system architecture (use `/review-arch`)
+- Module dissolution, creation, or reorganization (use `/review-arch`)
 - Quick one-off fixes (just do them directly)
 - Codebases without tests (refactoring needs verification)
 
-**Rule of thumb:** Use `/refactor` when the code within modules needs cleaning up. Use `/arch-review` when the module structure itself needs rethinking.
+**Rule of thumb:** Use `/refactor` when the code within modules needs cleaning up. Use `/review-arch` when the module structure itself needs rethinking.
 
 ## Workflow Diagram
 
@@ -114,7 +114,7 @@ The `/refactor` skill autonomously improves code quality within the existing arc
  ┌──────────────────────────────────────────────┐
  │  8. UPDATE DOCUMENTATION                     │
  │  ────────────────────────────────────────    │
- │  Run /doc-review to fix stale docs           │
+ │  Run /review-doc to fix stale docs           │
  └──────────────────────────────────────────────┘
 ```
 
@@ -192,7 +192,7 @@ After the summary, the workflow presents **user-decision items** collected acros
 - **Apparently-unused public APIs:** Exported symbols that appear unused internally but may be consumed by external users of the package. Informational only.
 
 ### 8. Update Documentation
-After the summary, the workflow runs `/doc-review` to bring documentation up to date.
+After the summary, the workflow runs `/review-doc` to bring documentation up to date.
 
 ## Examples
 
@@ -281,7 +281,7 @@ Any special QA instructions?
 
 6. **Run it periodically.** Like tidying a room, regular small sessions beat occasional massive cleanups.
 
-7. **Follow up with `/arch-review` if needed.** If the tactical pass reveals that the module structure itself is the problem, escalate to `/arch-review`.
+7. **Follow up with `/review-arch` if needed.** If the tactical pass reveals that the module structure itself is the problem, escalate to `/review-arch`.
 
 ## Philosophy
 
@@ -298,7 +298,7 @@ Any special QA instructions?
 **Work within existing architecture:**
 - Improve code quality without questioning module boundaries
 - No module dissolution, creation, or reorganization
-- For architectural changes, use `/arch-review`
+- For architectural changes, use `/review-arch`
 
 **Err on the side of trying:**
 - Git makes failed experiments free

@@ -105,7 +105,7 @@ The `/implement-batch` skill takes a batch of tickets, plans their execution ord
  │  6. CROSS-CUTTING QUALITY PASSES             │
  │  ────────────────────────────────────────    │
  │  6a. /refactor (SAFE aggression)              │
- │  6b. /doc-review (full audit)                │
+ │  6b. /review-doc (full audit)                │
  └──────────────────┬───────────────────────────┘
                     ▼
  ┌──────────────────────────────────────────────┐
@@ -170,7 +170,7 @@ For each ticket in order:
 ### 6. Cross-Cutting Quality Passes
 After all tickets are implemented:
 - **`/refactor`**: Conservative pass (SAFE aggression ceiling only)
-- **`/doc-review`**: Full documentation audit
+- **`/review-doc`**: Full documentation audit
 
 These catch issues that span multiple tickets or emerge from their interaction.
 
@@ -256,7 +256,7 @@ Creating branch: feat/batch-sprint-4
 
 Running cross-cutting quality passes...
 - /refactor: 1 DRY improvement (-12 lines)
-- /doc-review: README updated with auth docs
+- /review-doc: README updated with auth docs
 
 ## Batch Complete
 
@@ -307,7 +307,7 @@ Awaiting your guidance.
 | `/implement`     | Runs inside `/implement-batch` for each ticket. `/implement-batch` adds batching, ordering, and branching. |
 | `/bugfix`      | Not used by `/implement-batch` currently — all tickets go through `/implement`.                      |
 | `/refactor`    | Runs as cross-cutting quality pass (SAFE aggression).                                      |
-| `/doc-review`  | Runs as cross-cutting quality pass.                                                        |
+| `/review-doc`  | Runs as cross-cutting quality pass.                                                        |
 
 ## Tips
 

@@ -1,8 +1,8 @@
-# /doc-review - Documentation Quality Audit
+# /review-doc - Documentation Quality Audit
 
 ## Overview
 
-The `/doc-review` skill spawns a doc-maintainer agent to comprehensively review all project documentation. It audits every documentation file for correctness, completeness, freshness, and consistency — then fixes what it can and reports what needs your approval.
+The `/review-doc` skill spawns a doc-maintainer agent to comprehensively review all project documentation. It audits every documentation file for correctness, completeness, freshness, and consistency — then fixes what it can and reports what needs your approval.
 
 **Key benefits:**
 - Catches stale docs, broken links, and code-documentation drift
@@ -12,14 +12,14 @@ The `/doc-review` skill spawns a doc-maintainer agent to comprehensively review 
 
 ## When to Use
 
-**Use `/doc-review` for:**
+**Use `/review-doc` for:**
 - After a major feature or refactoring pass
 - Before a release (catch stale docs)
 - Periodic documentation hygiene
 - When you suspect docs have drifted from the code
-- As part of `/refactor` or `/arch-review` completion (it runs automatically)
+- As part of `/refactor` or `/review-arch` completion (it runs automatically)
 
-**Don't use `/doc-review` for:**
+**Don't use `/review-doc` for:**
 - Updating docs for a specific change (the `/implement` and `/bugfix` workflows do this as part of their flow)
 - Writing new documentation from scratch (just ask directly)
 
@@ -49,7 +49,7 @@ The `/doc-review` skill spawns a doc-maintainer agent to comprehensively review 
 ## Example Session
 
 ```
-> /doc-review
+> /review-doc
 
 Spawning doc-maintainer agent for comprehensive review...
 
@@ -75,8 +75,8 @@ Committed: "docs: review and update project documentation"
 
 ## Tips
 
-1. **Run after `/refactor` or `/arch-review`.** These skills change code structure, which often makes docs stale.
+1. **Run after `/refactor` or `/review-arch`.** These skills change code structure, which often makes docs stale.
 
-2. **Run before releases.** Stale docs in a release are embarrassing. A quick `/doc-review` catches drift.
+2. **Run before releases.** Stale docs in a release are embarrassing. A quick `/review-doc` catches drift.
 
-3. **Different from `/implement` step 9.** The `/implement` workflow's documentation step is scoped to the git diff. `/doc-review` audits everything regardless of recent changes.
+3. **Different from `/implement` step 9.** The `/implement` workflow's documentation step is scoped to the git diff. `/review-doc` audits everything regardless of recent changes.
