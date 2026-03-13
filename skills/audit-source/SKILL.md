@@ -127,19 +127,22 @@ For each promising attack vector, provide:
 - Hypothesis: [what you think might be exploitable and why]
 - Blue team context: [relevant defensive gaps from blue team report]
 - Context: [relevant framework protections, validation observed, transformations]
-- Priority: [CRITICAL / HIGH / MEDIUM]
+- Priority: [CRITICAL / HIGH / MEDIUM / LOW]
 - Investigation approach: [what the focused red-teamer should try]
 
 Rank targets by a combination of exposure (how easy to reach) and potential
-impact (how bad if exploited). Limit to the top 10 targets — quality over
-quantity.
+impact (how bad if exploited). Include up to 25 targets — but this is a
+MAXIMUM, not a quota. Report only targets that genuinely warrant
+investigation. A short list is fine. An empty list means the codebase is
+well-defended — that is a positive outcome, not a failure. Do not
+manufacture or inflate targets to fill slots.
 ```
 
 **When the lead reports back:** Review the target list. This is the basis for the deep-dive phase.
 
 ### 4. Deep Investigation — Focused Red-Teamers
 
-**For each target in the lead's list (CRITICAL and HIGH priority), spawn a dedicated `sec-red-teamer` agent:**
+**For each target in the lead's list (ALL priorities), spawn a dedicated `sec-red-teamer` agent:**
 
 ```
 You are a focused red-teamer investigating a single attack vector.
@@ -209,7 +212,7 @@ Scope: [what was audited]
 Defense evaluation: [summary — N controls inventoried, M gaps found]
 Attack surface: [N entry points identified]
 Vectors investigated: [N of M targets from recon]
-Findings: N (X critical, Y high, Z low)
+Findings: N (X critical, Y high, Z medium, W low)
 Exploit chains: N
 
 ## DEFENSE POSTURE (from blue-teamer)
@@ -231,6 +234,9 @@ Exploit chains: N
   - Discovered by: [blue team | lead recon | focused agent for <target> | chain analysis]
 
 ### HIGH
+[same format]
+
+### MEDIUM
 [same format]
 
 ### LOW
@@ -358,6 +364,7 @@ Target list:
   HIGH-2: POST /api/search — raw SQL query (blue team flagged as consistency gap)
   HIGH-3: PUT /api/settings — admin endpoint, middleware inconsistently applied
   MEDIUM-1: GET /api/export — CSV generation with user-controlled column names
+  LOW-1: GET /api/health — verbose error messages expose internal paths
 
 [Phase 3 — Deep Investigation]
 
@@ -396,6 +403,17 @@ Spawning focused red-teamer for HIGH-3 (admin settings)...
   notification settings for all users.
   Severity: HIGH
 
+Spawning focused red-teamer for MEDIUM-1 (CSV export)...
+  Finding: Column name parameter reflected in CSV output without
+  escaping. Formula injection possible — =CMD() in column name
+  executes when opened in Excel.
+  Severity: MEDIUM
+
+Spawning focused red-teamer for LOW-1 (health endpoint)...
+  Finding: Confirmed. Stack traces in error responses expose internal
+  file paths and dependency versions. Information disclosure only.
+  Severity: LOW
+
 [Phase 4 — Chain Analysis]
 
 Analyzing 5 findings for chains...
@@ -415,8 +433,8 @@ No further chains discovered. Audit converging.
 Scope: entire codebase (excluding vendor/, testdata/)
 Defense evaluation: 8 controls inventoried, 5 gaps found
 Attack surface: 14 entry points
-Vectors investigated: 6 of 7 targets
-Findings: 6 (3 critical, 2 high, 0 low)
+Vectors investigated: 8 of 8 targets
+Findings: 8 (3 critical, 2 high, 1 medium, 1 low)
 Exploit chains: 1
 
 [Detailed findings presented to user...]
