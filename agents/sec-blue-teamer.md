@@ -259,7 +259,7 @@ The control exists and works, but could be stronger.
 - Overly broad permissions that aren't actively exploitable
 - Redundant ARIA attributes that don't affect security
 
-**Don't report LOW findings when there are CRITICAL or HIGH findings.** Fix the defenses before hardening them.
+**Always report LOW findings alongside CRITICAL and HIGH.** They still need to be fixed eventually, and the orchestrator needs the full picture for completeness.
 
 ---
 

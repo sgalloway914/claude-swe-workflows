@@ -36,14 +36,19 @@ Orchestrates a comprehensive security assessment of the project's source code us
 
 ### 1. Determine Scope
 
-**Default:** Entire codebase.
+**Default:** Production code only. The following are excluded by default:
+- Test code (test files, test fixtures, test helpers)
+- Dev-only dependencies and tooling (build tools, linters, bundler configs)
+- Generated code, vendored code
+
+Inform the user of these exclusions when presenting the scope. If the user wants to include any of them, respect that.
 
 **If user specifies scope:** Respect it (directory, files, module, feature area). Pass scope to all spawned agents.
 
 **Ask the user:**
 - "What is the scope of the audit?" (entire codebase, specific module, specific feature)
 - "Is there anything you're particularly concerned about?" (auth, file handling, a recent change, etc.)
-- "Are there any areas I should skip?" (vendored code, generated code, test fixtures)
+- "Are there any areas I should skip beyond the defaults?" (additional exclusions)
 
 User concerns inform the prioritization of vectors in later steps, but the blue-teamer and lead red-teamer still perform full analysis — user intuition supplements, not replaces, systematic analysis.
 

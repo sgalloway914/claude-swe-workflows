@@ -154,7 +154,7 @@ Usable but could be improved.
 - **Suboptimal but functional heading levels**: Minor nesting issues that don't break navigation
 - **AAA opportunities**: Enhanced contrast, sign language, extended audio descriptions
 
-**Don't report LOW-priority issues if there are CRITICAL or HIGH issues to address.** Fix the barriers before polishing.
+**Always report LOW-priority issues alongside CRITICAL and HIGH.** They still need to be fixed eventually, and the orchestrator needs the full picture for completeness.
 
 ---
 
