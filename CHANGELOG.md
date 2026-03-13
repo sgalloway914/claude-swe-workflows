@@ -1,5 +1,11 @@
 # Changelog
 
+## v4.2.0
+
+### New Skills
+
+- **`/review-source` — Code health assessment.** Advisory-only skill that detects all languages in a project, dispatches language-specific SME agents (or generalists for unsupported languages) to evaluate idiomatic usage, consistency, and quality, and produces a consolidated health report with per-language ratings. Use to decide whether `/refactor` is needed.
+
 ## v4.1.0
 
 ### New Skills
