@@ -93,16 +93,17 @@ Tickets created by `/scope` are comprehensive and include:
 
 ## Integration with Other Skills
 
-`/scope`, `/iterate`, `/refactor`, `/test-review`, and `/test-mutate` are complementary:
+`/scope` plans a single ticket. For multi-ticket project planning with adversarial review, use [`/scope-project`](../scope-project/README.md) instead.
 
 - **Use /scope first** when you need to think through a complex change
 - **Ticket gets created** with all the exploration and decisions documented
-- **Use /iterate later** to actually implement the ticket (or assign to someone else)
+- **Use /implement later** to actually implement the ticket (or assign to someone else)
+- **Use /scope-project** when the work spans multiple tickets organized into batches
 - **Use /refactor** for autonomous cleanup of existing code (technical debt, code quality)
-- **Use /test-review** for comprehensive test suite review (coverage gaps, fuzz tests, quality audit)
-- **Use /test-mutate** to verify tests actually catch bugs (mutation testing)
+- **Use /review-test** for comprehensive test suite review (coverage gaps, fuzz tests, quality audit)
+- **Use /test-mutation** to verify tests actually catch bugs (mutation testing)
 
-You can also use `/iterate` directly for straightforward changes that don't need extensive exploration, or `/refactor`, `/test-review`, and `/test-mutate` independently when the codebase needs tidying.
+You can also use `/implement` directly for straightforward changes that don't need extensive exploration, or `/refactor`, `/review-test`, and `/test-mutation` independently when the codebase needs tidying.
 
 ## Tips
 

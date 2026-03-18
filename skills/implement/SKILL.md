@@ -1,101 +1,104 @@
 ---
-name: bugfix
-description: Bug-fixing workflow that coordinates diagnosis, test-driven reproduction, root-cause analysis, and targeted fixes. Use when the user wants to fix a bug with thorough investigation and regression testing.
+name: implement
+description: Iterative development workflow that coordinates implementation, refactoring, QA, and documentation agents to complete features systematically. Use when the user wants a full development workflow with quality checks.
 model: opus
 ---
 
-# Bugfix - Automated Bug-Fixing Workflow
+# Implement - Automated Development Workflow
 
-Coordinates specialist agents through a bug-fixing cycle: clarify bug -> reproduce with failing test -> diagnose root cause -> implement fix -> verify -> review -> document.
+Coordinates specialist agents through a complete development cycle: requirements -> planning -> implementation -> refactoring -> QA -> documentation.
 
 ## Workflow
 
-### 1. Clarify the bug
+### 1. Receive and clarify requirements
 
-**Gather bug details from user:**
-- What are the symptoms? (error messages, unexpected behavior, crashes)
-- What is the expected behavior vs actual behavior?
-- How do you reproduce it? (steps, inputs, configuration)
-- When did it start? Any recent changes that might be related?
-- Environment specifics? (OS, versions, configuration)
+**Gather requirements from user:**
+- What feature/bug/change is being requested?
+- What are the acceptance criteria?
+- Any constraints or preferences?
 
 **Ask clarifying questions if needed:**
-- Ambiguous symptoms
-- Missing reproduction steps
-- Unclear expected behavior
+- Ambiguous requirements
+- Missing information
+- Multiple valid approaches
 
-Loop back to user until the bug is clearly understood. You need enough information to write a test that demonstrates the failure.
+Loop back to user until requirements are clear.
 
-### 2. Write Failing Test(s)
+### 2. Planning (Conditional)
+
+**Assess task complexity:**
+
+After requirements are clear, assess whether planning is warranted:
+
+**Invoke `swe-planner` agent for complex tasks:**
+- Large architectural changes (refactoring entire subsystems, technology migrations)
+- Cross-cutting concerns (multi-tenancy, i18n, audit logging)
+- Features touching many modules with unclear implementation path
+- Changes requiring database migrations and backward compatibility
+- Multiple valid approaches with significant trade-offs
+- Tasks where diving straight into implementation risks going down wrong path
+
+**Skip planning for simple tasks:**
+- Single-file changes or small bug fixes
+- Straightforward CRUD operations
+- Simple refactorings (rename, extract method, remove duplication)
+- Clear, well-defined changes with obvious implementation path
+- Tasks that can be completed in <100 lines of code
+
+**Note:** `swe-planner` has a safety valve to exit early if invoked for a task simpler than assessed. If planner reports "planning not needed," proceed directly to implementation with planner's brief recommendation.
+
+**If planning invoked:**
+- `swe-planner` will produce implementation plan with ordered sub-tasks
+- Each sub-task includes: What/Why/How/Verify/Risks
+- Plan identifies risk areas (prototyping needs, user decisions, performance/security concerns)
+- Plan applies YAGNI, emphasizes starting small and working incrementally
+
+**Use plan to guide implementation:**
+- Implementation agent should follow plan's sequencing
+- Implement one sub-task at a time
+- Verify each sub-task before moving to next
+- If plan identifies prototyping needs, create scratch repos in `/tmp` first
+
+### 3. Implementation
 
 **Detect project language/framework:**
 - Check for language-specific files (go.mod, package.json, Cargo.toml, Dockerfile, Makefile, etc.)
 - Determine which specialist agent to use
 
-**Spawn appropriate SME agent:**
-- If Golang project: spawn `swe-sme-golang` agent
-- If GraphQL schema/resolvers: spawn `swe-sme-graphql` agent
+**Spawn appropriate implementation agent:**
 - If Dockerfile changes: spawn `swe-sme-docker` agent
 - If Makefile changes: spawn `swe-sme-makefile` agent
+- If Golang project: spawn `swe-sme-golang` agent
+- If GraphQL schema/resolvers: spawn `swe-sme-graphql` agent
 - If Ansible playbooks/roles: spawn `swe-sme-ansible` agent
 - If Zig project: spawn `swe-sme-zig` agent
-- Otherwise: write tests directly with general best practices
+- If TypeScript project (`.ts` files, `tsconfig.json`): spawn `swe-sme-typescript` agent
+- If vanilla JavaScript (`.js` files, no TypeScript): spawn `swe-sme-javascript` agent
+- If HTML/markup changes: spawn `swe-sme-html` agent
+- If CSS/styling changes: spawn `swe-sme-css` agent
+- Otherwise: implement directly with general best practices
 
-**SME agent task:**
-- Write test(s) that reproduce the reported bug
-- Tests should encode the *expected* behavior (so they fail against the *current* buggy behavior)
-- Run the tests and **verify they actually fail**
-- If the tests pass (bug cannot be reproduced): report back with findings — the bug may be environmental, already fixed, or misunderstood
-
-**This is the contract.** When these tests pass, the bug is fixed.
-
-**If reproduction fails:**
-- Return to step 1 for more information from the user
-- Report what was tried and why reproduction failed
-- Max 2 reproduction attempts before escalating to user with findings
-
-### 3. Diagnosis
-
-**Spawn `swe-diagnostician` agent:**
-- Pass: bug description, failing test(s) from step 2, reproduction results
-- Agent performs root-cause analysis:
-  - Traces execution paths through the code
-  - Git archaeology at agent's discretion (shallow for obvious bugs, deep for systemic ones)
-  - Identifies the root cause with supporting evidence
-  - Identifies related failure modes that may share the same root cause
-- Agent produces a structured diagnosis report
-
-**Diagnosis report includes:**
-- Root cause (immediate and underlying)
-- Evidence (code paths, git history, test results)
-- Recommended fix approach
-- Related failure modes (specific, actionable — not vague possibilities)
-- Confidence level
-
-### 4. Implement the Fix
-
-**Re-invoke the same SME agent from step 2:**
-- Pass the diagnosis report as guidance
-- SME implements the fix following the diagnostician's recommended approach
-- SME writes additional tests for related failure modes identified in step 3
-- SME verifies: the originally-failing test(s) from step 2 now pass
-- SME runs the full test suite to check for regressions
+**Pass plan to implementation agent if planning was done:**
+- Implementation agent should follow plan's sequencing
+- Work incrementally through sub-tasks
+- Verify each step as specified in plan
 
 **Implementation agent responsibilities:**
-- Fix the bug as narrowly and precisely as possible
-- Don't refactor unrelated code (that's a separate workflow)
-- Write tests for each related failure mode the diagnostician identified
-- Ensure all new and existing tests pass
+- Write code following language idioms
+- Follow project conventions
+- Handle edge cases and errors
+- Write unit tests for pure functions as part of TDD (encouraged, not just QA's job)
+- If following plan: implement sub-tasks sequentially, verify each before proceeding
 
-### 5. Quality Assurance - Verify Fix (CRITICAL GATE)
+### 4. Quality Assurance - Verify Acceptance Criteria (CRITICAL GATE)
 
 **Spawn `qa-engineer` agent:**
-- Pass: original bug description, reproduction steps, and acceptance criteria (the bug should no longer occur)
+- Pass original requirements and acceptance criteria to the agent
 - The agent infers its mode from context: presence of acceptance criteria triggers acceptance verification
-- Agent performs **practical verification first** — actually reproducing the originally-reported scenario and confirming it's fixed
+- Agent performs **practical verification first** - actually running/using the feature to confirm it works
 - This means: executing CLI commands, spawning subagents to test MCP tools, making API calls, etc.
-- Only AFTER practical verification confirms the fix works does the agent run the full test suite
-- Agent also checks the related failure modes identified by the diagnostician
+- Only AFTER practical verification confirms the feature works does the agent write unit tests
+- This prevents the failure mode of "passing unit tests for broken code"
 
 **Practical verification by feature type:**
 - CLI tools: Run commands in subshell (skip destructive operations)
@@ -104,20 +107,20 @@ Loop back to user until the bug is clearly understood. You need enough informati
 - Libraries: Quick sanity checks, then unit tests
 
 **This is a CRITICAL GATE:**
-- The originally-reported bug must be demonstrably fixed (practical test) AND tests must pass to proceed
-- If practical verification fails: return to step 4 (implementation) immediately
+- Implementation must demonstrably work (practical test) AND have tests to proceed
+- If practical verification fails: return to step 3 (implementation) immediately
 - If verification passes but tests fail: debug tests, not implementation
 - Track iteration count (max 3 attempts before escalating to user)
 
-**Expected output:** Practical verification results, pass/fail determination with specific findings.
+**Expected output:** Practical verification results, integration test recommendations, pass/fail determination with specific findings about each acceptance criterion.
 
-### 6. Code Review (Conditional)
+### 5. Code Review (Conditional)
 
-**Only proceed to code review if fix verification passed.** Don't review broken code.
+**Only proceed to code review if acceptance verification passed.** Don't review broken code.
 
-Conditionally invoke specialized reviewers based on code changes and complexity. All reviewers provide feedback; implementation agent responds to all feedback in step 7.
+Conditionally invoke specialized reviewers based on code changes and complexity. All reviewers provide feedback; implementation agent responds to all feedback in step 6.
 
-#### 6a. Security Review (Conditional - Has Authority)
+#### 5a. Security Review (Conditional - Has Authority)
 
 **If security-sensitive code changed (auth, crypto, input validation, data access):**
 
@@ -129,7 +132,7 @@ Conditionally invoke specialized reviewers based on code changes and complexity.
 
 **Output**: Defense evaluation with severity levels (critical/high/low)
 
-#### 6b. Refactoring Review (Conditional - Advisory)
+#### 5b. Refactoring Review (Conditional - Advisory)
 
 **If non-trivial implementation (>50 lines changed, multiple files, or complex logic):**
 
@@ -141,7 +144,7 @@ Conditionally invoke specialized reviewers based on code changes and complexity.
 
 **Output**: Refactoring recommendations (advisory only)
 
-#### 6c. Performance Review (Conditional - Advisory)
+#### 5c. Performance Review (Conditional - Advisory)
 
 **If performance-critical code changed (hot paths, loops, database queries, API endpoints):**
 
@@ -152,12 +155,12 @@ Conditionally invoke specialized reviewers based on code changes and complexity.
 
 **Output**: Performance metrics and recommendations (advisory only)
 
-### 7. Implement Review Feedback
+### 6. Implement Review Feedback
 
-**Aggregate all review feedback from step 6 and provide to implementation agent.**
+**Aggregate all review feedback from step 5 and provide to implementation agent.**
 
-**If specialist was used in steps 2/4 (swe-sme-golang, swe-sme-graphql, etc.):**
-- Re-invoke the same specialist agent
+**If specialist was used in step 3 (swe-sme-golang, swe-sme-graphql, etc.):**
+- Re-invoke the same specialist agent that did implementation
 - Provide all review feedback (security, refactoring, performance)
 - Specialist reviews all feedback and **uses own discretion** to implement
 - **Security findings**: Must address or get explicit user approval to skip
@@ -166,22 +169,22 @@ Conditionally invoke specialized reviewers based on code changes and complexity.
 - Specialist implements accepted changes and commits
 
 **If no specialist (general implementation):**
-- Re-invoke the same agent that did implementation in step 4
+- Re-invoke the same agent that did implementation in step 3
 - Provide all review feedback
 - Agent addresses security issues and implements accepted recommendations
 - Agent commits changes
 
 **Note**: Security issues have authority to block; other feedback is advisory. Implementation agent makes final decisions on advisory feedback.
 
-### 8. SME Peer Review (Conditional)
+### 7. SME Peer Review (Conditional)
 
 **Condition:** Non-trivial changes (>50 lines changed, multiple files, or complex logic).
 
 **Skip if:**
 - Changes are trivial (single file, <50 lines, simple logic)
-- No language-specific SME was used in step 2 (general implementation)
+- No language-specific SME was used in step 3 (general implementation)
 
-**If applicable, spawn a fresh instance of the same SME type used in step 2:**
+**If applicable, spawn a fresh instance of the same SME type used in step 3:**
 - Fresh context window - reviewer sees only current code state via git diff
 - Reviews with "would I accept this PR" lens
 - Focuses on: minor oversights, idiomatic patterns, naming, small cleanups
@@ -196,57 +199,53 @@ Conditionally invoke specialized reviewers based on code changes and complexity.
 
 **Expected output:** Small fixes committed, or "no changes needed" if code is clean.
 
-### 9. Quality Assurance - Coverage & Quality Verification
+### 8. Quality Assurance - Coverage & Quality Verification
 
 **Spawn `qa-engineer` agent:**
 - The agent infers its mode from context: absence of acceptance criteria triggers general assessment
-- Agent performs general QA assessment of all changed code (from steps 4, 7, and 8)
+- Agent performs general QA assessment of all changed code (from steps 3, 6, and 7)
 - Assess test coverage for new/modified code
 - Identify gaps and write missing tests
 - Run linters/formatters and fix issues
 - Evaluate test quality (assertions, edge cases)
-- **Verify implementations from steps 7 and 8 didn't break tests** - catches issues from refactoring, security fixes, or peer review cleanups
+- **Verify implementations from steps 6 and 7 didn't break tests** - catches issues from refactoring, security fixes, or peer review cleanups
 
 **This is SUPPLEMENTARY:**
 - Issues found here don't block the workflow by default
 - Agent documents issues and proposes fixes
 - Minor issues: proceed to documentation
-- Significant issues (tests broken, major bugs): return to step 7 (review feedback) or step 4 (implementation)
+- Significant issues (tests broken, major bugs): return to step 6 (review feedback) or step 3 (implementation)
 
 **Expected output:** Coverage metrics, tests added/modified, quality issues found, confirmation that all changes still pass tests.
 
 ### Feedback Loops
 
-**Reproduction failure (step 2):**
-- Return to step 1 (clarification)
-- Report what was tried and why reproduction failed
-- Max 2 reproduction attempts before escalating to user
-
-**Fix verification failure (step 5):**
-- Return to step 4 (implementation)
+**Acceptance verification failure (step 4):**
+- Return to step 3 (implementation)
 - Track iteration count (max 3 attempts before escalating to user)
-- Report specific failures (which tests still fail, what practical verification showed)
+- Report specific acceptance criteria that failed
+- Report practical verification results (what was tried, what failed)
 
-**Security review findings (step 6a):**
-- Critical/High severity: Must address in step 7 or get explicit user approval to skip
-- Medium/Low severity: Advisory - implementation agent decides in step 7
+**Security review findings (step 5a):**
+- Critical/High severity: Must address in step 6 or get explicit user approval to skip
+- Medium/Low severity: Advisory - implementation agent decides in step 6
 
-**Code review feedback (steps 6b-6c):**
+**Code review feedback (steps 5b-5c):**
 - All refactoring and performance feedback is advisory
-- Implementation agent in step 7 uses discretion to implement
+- Implementation agent in step 6 uses discretion to implement
 
-**Peer review issues (step 8):**
+**Peer review issues (step 7):**
 - If peer review changes break tests: revert peer review changes and proceed (nits aren't worth breaking functionality)
 - If peer review flags deeper issues: escalate to user for decision
 
-**Coverage & quality issues (step 9):**
-- Tests broken by changes from step 7: Return to step 7 to fix or revert
-- Tests broken by changes from step 8: Revert step 8 changes (peer review nits shouldn't break tests)
-- Major bugs found: Return to step 4 (implementation)
+**Coverage & quality issues (step 8):**
+- Tests broken by changes from step 6: Return to step 6 to fix or revert
+- Tests broken by changes from step 7: Revert step 7 changes (peer review nits shouldn't break tests)
+- Major bugs found: Return to step 3 (implementation)
 - Minor issues (low coverage in non-critical code, style nitpicks): document and proceed
 - User can approve proceeding despite issues if acceptable
 
-### 10. Documentation
+### 9. Documentation
 
 **Spawn `doc-maintainer` agent:**
 - Review git diff to identify which files/modules changed
@@ -264,7 +263,7 @@ Conditionally invoke specialized reviewers based on code changes and complexity.
 - Skip full codebase documentation scan
 - Report "no documentation changes needed" if changes are purely internal with no doc impact
 
-### 11. Final verification
+### 10. Final verification
 
 **Run comprehensive checks:**
 - Execute full test suite (must pass)
@@ -273,26 +272,25 @@ Conditionally invoke specialized reviewers based on code changes and complexity.
 - Check git status (document any uncommitted changes)
 
 **Present summary to user:**
-- Bug that was fixed (original report)
-- Root cause identified (from diagnosis)
 - Files changed
-- Tests added/modified (regression tests for the bug + related failure modes)
+- Tests added/modified
+- Coverage improvements
 - Any remaining TODOs or follow-ups
 
 **If verification fails:**
 - Determine root cause (implementation bug vs. refactoring issue vs. test issue)
-- Return to appropriate step (step 4 for implementation bugs, step 7 for refactoring issues)
+- Return to appropriate step (step 3 for implementation bugs, step 5 for refactoring issues)
 - Report specific failures to user
 
-### 12. Workflow Completion (Optional)
+### 11. Workflow Completion (Optional)
 
-**After presenting summary from step 11, ask user if they want to complete the workflow.**
+**After presenting summary from step 10, ask user if they want to complete the workflow.**
 
-User may also explicitly request workflow completion at any point after step 11 succeeds.
+User may also explicitly request workflow completion at any point after step 10 succeeds.
 
 **If user confirms, perform housekeeping tasks:**
 
-#### 12a. Commit Changes
+#### 11a. Commit Changes
 
 **If uncommitted changes exist:**
 - Review git status to see what changed
@@ -304,46 +302,44 @@ User may also explicitly request workflow completion at any point after step 11 
 
 **Example commit message format:**
 ```
-Fix off-by-one error in pagination boundary check
+Add user authentication with JWT tokens
 
-Root cause: boundary comparison used < instead of <= when calculating
-the last page, causing the final item to be excluded from results.
-Also added regression tests for adjacent edge cases identified during
-diagnosis.
+Implements login/logout endpoints with refresh token rotation.
+Includes rate limiting and CSRF protection.
 
-Fixes #456
+Fixes #123
 
 Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 
-#### 12b. Update/Close Issue Tracker Ticket (Conditional)
+#### 11b. Update/Close Issue Tracker Ticket (Conditional)
 
 **Detect issue tracker:**
 - Check for platform integration (CLI, MCP server, or API)
 - Skip if not available
 
 **Determine ticket number:**
-- Try to extract from current branch name (e.g., `fix/456-pagination-bug` -> #456)
+- Try to extract from current branch name (e.g., `feature/123-add-auth` → #123)
 - Check commit messages for ticket references
 - Ask user for ticket number if not found and they indicated a ticket exists
 
 **If ticket number identified:**
-- Ask user: "Do you want to update and/or close ticket #456?"
+- Ask user: "Do you want to update and/or close ticket #123?"
   - Options: "Update only", "Update and close", "Skip"
 
 **If user chooses to update:**
-- Post comment with summary:
-  - Root cause identified
-  - Fix applied
-  - Tests added (regression + related failure modes)
-  - Files changed
+- Post comment with summary of changes:
+  - List of files changed
+  - Key changes made
+  - Tests added
+  - Documentation updated
 - Use available integration to comment on issue
 
 **If user chooses to close:**
 - Close the ticket with final comment
 - Use available integration to close issue
 
-#### 12c. Sync with Main Branch (Conditional)
+#### 11c. Sync with Main Branch (Conditional)
 
 **Check branch state:**
 - Identify main branch name (master or main)
@@ -363,9 +359,9 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 - No main/master branch exists
 
 **Present final status:**
-- Changes committed
-- Ticket updated/closed
-- Branch rebased on main
+- ✓ Changes committed
+- ✓ Ticket #123 updated and closed
+- ✓ Branch rebased on main
 - Ready to push or move to next task
 
 ## Agent Coordination
@@ -377,32 +373,29 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 **State management:**
 - Track current workflow step
-- Track reproduction attempt count (for step 2 failures)
-- Track QA iteration count (for fix verification failures)
+- Track QA iteration count (for acceptance verification failures)
 - Accumulate summary information
-- Preserve original bug report for passing to QA verification
-- Preserve diagnosis report for passing to implementation agent
+- Preserve original requirements for passing to QA acceptance verification
 
 **Agent self-skipping:**
 - Agents should skip work if not applicable
 - Report "nothing to do" rather than making unnecessary changes
 
-**SME continuity:**
-- The same SME type is used across steps 2 (failing test), 4 (fix), 7 (review feedback), and 8 (peer review)
-- Steps 2 and 4 should ideally be the same instance or carry forward context
-- Step 8 (peer review) must be a fresh instance for independent perspective
+**Planning pass-through:**
+- If swe-planner produces a plan, pass it to implementation agent
+- Implementation agent should acknowledge plan and follow it
+- Plan helps coordinate implementation approach
 
-**Diagnosis pass-through:**
-- The diagnostician's report from step 3 is passed to the SME in step 4
-- The SME should acknowledge the diagnosis and follow its recommended approach
-- The SME should write tests for each related failure mode the diagnostician identified
+**TDD coordination:**
+- SWE agents are encouraged to write unit tests for pure functions during implementation
+- QA agent focuses on practical verification and integration tests
+- This prevents duplicate test-writing while ensuring comprehensive coverage
 
 ## Iteration Limits
 
 **Maximum iterations:**
-- Reproduction loop (step 2): 2 attempts, then escalate to user
-- Fix verification loop (step 5): 3 attempts, then escalate to user
-- Overall workflow: 12 total agent spawns (safety limit)
+- Acceptance verification loop (step 4): 3 attempts, then escalate to user
+- Overall workflow: 10 total agent spawns (safety limit)
 
 **Escalation to user:**
 - Present current state

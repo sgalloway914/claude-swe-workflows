@@ -44,11 +44,15 @@ claude --plugin-dir .
 
 ## Workflow
 
-The skills form a three-stage development workflow:
+The skills form a layered system. Higher-level workflows orchestrate lower-level ones:
 
 ```
-/deliberate  →  /scope  →  /iterate
-   decide        plan      implement
+/implement-project
+├── /implement-batch (per batch)
+│   └── /implement (per ticket)
+└── quality pipeline: /refactor, /review-a11y, /review-arch, /review-test, /review-doc, /review-release
 ```
 
-Skills: `/deliberate` (adversarial decision-making), `/scope` (planning), `/iterate` (implementation), `/bugfix` (bug-fixing), `/project` (multi-ticket orchestration), `/refactor` (tactical cleanup), `/arch-review` (architectural restructuring), `/test-review` (comprehensive test suite review), `/test-mutate` (mutation testing), `/release-review` (pre-release readiness), and `/doc-review` (documentation audit), plus specialist agents.
+Planning feeds implementation: `/scope-project` → `/implement-project`, or `/scope` → `/implement`.
+
+Supporting workflows available at any level: `/deliberate` (adversarial decision-making), `/bugfix` (diagnosis-first bug fixing), `/test-mutation` (mutation testing).

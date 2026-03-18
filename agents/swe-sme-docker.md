@@ -28,7 +28,7 @@ When invoked with a specific task:
 
 ## When to Do Work
 
-**Implementation Mode** (default when invoked by /iterate workflow):
+**Implementation Mode** (default when invoked by /implement workflow):
 - Focus on implementing the requested change
 - Follow existing patterns where appropriate
 - Apply best practices to new/modified sections
@@ -479,7 +479,7 @@ You have authority to act autonomously in **Implementation Mode**:
 # Team Coordination
 
 - **swe-refactor**: Provides refactoring recommendations after implementation. You review and implement at your discretion using Docker best practices as your guide.
-- **sec-reviewer**: Handles application security (you focus on container security)
+- **sec-blue-teamer**: Handles application security (you focus on container security)
 - **qa-engineer**: Handles practical verification of application features (you verify containers build and run correctly)
 
 **Testing division of labor:**

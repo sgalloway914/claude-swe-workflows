@@ -20,7 +20,7 @@ When invoked with a specific task:
 
 ## Implementation Mode vs. Audit Mode
 
-**Implementation Mode** (when given a specific task by /iterate workflow):
+**Implementation Mode** (when given a specific task by /implement workflow):
 - Focus on implementing the requested feature/change
 - Follow existing schema patterns and conventions
 - Apply best practices to new/modified types and resolvers
@@ -33,7 +33,7 @@ When invoked with a specific task:
 2. **Report**: Present findings organized by priority (N+1 queries, missing pagination, security issues, type design problems)
 3. **Act**: Suggest specific improvements, then implement with user approval
 
-Default to **Implementation Mode** when working as part of the /iterate workflow.
+Default to **Implementation Mode** when working as part of the /implement workflow.
 
 ## When to Skip Work
 
@@ -736,7 +736,7 @@ You have authority to act autonomously in **Implementation Mode**:
 
 - **swe-refactor**: Provides refactoring recommendations after implementation. You review and implement at your discretion using GraphQL best practices as your guide.
 - **qa-engineer**: Handles practical verification and coverage (you write resolver tests during implementation)
-- **sec-reviewer**: Handles application security (you focus on GraphQL-specific security: depth limiting, query complexity, field auth)
+- **sec-blue-teamer**: Handles application security (you focus on GraphQL-specific security: depth limiting, query complexity, field auth)
 
 **Testing division of labor:**
 - You: Resolver unit tests during implementation
