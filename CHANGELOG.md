@@ -1,5 +1,23 @@
 # Changelog
 
+## Unreleased
+
+### New Skills
+
+- **`/bug-hunt` — Proactive bug discovery.** Systematically hunts for bugs before they reach users. An assessor cross-references code complexity, test coverage gaps, and structural risk factors to produce a ranked hotspot list. Focused hunters then deep-dive into each hotspot, writing reproducing tests to validate or invalidate suspected bugs. Every confirmed finding is backed by a reproducing test. Optionally routes confirmed bugs to SME agents for fixing.
+
+### New Agents
+
+- **`swe-bug-assessor`** — Codebase risk assessor. Cross-references complexity, coverage, structural risk factors, and git history to identify where bugs are most likely to lurk. Produces a ranked hotspot list for focused investigation.
+- **`swe-bug-hunter`** — Focused bug investigator. Deep-dives into specific code regions identified by the assessor, writes reproducing tests for suspected bugs, and validates findings through test execution. Keeps valuable tests even when they invalidate a suspicion.
+
+### Improvements
+
+- **Skill names regularized.** Three skills renamed for consistency:
+  - `/bugfix` → `/bug-fix`
+  - `/audit-source` → `/audit-security`
+  - `/review-source` → `/review-health`
+
 ## v4.4.1
 
 ### Improvements

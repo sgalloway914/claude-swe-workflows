@@ -55,25 +55,26 @@ Two supporting workflows are available at any level: `/deliberate`
 Not everything needs the full pipeline. Enter at the level that matches
 your task:
 
-| You want to...                                          | Use              |
-|---------------------------------------------------------|------------------|
-| Implement an entire multi-batch project autonomously    | `/implement-project`       |
-| Implement a batch of related tickets                    | `/implement-batch`         |
-| Implement a single ticket or feature                    | `/implement`       |
-| Plan a multi-batch project with adversarial review      | `/scope-project` |
-| Plan a single feature and create a ticket               | `/scope`         |
-| Fix a bug with diagnosis and root-cause analysis        | `/bug-fix`        |
-| Make a hard decision with adversarial deliberation      | `/deliberate`    |
-| Clean up code quality (DRY, dead code, naming)          | `/refactor`      |
-| Rethink module boundaries and architecture              | `/review-arch`   |
-| Review and strengthen the test suite                    | `/review-test`   |
-| Verify test quality via mutation testing                | `/test-mutation`   |
-| Audit all project documentation                         | `/review-doc`    |
-| Pre-release readiness check                             | `/review-release`|
-| Audit web content for accessibility barriers            | `/review-a11y`   |
-| Assess code health across all project languages         | `/review-health` |
-| Review performance (compute and/or web)                 | `/review-perf`   |
-| Perform a white-box security audit                      | `/audit-security`  |
+| You want to...                                          | Use                  |
+|---------------------------------------------------------|----------------------|
+| Implement an entire multi-batch project autonomously    | `/implement-project` |
+| Implement a batch of related tickets                    | `/implement-batch`   |
+| Implement a single ticket or feature                    | `/implement`         |
+| Plan a multi-batch project with adversarial review      | `/scope-project`     |
+| Plan a single feature and create a ticket               | `/scope`             |
+| Fix a bug with diagnosis and root-cause analysis        | `/bug-fix`           |
+| Proactively hunt for bugs before they're reported       | `/bug-hunt`          |
+| Make a hard decision with adversarial deliberation      | `/deliberate`        |
+| Clean up code quality (DRY, dead code, naming)          | `/refactor`          |
+| Rethink module boundaries and architecture              | `/review-arch`       |
+| Review and strengthen the test suite                    | `/review-test`       |
+| Verify test quality via mutation testing                | `/test-mutation`     |
+| Audit all project documentation                         | `/review-doc`        |
+| Pre-release readiness check                             | `/review-release`    |
+| Audit web content for accessibility barriers            | `/review-a11y`       |
+| Assess code health across all project languages         | `/review-health`     |
+| Review performance (compute and/or web)                 | `/review-perf`       |
+| Perform a white-box security audit                      | `/audit-security`    |
 
 **Rules of thumb:**
 - Multiple batches of tickets forming a project? `/implement-project`
@@ -263,39 +264,53 @@ archaeology, implement a targeted fix, and verify. Same review pipeline as
 
 [Detailed documentation](skills/bug-fix/SKILL.md)
 
+#### /bug-hunt — Proactive Bug Discovery
+
+Systematically hunts for bugs before they reach users. A risk assessor
+cross-references code complexity, test coverage gaps, and structural risk
+factors to produce a ranked hotspot list. Dedicated hunters then
+deep-dive into each hotspot, writing reproducing tests to validate or
+invalidate suspected bugs. Every confirmed finding is backed by a
+reproducing test — no speculative reports. Optionally routes confirmed
+bugs to SME agents for fixing.
+
+[Detailed documentation](skills/bug-hunt/SKILL.md)
+
 ## Agents
 
 Specialist agents spawned by the workflows above:
 
-| Agent                       | Purpose                                                                                               |
-|-----------------------------|-------------------------------------------------------------------------------------------------------|
-| `advocate`                  | Argues for a specific option in deliberation proceedings                                              |
-| `swe-planner`               | Decomposes complex tasks into implementation plans                                                    |
-| `swe-sme-golang`            | Go implementation specialist                                                                          |
-| `swe-sme-graphql`           | GraphQL schema and resolver specialist                                                                |
-| `swe-sme-docker`            | Dockerfile and container specialist                                                                   |
-| `swe-sme-makefile`          | Makefile and build system specialist                                                                  |
-| `swe-sme-ansible`           | Ansible automation specialist                                                                         |
-| `swe-sme-zig`               | Zig implementation specialist                                                                         |
-| `swe-sme-html`              | HTML structure, semantics, and accessibility specialist                                               |
-| `swe-sme-css`               | CSS styling, layout, and responsive design specialist                                                 |
-| `swe-sme-javascript`        | Vanilla JavaScript implementation specialist                                                          |
-| `swe-sme-typescript`        | TypeScript implementation and type design specialist                                                  |
-| `swe-code-reviewer`         | Tactical code quality reviewer (DRY, dead code, naming, complexity)                                   |
-| `swe-arch-reviewer`         | Architecture reviewer (noun analysis, module boundaries, blueprints)                                  |
-| `swe-bug-investigator`      | Bug root-cause investigator (execution tracing, git archaeology, diagnosis reports)                    |
-| `swe-perf-reviewer`         | Compute performance reviewer (algorithmic complexity, benchmarking, profiling, optimization)           |
-| `swe-web-perf-reviewer`     | Web performance reviewer (caching, asset delivery, loading strategy, Core Web Vitals)                  |
-| `qa-engineer`               | Practical verification and test coverage                                                              |
-| `qa-web-a11y-reviewer`      | WCAG accessibility reviewer (keyboard navigation, ARIA, contrast, semantic structure)                  |
-| `qa-test-reviewer`          | Test quality reviewer (brittle, tautological, useless tests)                                          |
-| `qa-test-coverage-reviewer` | Coverage gap reviewer (coverage reports, risk prioritization, testability suggestions)                 |
-| `qa-test-fuzz-reviewer`     | Fuzz testing gap reviewer (fuzz infrastructure detection, candidate identification)                    |
-| `qa-test-mutator`           | Mutation testing worker (applies mutations, records results)                                           |
-| `qa-release-engineer`       | Pre-release scanner (debug artifacts, versioning, changelog, git hygiene, breaking changes, licenses)  |
-| `sec-blue-teamer`           | Defensive security analyst (control inventory, consistency, defense-in-depth, configuration)            |
-| `sec-red-teamer`            | Adversarial security analyst (attack surface mapping, exploitation, trust boundary analysis)            |
-| `doc-maintainer`            | Documentation updates and verification                                                                 |
+| Agent                       | Purpose                                                                                                    |
+|-----------------------------|------------------------------------------------------------------------------------------------------------|
+| `advocate`                  | Argues for a specific option in deliberation proceedings                                                   |
+| `swe-planner`               | Decomposes complex tasks into implementation plans                                                         |
+| `swe-sme-golang`            | Go implementation specialist                                                                               |
+| `swe-sme-graphql`           | GraphQL schema and resolver specialist                                                                     |
+| `swe-sme-docker`            | Dockerfile and container specialist                                                                        |
+| `swe-sme-makefile`          | Makefile and build system specialist                                                                       |
+| `swe-sme-ansible`           | Ansible automation specialist                                                                              |
+| `swe-sme-zig`               | Zig implementation specialist                                                                              |
+| `swe-sme-html`              | HTML structure, semantics, and accessibility specialist                                                    |
+| `swe-sme-css`               | CSS styling, layout, and responsive design specialist                                                      |
+| `swe-sme-javascript`        | Vanilla JavaScript implementation specialist                                                               |
+| `swe-sme-typescript`        | TypeScript implementation and type design specialist                                                       |
+| `swe-code-reviewer`         | Tactical code quality reviewer (DRY, dead code, naming, complexity)                                        |
+| `swe-arch-reviewer`         | Architecture reviewer (noun analysis, module boundaries, blueprints)                                       |
+| `swe-bug-assessor`          | Codebase risk assessor (complexity, coverage, structural risk, git churn — produces ranked hotspot list)   |
+| `swe-bug-hunter`            | Focused bug investigator (deep-dives hotspots, writes reproducing tests, validates findings)                |
+| `swe-bug-investigator`      | Bug root-cause investigator (execution tracing, git archaeology, diagnosis reports)                        |
+| `swe-perf-reviewer`         | Compute performance reviewer (algorithmic complexity, benchmarking, profiling, optimization)                |
+| `swe-web-perf-reviewer`     | Web performance reviewer (caching, asset delivery, loading strategy, Core Web Vitals)                      |
+| `qa-engineer`               | Practical verification and test coverage                                                                   |
+| `qa-web-a11y-reviewer`      | WCAG accessibility reviewer (keyboard navigation, ARIA, contrast, semantic structure)                      |
+| `qa-test-reviewer`          | Test quality reviewer (brittle, tautological, useless tests)                                               |
+| `qa-test-coverage-reviewer` | Coverage gap reviewer (coverage reports, risk prioritization, testability suggestions)                     |
+| `qa-test-fuzz-reviewer`     | Fuzz testing gap reviewer (fuzz infrastructure detection, candidate identification)                        |
+| `qa-test-mutator`           | Mutation testing worker (applies mutations, records results)                                               |
+| `qa-release-engineer`       | Pre-release scanner (debug artifacts, versioning, changelog, git hygiene, breaking changes, licenses)      |
+| `sec-blue-teamer`           | Defensive security analyst (control inventory, consistency, defense-in-depth, configuration)               |
+| `sec-red-teamer`            | Adversarial security analyst (attack surface mapping, exploitation, trust boundary analysis)               |
+| `doc-maintainer`            | Documentation updates and verification                                                                     |
 
 ## Development
 
