@@ -71,7 +71,7 @@ your task:
 | Audit all project documentation                         | `/review-doc`    |
 | Pre-release readiness check                             | `/review-release`|
 | Audit web content for accessibility barriers            | `/review-a11y`   |
-| Assess code health across all project languages         | `/review-source` |
+| Assess code health across all project languages         | `/review-health` |
 | Review performance (compute and/or web)                 | `/review-perf`   |
 | Perform a white-box security audit                      | `/audit-security`  |
 
@@ -210,7 +210,7 @@ changes made.
 
 [Detailed documentation](skills/review-a11y/SKILL.md)
 
-#### /review-source — Code Health Assessment
+#### /review-health — Code Health Assessment
 
 Assesses source code health across all languages in the project. Detects
 languages, dispatches SME agents for specialist review (or generalists for
@@ -218,7 +218,7 @@ unsupported languages), and produces a consolidated health report with
 per-language ratings. Advisory only — no changes made. Use to decide
 whether `/refactor` is needed.
 
-[Detailed documentation](skills/review-source/SKILL.md)
+[Detailed documentation](skills/review-health/SKILL.md)
 
 #### /review-perf — Performance Review
 

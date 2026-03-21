@@ -1,8 +1,8 @@
-# /review-source - Code Health Assessment
+# /review-health - Code Health Assessment
 
 ## Overview
 
-The `/review-source` skill assesses source code health across all languages in a project. It detects which languages are present, dispatches language-specific SME agents (or generalists for unsupported languages) to review code quality, and produces a consolidated health report.
+The `/review-health` skill assesses source code health across all languages in a project. It detects which languages are present, dispatches language-specific SME agents (or generalists for unsupported languages) to review code quality, and produces a consolidated health report.
 
 **Key benefits:**
 - Language-aware: each language is reviewed by a specialist who knows its idioms and best practices
@@ -14,21 +14,21 @@ The `/review-source` skill assesses source code health across all languages in a
 
 ## When to Use
 
-**Use `/review-source` for:**
+**Use `/review-health` for:**
 - Getting a health check on a codebase you're unfamiliar with
 - Deciding whether to run `/refactor`
 - After a long period of development to assess accumulated quality debt
 - Before major releases to check overall code health
 - When onboarding to a project and wanting to understand code quality
 
-**Don't use `/review-source` for:**
+**Don't use `/review-health` for:**
 - Finding specific bugs (use `/bug-fix` or `/audit-security`)
 - Making changes (use `/refactor`)
 - Reviewing architecture (use `/review-arch`)
 - Reviewing test quality (use `/review-test`)
 - Security assessment (use `/audit-security`)
 
-**Rule of thumb:** If you want to know "how healthy is this code?" — use `/review-source`. If you want to fix what's wrong — use `/refactor`.
+**Rule of thumb:** If you want to know "how healthy is this code?" — use `/review-health`. If you want to fix what's wrong — use `/refactor`.
 
 ## Workflow
 

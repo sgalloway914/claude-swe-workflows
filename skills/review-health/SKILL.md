@@ -1,5 +1,5 @@
 ---
-name: review-source
+name: review-health
 description: Source code health assessment. Dispatches language-specific SMEs to evaluate idiomatic usage, consistency, and quality across all project languages. Advisory only — no changes made.
 model: opus
 ---
