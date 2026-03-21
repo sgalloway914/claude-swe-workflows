@@ -20,7 +20,7 @@ The `/review-doc` skill spawns a doc-maintainer agent to comprehensively review 
 - As part of `/refactor` or `/review-arch` completion (it runs automatically)
 
 **Don't use `/review-doc` for:**
-- Updating docs for a specific change (the `/implement` and `/bugfix` workflows do this as part of their flow)
+- Updating docs for a specific change (the `/implement` and `/bug-fix` workflows do this as part of their flow)
 - Writing new documentation from scratch (just ask directly)
 
 ## Workflow

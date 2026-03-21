@@ -22,7 +22,7 @@ The `/review-source` skill assesses source code health across all languages in a
 - When onboarding to a project and wanting to understand code quality
 
 **Don't use `/review-source` for:**
-- Finding specific bugs (use `/bugfix` or `/audit-source`)
+- Finding specific bugs (use `/bug-fix` or `/audit-source`)
 - Making changes (use `/refactor`)
 - Reviewing architecture (use `/review-arch`)
 - Reviewing test quality (use `/review-test`)

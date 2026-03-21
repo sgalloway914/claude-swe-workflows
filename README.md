@@ -47,7 +47,7 @@ consumes directly:
 For single tickets: `/scope` plans, `/implement` implements.
 
 Two supporting workflows are available at any level: `/deliberate`
-(adversarial decision-making for hard choices) and `/bugfix`
+(adversarial decision-making for hard choices) and `/bug-fix`
 (diagnosis-first bug fixing).
 
 ## Choosing a Workflow
@@ -62,7 +62,7 @@ your task:
 | Implement a single ticket or feature                    | `/implement`       |
 | Plan a multi-batch project with adversarial review      | `/scope-project` |
 | Plan a single feature and create a ticket               | `/scope`         |
-| Fix a bug with diagnosis and root-cause analysis        | `/bugfix`        |
+| Fix a bug with diagnosis and root-cause analysis        | `/bug-fix`        |
 | Make a hard decision with adversarial deliberation      | `/deliberate`    |
 | Clean up code quality (DRY, dead code, naming)          | `/refactor`      |
 | Rethink module boundaries and architecture              | `/review-arch`   |
@@ -78,7 +78,7 @@ your task:
 **Rules of thumb:**
 - Multiple batches of tickets forming a project? `/implement-project`
 - One batch of 2+ related tickets? `/implement-batch`
-- One ticket? `/implement` (or `/bugfix` if it's a bug)
+- One ticket? `/implement` (or `/bug-fix` if it's a bug)
 - Not sure what to build yet? Start with `/scope` or `/scope-project`
 
 ## Skills
@@ -254,14 +254,14 @@ trade-offs.
 
 [Detailed documentation](skills/deliberate/SKILL.md)
 
-#### /bugfix — Diagnosis-First Bug Fixing
+#### /bug-fix — Diagnosis-First Bug Fixing
 
 Coordinates specialist agents through a diagnosis-first bug-fixing cycle:
 reproduce with a failing test, perform root-cause analysis with git
 archaeology, implement a targeted fix, and verify. Same review pipeline as
 `/implement`.
 
-[Detailed documentation](skills/bugfix/SKILL.md)
+[Detailed documentation](skills/bug-fix/SKILL.md)
 
 ## Agents
 

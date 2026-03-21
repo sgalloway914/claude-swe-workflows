@@ -309,10 +309,10 @@ After presenting findings, ask the user: "Would you like to route these findings
 
 ## Integration with Other Skills
 
-**Relationship to `/bugfix`:**
-- `/bugfix` invokes `sec-blue-teamer` for scoped security review of changed code
+**Relationship to `/bug-fix`:**
+- `/bug-fix` invokes `sec-blue-teamer` for scoped security review of changed code
 - `/audit-source` is a dedicated, full-depth security audit
-- Use `/audit-source` proactively; `/bugfix` handles security reactively
+- Use `/audit-source` proactively; `/bug-fix` handles security reactively
 
 **Relationship to `/implement`:**
 - `/implement` may invoke `sec-blue-teamer` as part of its review phase

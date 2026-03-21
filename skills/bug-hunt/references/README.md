@@ -21,12 +21,12 @@ The `/bug-hunt` skill systematically hunts for bugs before they reach users. An 
 - Before handing off code to another team
 
 **Don't use `/bug-hunt` for:**
-- Fixing a known, reported bug (use `/bugfix` — it's designed for reactive investigation)
+- Fixing a known, reported bug (use `/bug-fix` — it's designed for reactive investigation)
 - Security-focused analysis (use `/audit-source` — it has dedicated security methodology)
 - Improving test coverage for its own sake (use `/review-test`)
 - General code quality review (use `/review-source`)
 
-**Rule of thumb:** If you know the bug, use `/bugfix`. If you want to find the bugs you don't know about yet, use `/bug-hunt`.
+**Rule of thumb:** If you know the bug, use `/bug-fix`. If you want to find the bugs you don't know about yet, use `/bug-hunt`.
 
 ## Workflow
 

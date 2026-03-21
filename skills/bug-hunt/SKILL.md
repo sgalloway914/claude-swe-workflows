@@ -245,10 +245,10 @@ If the user does not route to fixers (or after fixes are complete), ask: "Would 
 - Both can find overlapping issues, but with different lenses. `/audit-source` asks "can an attacker exploit this?" while `/bug-hunt` asks "will this fail for a normal user?"
 - Run both for comprehensive pre-release assurance
 
-**Relationship to `/bugfix`:**
-- `/bugfix` is reactive — fixes a known, reported bug
+**Relationship to `/bug-fix`:**
+- `/bug-fix` is reactive — fixes a known, reported bug
 - `/bug-hunt` is proactive — finds bugs before they're reported
-- Bug hunt findings can feed into `/bugfix` for thorough remediation of complex issues
+- Bug hunt findings can feed into `/bug-fix` for thorough remediation of complex issues
 
 **Relationship to `/review-test`:**
 - `/review-test` focuses on test quality — coverage gaps, brittle tests, missing fuzz tests

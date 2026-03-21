@@ -21,11 +21,11 @@ The `/audit-source` skill orchestrates a comprehensive security assessment of th
 - When you need to understand both what's exploitable and why the defenses failed
 
 **Don't use `/audit-source` for:**
-- Routine development (the blue-teamer runs automatically during `/implement` and `/bugfix`)
+- Routine development (the blue-teamer runs automatically during `/implement` and `/bug-fix`)
 - Quick security sanity checks (spawn `sec-blue-teamer` directly)
 - Runtime security testing (this is static source analysis only)
 
-**Rule of thumb:** If you'd hire a pentester for this, `/audit-source` is the right tool. If you just want a security review of your latest changes, `/implement` and `/bugfix` already include one.
+**Rule of thumb:** If you'd hire a pentester for this, `/audit-source` is the right tool. If you just want a security review of your latest changes, `/implement` and `/bug-fix` already include one.
 
 ## Workflow
 

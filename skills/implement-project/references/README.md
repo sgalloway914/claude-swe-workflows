@@ -25,7 +25,7 @@ The `/implement-project` skill orchestrates an entire project from tickets to re
 
 **Don't use `/implement-project` for:**
 - A single batch of tickets (use `/implement-batch` directly)
-- Single tickets (use `/implement` or `/bugfix` directly)
+- Single tickets (use `/implement` or `/bug-fix` directly)
 - Exploratory work or prototyping
 - Projects with heavy user collaboration needed during implementation
 
@@ -113,7 +113,7 @@ The `/implement-project` skill orchestrates an entire project from tickets to re
  │  ────────────────────────────────────────    │
  │  Execute procedure from step 2               │
  │  • Simple fixes: implement directly          │
- │  • Complex bugs: invoke /bugfix              │
+ │  • Complex bugs: invoke /bug-fix             │
  │  • Design issues: /deliberate, then andon    │
  │  Re-run until clean                          │
  └──────────────────┬───────────────────────────┘
@@ -211,7 +211,7 @@ For each batch:
 After all batches are implemented, the orchestrator executes the smoke testing procedure from step 2. Issues are handled by severity:
 
 - **Straightforward fixes:** implement, verify, commit
-- **Complex bugs:** invoke the `/bugfix` workflow
+- **Complex bugs:** invoke the `/bug-fix` workflow
 - **Design-level problems:** try `/deliberate` first, andon cord if unresolvable
 
 Smoke tests re-run after fixes until clean.
@@ -342,7 +342,7 @@ Beyond the mainline workflow, the orchestrator can invoke:
 | Tool          | When to use                                                                    |
 |---------------|--------------------------------------------------------------------------------|
 | `/deliberate` | Difficult autonomous decisions — spawns adversarial advocates to argue options |
-| `/bugfix`     | Complex bugs encountered during smoke testing or quality passes                |
+| `/bug-fix`     | Complex bugs encountered during smoke testing or quality passes                |
 
 The orchestrator is encouraged to `/deliberate` before pulling the andon cord for judgment calls. If deliberation doesn't resolve the issue, then escalate.
 
@@ -516,7 +516,7 @@ Skipping /refactor (pass 2): review-arch was skipped
 | `/review-doc`      | Runs as project-level quality pass and within each batch and within `/refactor` and `/review-arch`. |
 | `/review-release`  | Runs as the final quality pass before reporting.                                                    |
 | `/deliberate`      | Available throughout for difficult autonomous decisions.                                            |
-| `/bugfix`          | Available for complex bugs found during smoke testing or quality passes.                            |
+| `/bug-fix`          | Available for complex bugs found during smoke testing or quality passes.                            |
 
 **Hierarchy:**
 ```

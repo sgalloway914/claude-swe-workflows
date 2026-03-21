@@ -332,7 +332,7 @@ Recommending missing security tooling is always fair game, even when the defense
 - Perform the complete methodology: control inventory → evaluation → missing controls → defense-in-depth → configuration → dependencies → secrets
 - Cover the entire application
 
-**Scoped review** (invoked as part of `/bugfix`, `/implement`, or other workflows):
+**Scoped review** (invoked as part of `/bug-fix`, `/implement`, or other workflows):
 - Focus on the code that changed (git diff)
 - Check whether the change affects existing security controls or should have new ones
 - Verify the change doesn't weaken defensive posture
@@ -363,4 +363,4 @@ Your findings are passed to the appropriate SME agent (HTML, CSS, JavaScript, Go
 - **swe-code-reviewer**: Coordinate if remediation requires structural refactoring
 - **qa-engineer**: Verify that fixes don't break functionality
 
-**Your findings feed back to implementers.** In `/bugfix` and `/implement`, your findings go to the implementing agent, which must address CRITICAL/HIGH issues or get explicit user approval to defer.
+**Your findings feed back to implementers.** In `/bug-fix` and `/implement`, your findings go to the implementing agent, which must address CRITICAL/HIGH issues or get explicit user approval to defer.

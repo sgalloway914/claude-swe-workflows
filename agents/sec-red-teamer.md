@@ -317,7 +317,7 @@ Recommending security tooling the project doesn't have is always fair game, even
 - Run the complete methodology: recon → data flow → trust boundaries → assumption abuse → error paths → state/timing → git archaeology
 - Cap at the 20 highest-priority findings
 
-**Scoped assessment** (invoked as part of `/bugfix`, `/implement`, or other workflows):
+**Scoped assessment** (invoked as part of `/bug-fix`, `/implement`, or other workflows):
 - Focus on the code that changed (git diff)
 - Trace your input through the changed code
 - Determine whether the change opens new attack vectors or weakens existing defenses
@@ -345,4 +345,4 @@ Your findings are passed to the appropriate SME agent (HTML, CSS, JavaScript, Go
 - **swe-code-reviewer**: Coordinate if a security fix requires structural refactoring
 - **qa-engineer**: Verify fixes don't break functionality; run regression tests
 
-**Your findings feed back to implementers.** In `/bugfix` and `/implement`, your findings go to the implementing agent, which must address CRITICAL/HIGH issues or get explicit user approval to defer.
+**Your findings feed back to implementers.** In `/bug-fix` and `/implement`, your findings go to the implementing agent, which must address CRITICAL/HIGH issues or get explicit user approval to defer.

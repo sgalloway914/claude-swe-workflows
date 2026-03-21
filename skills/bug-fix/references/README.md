@@ -1,8 +1,8 @@
-# /bugfix - Automated Bug-Fixing Workflow
+# /bug-fix - Automated Bug-Fixing Workflow
 
 ## Overview
 
-The `/bugfix` skill orchestrates a diagnosis-first bug-fixing workflow through specialist agents. It reproduces the bug with a failing test, performs root-cause analysis with git archaeology, implements a targeted fix, and verifies the fix through practical testing — all with the same review and documentation quality gates as `/implement`.
+The `/bug-fix` skill orchestrates a diagnosis-first bug-fixing workflow through specialist agents. It reproduces the bug with a failing test, performs root-cause analysis with git archaeology, implements a targeted fix, and verifies the fix through practical testing — all with the same review and documentation quality gates as `/implement`.
 
 **Key benefits:**
 - Test-driven reproduction: a failing test defines "done"
@@ -14,25 +14,25 @@ The `/bugfix` skill orchestrates a diagnosis-first bug-fixing workflow through s
 
 ## When to Use
 
-**Use `/bugfix` for:**
+**Use `/bug-fix` for:**
 - Bugs that need investigation before fixing
 - Issues where you want a failing test before any code changes
 - Bugs that might have related failure modes (same root cause, similar patterns)
 - Fixes where you want comprehensive regression testing
 - Problems where git history might reveal how the bug was introduced
 
-**Don't use `/bugfix` for:**
+**Don't use `/bug-fix` for:**
 - Obvious typos or trivial one-line fixes (just fix them directly)
 - Feature requests disguised as bugs (use `/implement`)
-- Exploratory debugging where the symptom is unclear (investigate first, then `/bugfix`)
+- Exploratory debugging where the symptom is unclear (investigate first, then `/bug-fix`)
 
-**Rule of thumb:** If the bug is worth a failing test and root-cause analysis, use `/bugfix`. If the fix is obvious, just do it.
+**Rule of thumb:** If the bug is worth a failing test and root-cause analysis, use `/bug-fix`. If the fix is obvious, just do it.
 
 ## Workflow Diagram
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│ /bugfix Workflow                                                │
+│ /bug-fix Workflow                                                │
 └─────────────────────────────────────────────────────────────────┘
 
  ┌──────────────────────────────────────────────┐
@@ -177,11 +177,11 @@ The `/bugfix` skill orchestrates a diagnosis-first bug-fixing workflow through s
  └──────────────────────────────────────────────┘
 ```
 
-## How /bugfix Differs from /implement
+## How /bug-fix Differs from /implement
 
-The `/bugfix` workflow diverges from `/implement` in steps 2-4, then rejoins for the review pipeline:
+The `/bug-fix` workflow diverges from `/implement` in steps 2-4, then rejoins for the review pipeline:
 
-| Step | `/implement`             | `/bugfix`                               |
+| Step | `/implement`             | `/bug-fix`                               |
 |------|------------------------|-----------------------------------------|
 | 1    | Gather requirements    | Clarify bug symptoms                    |
 | 2    | Planning (conditional) | **Write failing test** (SME)            |
@@ -190,7 +190,7 @@ The `/bugfix` workflow diverges from `/implement` in steps 2-4, then rejoins for
 | 5+   | Reviews, docs, commit  | Same as `/implement` steps 5-11           |
 
 Key differences:
-- **Test first, then fix.** `/implement` implements then tests. `/bugfix` writes a failing test before any fix attempt.
+- **Test first, then fix.** `/implement` implements then tests. `/bug-fix` writes a failing test before any fix attempt.
 - **Diagnosis before implementation.** The diagnostician performs root-cause analysis so the SME implements a targeted fix, not a guess.
 - **Git archaeology.** The diagnostician traces when and how the bug was introduced, providing context the SME wouldn't otherwise have.
 - **Related failure modes.** The diagnostician identifies patterns, and the SME writes tests for all of them — not just the reported bug.
@@ -327,7 +327,7 @@ Workflow:
 
 4. **Related failure modes are valuable.** The diagnostician looks for patterns, not just the single reported bug. This often catches adjacent bugs that would have been reported next.
 
-5. **Use `/implement` for feature-shaped bugs.** If the "bug" is really a missing feature or a design change, `/implement` is a better fit. `/bugfix` is for when existing behavior is wrong.
+5. **Use `/implement` for feature-shaped bugs.** If the "bug" is really a missing feature or a design change, `/implement` is a better fit. `/bug-fix` is for when existing behavior is wrong.
 
 ## Agent Coordination
 
