@@ -1,5 +1,5 @@
 ---
-name: audit-source
+name: audit-security
 description: White-box security audit. Blue-teamer evaluates defensive posture, then red-teamers attack informed by defensive gaps. Iterates when exploit chains are discovered. Heavy and thorough by design.
 model: opus
 ---
@@ -311,21 +311,21 @@ After presenting findings, ask the user: "Would you like to route these findings
 
 **Relationship to `/bug-fix`:**
 - `/bug-fix` invokes `sec-blue-teamer` for scoped security review of changed code
-- `/audit-source` is a dedicated, full-depth security audit
-- Use `/audit-source` proactively; `/bug-fix` handles security reactively
+- `/audit-security` is a dedicated, full-depth security audit
+- Use `/audit-security` proactively; `/bug-fix` handles security reactively
 
 **Relationship to `/implement`:**
 - `/implement` may invoke `sec-blue-teamer` as part of its review phase
-- `/audit-source` is independent and deeper — run it when security assurance matters, not as part of routine development
+- `/audit-security` is independent and deeper — run it when security assurance matters, not as part of routine development
 
 **Relationship to `/review-release`:**
 - `/review-release` includes basic security checks (secrets, debug artifacts)
-- `/audit-source` is a comprehensive pre-release security audit — run it before major releases or after significant feature additions
+- `/audit-security` is a comprehensive pre-release security audit — run it before major releases or after significant feature additions
 
 ## Example Session
 
 ```
-> /audit-source
+> /audit-security
 
 What is the scope of the audit?
 > Entire codebase

@@ -1,8 +1,8 @@
-# /audit-source - White-Box Security Audit
+# /audit-security - White-Box Security Audit
 
 ## Overview
 
-The `/audit-source` skill orchestrates a comprehensive security assessment of the project's source code using both defensive and offensive analysis. A blue-teamer evaluates the defensive posture first, then a lead red-teamer performs reconnaissance informed by the defensive gaps. Dedicated red-teamers investigate each attack vector in depth. Findings are synthesized, exploit chains are explored, and the process iterates until no new chains emerge.
+The `/audit-security` skill orchestrates a comprehensive security assessment of the project's source code using both defensive and offensive analysis. A blue-teamer evaluates the defensive posture first, then a lead red-teamer performs reconnaissance informed by the defensive gaps. Dedicated red-teamers investigate each attack vector in depth. Findings are synthesized, exploit chains are explored, and the process iterates until no new chains emerge.
 
 **Key benefits:**
 - Dual-perspective analysis: defensive evaluation (blue team) feeds offensive reconnaissance (red team)
@@ -13,19 +13,19 @@ The `/audit-source` skill orchestrates a comprehensive security assessment of th
 
 ## When to Use
 
-**Use `/audit-source` for:**
+**Use `/audit-security` for:**
 - Pre-release security assurance on important releases
 - After significant feature additions that change the attack surface
 - When onboarding a new codebase and you want to understand its security posture
 - Periodic security audits (quarterly, annually, etc.)
 - When you need to understand both what's exploitable and why the defenses failed
 
-**Don't use `/audit-source` for:**
+**Don't use `/audit-security` for:**
 - Routine development (the blue-teamer runs automatically during `/implement` and `/bug-fix`)
 - Quick security sanity checks (spawn `sec-blue-teamer` directly)
 - Runtime security testing (this is static source analysis only)
 
-**Rule of thumb:** If you'd hire a pentester for this, `/audit-source` is the right tool. If you just want a security review of your latest changes, `/implement` and `/bug-fix` already include one.
+**Rule of thumb:** If you'd hire a pentester for this, `/audit-security` is the right tool. If you just want a security review of your latest changes, `/implement` and `/bug-fix` already include one.
 
 ## Workflow
 
