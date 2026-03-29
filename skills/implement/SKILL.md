@@ -136,7 +136,7 @@ Conditionally invoke specialized reviewers based on code changes and complexity.
 
 **If non-trivial implementation (>50 lines changed, multiple files, or complex logic):**
 
-**Spawn `swe-refactor` agent:**
+**Spawn `swe-code-reviewer` agent:**
 - Reviews implementation for code quality issues
 - Identifies refactoring opportunities (DRY violations, dead code, complexity, etc.)
 - Provides structured recommendations organized by priority
@@ -148,9 +148,9 @@ Conditionally invoke specialized reviewers based on code changes and complexity.
 
 **If performance-critical code changed (hot paths, loops, database queries, API endpoints):**
 
-**Spawn `swe-perf-engineer` agent:**
-- Runs benchmarks and profiling
-- Identifies performance bottlenecks
+**Spawn `swe-perf-reviewer` agent:**
+- Reviews code for performance bottlenecks
+- Identifies missing benchmarks and profiling gaps
 - Provides optimization recommendations
 
 **Output**: Performance metrics and recommendations (advisory only)
@@ -297,7 +297,6 @@ User may also explicitly request workflow completion at any point after step 10 
 - Create commit with descriptive message
 - If ticket number is known (from branch name, prior context, or user input):
   - Reference ticket in commit message (e.g., "Fixes #123" or "Closes: #123")
-- Include Co-Authored-By line: `Co-Authored-By: Claude <noreply@anthropic.com>`
 - Use heredoc format for multi-line commit messages
 
 **Example commit message format:**
@@ -308,8 +307,6 @@ Implements login/logout endpoints with refresh token rotation.
 Includes rate limiting and CSRF protection.
 
 Fixes #123
-
-Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 
 #### 11b. Update/Close Issue Tracker Ticket (Conditional)

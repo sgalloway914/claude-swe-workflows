@@ -47,7 +47,7 @@ consumes directly:
 For single tickets: `/scope` plans, `/implement` implements.
 
 Two supporting workflows are available at any level: `/deliberate`
-(adversarial decision-making for hard choices) and `/bugfix`
+(adversarial decision-making for hard choices) and `/bug-fix`
 (diagnosis-first bug fixing).
 
 ## Choosing a Workflow
@@ -55,29 +55,31 @@ Two supporting workflows are available at any level: `/deliberate`
 Not everything needs the full pipeline. Enter at the level that matches
 your task:
 
-| You want to...                                          | Use              |
-|---------------------------------------------------------|------------------|
-| Implement an entire multi-batch project autonomously    | `/implement-project`       |
-| Implement a batch of related tickets                    | `/implement-batch`         |
-| Implement a single ticket or feature                    | `/implement`       |
-| Plan a multi-batch project with adversarial review      | `/scope-project` |
-| Plan a single feature and create a ticket               | `/scope`         |
-| Fix a bug with diagnosis and root-cause analysis        | `/bugfix`        |
-| Make a hard decision with adversarial deliberation      | `/deliberate`    |
-| Clean up code quality (DRY, dead code, naming)          | `/refactor`      |
-| Rethink module boundaries and architecture              | `/review-arch`   |
-| Review and strengthen the test suite                    | `/review-test`   |
-| Verify test quality via mutation testing                | `/test-mutation`   |
-| Audit all project documentation                         | `/review-doc`    |
-| Pre-release readiness check                             | `/review-release`|
-| Audit web content for accessibility barriers            | `/review-a11y`   |
-| Assess code health across all project languages         | `/review-source` |
-| Perform a white-box security audit                      | `/audit-source`  |
+| You want to...                                          | Use                  |
+|---------------------------------------------------------|----------------------|
+| Implement an entire multi-batch project autonomously    | `/implement-project` |
+| Implement a batch of related tickets                    | `/implement-batch`   |
+| Implement a single ticket or feature                    | `/implement`         |
+| Plan a multi-batch project with adversarial review      | `/scope-project`     |
+| Plan a single feature and create a ticket               | `/scope`             |
+| Fix a bug with diagnosis and root-cause analysis        | `/bug-fix`           |
+| Proactively hunt for bugs before they're reported       | `/bug-hunt`          |
+| Make a hard decision with adversarial deliberation      | `/deliberate`        |
+| Clean up code quality (DRY, dead code, naming)          | `/refactor`          |
+| Rethink module boundaries and architecture              | `/review-arch`       |
+| Review and strengthen the test suite                    | `/review-test`       |
+| Verify test quality via mutation testing                | `/test-mutation`     |
+| Audit all project documentation                         | `/review-doc`        |
+| Pre-release readiness check                             | `/review-release`    |
+| Audit web content for accessibility barriers            | `/review-a11y`       |
+| Assess code health across all project languages         | `/review-health`     |
+| Review performance (compute and/or web)                 | `/review-perf`       |
+| Perform a white-box security audit                      | `/audit-security`    |
 
 **Rules of thumb:**
 - Multiple batches of tickets forming a project? `/implement-project`
 - One batch of 2+ related tickets? `/implement-batch`
-- One ticket? `/implement` (or `/bugfix` if it's a bug)
+- One ticket? `/implement` (or `/bug-fix` if it's a bug)
 - Not sure what to build yet? Start with `/scope` or `/scope-project`
 
 ## Skills
@@ -98,7 +100,7 @@ single project branch ready for human review and merge.
 Maximizes autonomy — the andon cord (stop-the-line escalation) is the only
 planned intervention path.
 
-[Detailed documentation](skills/implement-project/README.md)
+[Detailed documentation](skills/implement-project/SKILL.md)
 
 #### /implement-batch — Multi-Ticket Orchestration
 
@@ -107,7 +109,7 @@ sequentially using `/implement` in autonomous mode, runs cross-cutting
 quality passes (`/refactor`, `/review-doc`), and presents results for
 final review.
 
-[Detailed documentation](skills/implement-batch/README.md)
+[Detailed documentation](skills/implement-batch/SKILL.md)
 
 #### /implement — Single-Ticket Development
 
@@ -117,7 +119,7 @@ documentation. Detects project type and dispatches to language-specific
 SMEs (Go, GraphQL, Docker, Makefile, Ansible, Zig, HTML, CSS,
 JavaScript, TypeScript).
 
-[Detailed documentation](skills/implement/README.md)
+[Detailed documentation](skills/implement/SKILL.md)
 
 ### Planning
 
@@ -132,7 +134,7 @@ an implementer agent to find gaps, ambiguities, and missing work. Only
 when the implementer is satisfied do tickets go upstream — already tagged
 with batch labels ready for `/implement-project` to consume.
 
-[Detailed documentation](skills/scope-project/README.md)
+[Detailed documentation](skills/scope-project/SKILL.md)
 
 #### /scope — Problem Space Exploration
 
@@ -140,7 +142,7 @@ Explores problem spaces through iterative dialogue and codebase analysis,
 then creates a detailed ticket in your issue tracker. For single features,
 bug investigations, or refactoring proposals.
 
-[Detailed documentation](skills/scope/README.md)
+[Detailed documentation](skills/scope/SKILL.md)
 
 ### Quality
 
@@ -155,7 +157,7 @@ naming issues, unnecessary complexity), implements through specialist
 agents with QA verification, and loops until no improvements remain. Works
 within existing architecture — for structural changes, use `/review-arch`.
 
-[Detailed documentation](skills/refactor/README.md)
+[Detailed documentation](skills/refactor/SKILL.md)
 
 #### /review-arch — Blueprint-Driven Architectural Improvement
 
@@ -164,7 +166,7 @@ blueprint, then collaborates with the user to decide what to implement.
 For module boundaries, responsibility overlap, utility grab-bag
 dissolution, and structural rethinking.
 
-[Detailed documentation](skills/review-arch/README.md)
+[Detailed documentation](skills/review-arch/SKILL.md)
 
 #### /review-test — Comprehensive Test Suite Review
 
@@ -172,7 +174,7 @@ Three-phase review: fills coverage gaps, identifies missing fuzz tests,
 and audits test quality. Each phase has its own analysis → present →
 select → implement → verify cycle.
 
-[Detailed documentation](skills/review-test/README.md)
+[Detailed documentation](skills/review-test/SKILL.md)
 
 #### /test-mutation — Mutation Testing
 
@@ -180,7 +182,7 @@ Systematically introduces mutations into source code and checks if tests
 catch them. Surviving mutations reveal genuine coverage gaps that line
 coverage misses. Multi-session with progress tracking.
 
-[Detailed documentation](skills/test-mutation/README.md)
+[Detailed documentation](skills/test-mutation/SKILL.md)
 
 #### /review-doc — Documentation Quality Audit
 
@@ -188,7 +190,7 @@ Comprehensively reviews all project documentation for correctness,
 completeness, and freshness. Fixes issues autonomously within its
 authority.
 
-[Detailed documentation](skills/review-doc/README.md)
+[Detailed documentation](skills/review-doc/SKILL.md)
 
 #### /review-release — Pre-Release Readiness Check
 
@@ -197,7 +199,7 @@ version mismatches, changelog gaps, git hygiene issues, breaking API
 changes, and license compliance. Interactive — presents findings and lets
 you decide what to fix.
 
-[Detailed documentation](skills/review-release/README.md)
+[Detailed documentation](skills/review-release/SKILL.md)
 
 #### /review-a11y — Accessibility Audit
 
@@ -207,9 +209,9 @@ auditor agents to evaluate conformance, and produces a consolidated
 report prioritized by real-world user impact. Advisory only — no
 changes made.
 
-[Detailed documentation](skills/review-a11y/README.md)
+[Detailed documentation](skills/review-a11y/SKILL.md)
 
-#### /review-source — Code Health Assessment
+#### /review-health — Code Health Assessment
 
 Assesses source code health across all languages in the project. Detects
 languages, dispatches SME agents for specialist review (or generalists for
@@ -217,11 +219,21 @@ unsupported languages), and produces a consolidated health report with
 per-language ratings. Advisory only — no changes made. Use to decide
 whether `/refactor` is needed.
 
-[Detailed documentation](skills/review-source/README.md)
+[Detailed documentation](skills/review-health/SKILL.md)
+
+#### /review-perf — Performance Review
+
+Reviews a project for performance issues across two domains: compute
+performance (algorithms, memory, CPU, benchmarking) and web performance
+(caching, asset delivery, loading strategy, Core Web Vitals). Detects the
+project type and dispatches the appropriate specialist(s) in parallel.
+Advisory only — no changes made.
+
+[Detailed documentation](skills/review-perf/SKILL.md)
 
 ### Security
 
-#### /audit-source — White-Box Security Audit
+#### /audit-security — White-Box Security Audit
 
 Orchestrates a comprehensive security assessment of the project's source code
 using both defensive and offensive analysis. A blue-teamer evaluates the
@@ -229,6 +241,8 @@ defensive posture first, then red-teamers attack informed by the defensive
 gaps. Dedicated red-teamers investigate each attack vector in depth. Findings
 are synthesized, exploit chains are explored, and the process iterates until
 no new chains emerge. Heavy and thorough by design.
+
+[Detailed documentation](skills/audit-security/SKILL.md)
 
 ### Decision and Diagnosis
 
@@ -239,53 +253,72 @@ for each option who argue their cases, rebut each other, and respond to
 probing questions before a judge renders a verdict with reasoning and
 trade-offs.
 
-[Detailed documentation](skills/deliberate/README.md)
+[Detailed documentation](skills/deliberate/SKILL.md)
 
-#### /bugfix — Diagnosis-First Bug Fixing
+#### /bug-fix — Diagnosis-First Bug Fixing
 
 Coordinates specialist agents through a diagnosis-first bug-fixing cycle:
 reproduce with a failing test, perform root-cause analysis with git
 archaeology, implement a targeted fix, and verify. Same review pipeline as
 `/implement`.
 
-[Detailed documentation](skills/bugfix/README.md)
+[Detailed documentation](skills/bug-fix/SKILL.md)
+
+#### /bug-hunt — Proactive Bug Discovery
+
+Systematically hunts for bugs before they reach users. A risk assessor
+cross-references code complexity, test coverage gaps, and structural risk
+factors to produce a ranked hotspot list. Dedicated hunters then
+deep-dive into each hotspot, writing reproducing tests to validate or
+invalidate suspected bugs. Every confirmed finding is backed by a
+reproducing test — no speculative reports. Optionally routes confirmed
+bugs to SME agents for fixing.
+
+[Detailed documentation](skills/bug-hunt/SKILL.md)
 
 ## Agents
 
 Specialist agents spawned by the workflows above:
 
-| Agent                       | Purpose                                                                                               |
-|-----------------------------|-------------------------------------------------------------------------------------------------------|
-| `advocate`                  | Argues for a specific option in deliberation proceedings                                              |
-| `swe-planner`               | Decomposes complex tasks into implementation plans                                                    |
-| `swe-sme-golang`            | Go implementation specialist                                                                          |
-| `swe-sme-graphql`           | GraphQL schema and resolver specialist                                                                |
-| `swe-sme-docker`            | Dockerfile and container specialist                                                                   |
-| `swe-sme-makefile`          | Makefile and build system specialist                                                                  |
-| `swe-sme-ansible`           | Ansible automation specialist                                                                         |
-| `swe-sme-zig`               | Zig implementation specialist                                                                         |
-| `swe-sme-html`              | HTML structure, semantics, and accessibility specialist                                               |
-| `swe-sme-css`               | CSS styling, layout, and responsive design specialist                                                 |
-| `swe-sme-javascript`        | Vanilla JavaScript implementation specialist                                                          |
-| `swe-sme-typescript`        | TypeScript implementation and type design specialist                                                  |
-| `swe-refactor`              | Tactical code quality reviewer (DRY, dead code, naming, complexity)                                   |
-| `swe-review-arch`           | Architecture reviewer (noun analysis, module boundaries, blueprints)                                  |
-| `swe-diagnostician`         | Bug root-cause analyst (execution tracing, git archaeology, diagnosis reports)                        |
-| `swe-perf-engineer`         | Performance testing and optimization                                                                  |
-| `qa-engineer`               | Practical verification and test coverage                                                              |
-| `qa-accessibility-auditor`  | WCAG accessibility auditor (keyboard navigation, ARIA, contrast, semantic structure)                  |
-| `qa-test-auditor`           | Test quality reviewer (brittle, tautological, useless tests)                                          |
-| `qa-coverage-analyst`       | Coverage gap analyst (coverage reports, risk prioritization, testability suggestions)                 |
-| `qa-fuzz-analyst`           | Fuzz testing gap analyst (fuzz infrastructure detection, candidate identification)                    |
-| `qa-test-mutator`           | Mutation testing worker (applies mutations, records results)                                          |
-| `qa-release-eng`            | Pre-release scanner (debug artifacts, versioning, changelog, git hygiene, breaking changes, licenses) |
-| `sec-blue-teamer`           | Defensive security analyst (control inventory, consistency, defense-in-depth, configuration)           |
-| `sec-red-teamer`            | Adversarial security analyst (attack surface mapping, exploitation, trust boundary analysis)           |
-| `doc-maintainer`            | Documentation updates and verification                                                                |
+| Agent                       | Purpose                                                                                                    |
+|-----------------------------|------------------------------------------------------------------------------------------------------------|
+| `advocate`                  | Argues for a specific option in deliberation proceedings                                                   |
+| `swe-planner`               | Decomposes complex tasks into implementation plans                                                         |
+| `swe-sme-golang`            | Go implementation specialist                                                                               |
+| `swe-sme-graphql`           | GraphQL schema and resolver specialist                                                                     |
+| `swe-sme-docker`            | Dockerfile and container specialist                                                                        |
+| `swe-sme-makefile`          | Makefile and build system specialist                                                                       |
+| `swe-sme-ansible`           | Ansible automation specialist                                                                              |
+| `swe-sme-zig`               | Zig implementation specialist                                                                              |
+| `swe-sme-html`              | HTML structure, semantics, and accessibility specialist                                                    |
+| `swe-sme-css`               | CSS styling, layout, and responsive design specialist                                                      |
+| `swe-sme-javascript`        | Vanilla JavaScript implementation specialist                                                               |
+| `swe-sme-typescript`        | TypeScript implementation and type design specialist                                                       |
+| `swe-code-reviewer`         | Tactical code quality reviewer (DRY, dead code, naming, complexity)                                        |
+| `swe-arch-reviewer`         | Architecture reviewer (noun analysis, module boundaries, blueprints)                                       |
+| `swe-bug-assessor`          | Codebase risk assessor (complexity, coverage, structural risk, git churn — produces ranked hotspot list)   |
+| `swe-bug-hunter`            | Focused bug investigator (deep-dives hotspots, writes reproducing tests, validates findings)                |
+| `swe-bug-investigator`      | Bug root-cause investigator (execution tracing, git archaeology, diagnosis reports)                        |
+| `swe-perf-reviewer`         | Compute performance reviewer (algorithmic complexity, benchmarking, profiling, optimization)                |
+| `swe-web-perf-reviewer`     | Web performance reviewer (caching, asset delivery, loading strategy, Core Web Vitals)                      |
+| `qa-engineer`               | Practical verification and test coverage                                                                   |
+| `qa-web-a11y-reviewer`      | WCAG accessibility reviewer (keyboard navigation, ARIA, contrast, semantic structure)                      |
+| `qa-test-reviewer`          | Test quality reviewer (brittle, tautological, useless tests)                                               |
+| `qa-test-coverage-reviewer` | Coverage gap reviewer (coverage reports, risk prioritization, testability suggestions)                     |
+| `qa-test-fuzz-reviewer`     | Fuzz testing gap reviewer (fuzz infrastructure detection, candidate identification)                        |
+| `qa-test-mutator`           | Mutation testing worker (applies mutations, records results)                                               |
+| `qa-release-engineer`       | Pre-release scanner (debug artifacts, versioning, changelog, git hygiene, breaking changes, licenses)      |
+| `sec-blue-teamer`           | Defensive security analyst (control inventory, consistency, defense-in-depth, configuration)               |
+| `sec-red-teamer`            | Adversarial security analyst (attack surface mapping, exploitation, trust boundary analysis)               |
+| `doc-maintainer`            | Documentation updates and verification                                                                     |
 
 ## Development
 
-See [HACKING.md](HACKING.md) for local development and testing instructions.
+See [HACKING.md](HACKING.md) for local development and testing instructions. See [CHANGELOG.md](CHANGELOG.md) for release history and [CONTRIBUTING.md](CONTRIBUTING.md) for contribution policy.
+
+## Versioning
+
+This project follows [Semantic Versioning](https://semver.org/). Skills (slash commands like `/implement`, `/review-perf`, etc.) are the public interface. Subagent names are internal implementation details and may be renamed or restructured without constituting a breaking change.
 
 ## Requirements
 

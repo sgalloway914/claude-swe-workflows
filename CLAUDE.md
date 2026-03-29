@@ -16,7 +16,12 @@ This is `claude-swe-workflows`, a Claude Code plugin for software engineering wo
 │   └── agent-name.md    # Agent prompt with YAML frontmatter
 ├── skills/              # Skill definitions
 │   └── skill-name/
-│       └── SKILL.md     # Skill prompt with YAML frontmatter
+│       ├── SKILL.md          # Skill prompt with YAML frontmatter
+│       └── references/
+│           └── README.md     # Human-readable guide for the skill
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── HACKING.md
 └── README.md
 ```
 
@@ -50,9 +55,9 @@ The skills form a layered system. Higher-level workflows orchestrate lower-level
 /implement-project
 ├── /implement-batch (per batch)
 │   └── /implement (per ticket)
-└── quality pipeline: /refactor, /review-a11y, /review-arch, /review-test, /review-doc, /review-release
+└── quality pipeline: /refactor, /review-arch, /review-test, /review-doc, /review-release
 ```
 
 Planning feeds implementation: `/scope-project` → `/implement-project`, or `/scope` → `/implement`.
 
-Supporting workflows available at any level: `/deliberate` (adversarial decision-making), `/bugfix` (diagnosis-first bug fixing), `/test-mutation` (mutation testing).
+Supporting workflows available at any level: `/deliberate` (adversarial decision-making), `/bug-fix` (diagnosis-first bug fixing), `/bug-hunt` (proactive bug discovery), `/test-mutation` (mutation testing).

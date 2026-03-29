@@ -1,0 +1,333 @@
+# /review-arch - Blueprint-Driven Architectural Improvement
+
+## Overview
+
+The `/review-arch` skill analyzes codebase architecture and collaborates with the user to improve it. It spawns an analysis agent that builds a domain model via noun analysis and produces a target architecture blueprint, then presents those findings to the user for review and refinement. The user decides what to implement and how to proceed — changes are made through specialist agents with QA verification at each step.
+
+**Key benefits:**
+- Blueprint-driven - implements a coherent architectural target, not a grab-bag of independent fixes
+- Noun analysis identifies the natural decomposition boundaries in the domain
+- Interactive review - user sees and shapes the plan before any changes are made
+- Atomic commits per item (easy to review, bisect, or revert)
+- Built-in quality gates with QA verification
+
+## When to Use
+
+**Use `/review-arch` for:**
+- Rethinking module boundaries and responsibilities
+- When modules have unclear identities or overlap
+- After a codebase has grown organically and needs structural cleanup
+- When "helpers.go" or "utils.py" has become a dumping ground
+- Preparing a codebase for a major new feature that needs clean abstractions
+
+**Don't use `/review-arch` for:**
+- Routine code cleanup (use `/refactor` instead)
+- Quick DRY fixes or dead code removal (use `/refactor` instead)
+- Codebases without tests (restructuring needs verification)
+- Active development where changes are still in flux
+
+**Rule of thumb:** Use `/review-arch` when the module structure itself needs rethinking. Use `/refactor` when the code within modules needs cleaning up.
+
+## Workflow Diagram
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ /review-arch Workflow                                           │
+└─────────────────────────────────────────────────────────────────┘
+
+ ┌──────────────────────────────────────────────┐
+ │  1. DETERMINE SCOPE                          │
+ │  ────────────────────────────────────────    │
+ │  • Default: Entire codebase                  │
+ │  • Or: User-specified path/module            │
+ └──────────────────┬───────────────────────────┘
+                    ▼
+ ┌──────────────────────────────────────────────┐
+ │  2. GATHER QA INSTRUCTIONS                   │
+ │  ────────────────────────────────────────    │
+ │  Ask user for custom verification steps:     │
+ │  • Visual checks, screenshots                │
+ │  • Manual test commands                      │
+ │  • Specific scenarios to validate            │
+ │  (Optional - standard tests run regardless)  │
+ └──────────────────┬───────────────────────────┘
+                    ▼
+ ┌──────────────────────────────────────────────┐
+ │  3. ANALYZE CODEBASE                         │
+ │  ────────────────────────────────────────    │
+ │  Agent: swe-arch-reviewer (fresh instance)    │
+ │                                              │
+ │  Four sequential analysis steps:             │
+ │  • Step 1: Catalog dead code                 │
+ │  • Step 2: Noun analysis (domain model)      │
+ │  • Step 3: Identify repetition               │
+ │  • Step 4: Produce target blueprint          │
+ │                                              │
+ │  Returns dead code list + blueprint          │
+ │                                              │
+ │  No opportunities? → EXIT ──────────────► DONE
+ └──────────────────┬───────────────────────────┘
+                    ▼
+ ┌──────────────────────────────────────────────┐
+ │  4. PRESENT ANALYSIS TO USER                 │
+ │  ────────────────────────────────────────    │
+ │  Show the user:                              │
+ │  • Noun frequency table + evaluations        │
+ │  • Proposed changes (blueprint items)        │
+ │  • No-change items (with justifications)     │
+ └──────────────────┬───────────────────────────┘
+                    ▼
+ ┌──────────────────────────────────────────────┐
+ │  5. ITERATE ON PLAN WITH USER                │
+ │  ────────────────────────────────────────    │
+ │  User may:                                   │
+ │  • Add, remove, or modify items              │
+ │  • Ask questions about recommendations       │
+ │  • Adjust scope or priorities                │
+ │                                              │
+ │  Continue until user is satisfied            │
+ └──────────────────┬───────────────────────────┘
+                    ▼
+ ┌──────────────────────────────────────────────┐
+ │  6. ASK USER HOW TO PROCEED                  │
+ │  ────────────────────────────────────────    │
+ │  User decides next steps:                    │
+ │  • Implement changes now                     │
+ │  • Create tickets for later                  │
+ │  • Something else                            │
+ │                                              │
+ │  Not implementing? ─────────────────────► DONE
+ └──────────────────┬───────────────────────────┘
+                    ▼
+ ┌──────────────────────────────────────────────┐
+ │  7. IMPLEMENT DEAD CODE REMOVAL              │
+ │  ────────────────────────────────────────    │
+ │  Batch all dead code removals together       │
+ │  Agent: SME or orchestrator                  │
+ │  Verify with QA, commit                      │
+ └──────────────────┬───────────────────────────┘
+                    ▼
+        ┌───────────────────────┐
+        │  BLUEPRINT LOOP       │◄───────────────────┐
+        └───────────┬───────────┘                    │
+                    ▼                                │
+ ┌──────────────────────────────────────────────┐    │
+ │  8. IMPLEMENT BLUEPRINT ITEM                 │    │
+ │  ────────────────────────────────────────    │    │
+ │  Ordered by safety:                          │    │
+ │  1. Linter/formatter fixes                   │    │
+ │  2. Renames and stutter fixes                │    │
+ │  3. File splits within modules               │    │
+ │  4. Function moves within modules            │    │
+ │  5. Module absorptions                       │    │
+ │  6. Module dissolutions                      │    │
+ │  7. New module creation                      │    │
+ │                                              │    │
+ │  Agent: Language-specific SME or generalist  │    │
+ └──────────────────┬───────────────────────────┘    │
+                    ▼                                │
+ ┌──────────────────────────────────────────────┐    │
+ │  VERIFY CHANGES                              │    │
+ │  ────────────────────────────────────────    │    │
+ │  Agent: qa-engineer                          │    │
+ │                                              │    │
+ │  Passes? ──┬─ Yes → Commit, next item ───────┤    │
+ │            └─ No  → Return to SME ──┐        │    │
+ │                     (max 3 attempts)│        │    │
+ │                                     ▼        │    │
+ │                     ┌────────────────────┐   │    │
+ │                     │ Still failing?     │   │    │
+ │                     │ → Revert item      │   │    │
+ │                     │ → Log failure      │   │    │
+ │                     │ → Next item ───────┼───┤    │
+ │                     └────────────────────┘   │    │
+ └──────────────────────────────────────────────┘    │
+                    ▼                                │
+           All items done?                           │
+           ├─ No  → Back to step 8 ──────────────────┘
+           └─ Yes ▼
+ ┌──────────────────────────────────────────────┐
+ │  9. COMPLETION SUMMARY                       │
+ │  ────────────────────────────────────────    │
+ │  • Total commits made                        │
+ │  • Net lines changed (target: negative)      │
+ │  • Blueprint items completed vs skipped      │
+ │  • Any skipped items with reasons            │
+ └──────────────────┬───────────────────────────┘
+                    ▼
+ ┌──────────────────────────────────────────────┐
+ │  10. UPDATE DOCUMENTATION                    │
+ │  ────────────────────────────────────────    │
+ │  Run /review-doc to fix stale docs           │
+ │  (module renames, moved functions, etc.)     │
+ └──────────────────────────────────────────────┘
+```
+
+## Workflow Details
+
+### 1. Determine Scope
+By default, the workflow operates on the entire codebase. You can specify a narrower scope:
+
+```
+/review-arch                     # Entire codebase
+/review-arch src/parser/         # Just the parser module
+```
+
+The scope is passed to all spawned agents.
+
+### 2. Gather QA Instructions
+Before starting, the workflow asks if you have custom verification steps beyond the standard test suite. Examples:
+
+- "After each change, start the app and take a screenshot to verify rendering"
+- "Run `make demo` and check the output"
+- "Verify the CLI `--help` output is still valid"
+
+These instructions are passed to the QA agent on every verification cycle. If you have no special requirements, standard verification (tests + linters) runs.
+
+### 3. Analyze Codebase
+A fresh `swe-arch-reviewer` agent performs four sequential analysis steps:
+
+| Step                   | What it does                                                                       |
+|------------------------|------------------------------------------------------------------------------------|
+| 1. Prune dead code     | Catalogs unused functions, dead imports, legacy assumptions                        |
+| 2. Noun analysis       | Builds domain model - identifies what nouns exist, what's missing, what's misnamed |
+| 3. Identify repetition | Catalogs duplication patterns as inputs to the blueprint                           |
+| 4. Produce blueprint   | Synthesizes steps 1-3 into a target architecture                                   |
+
+The blueprint describes each module's target state: what it owns, what it absorbs from other modules, what gets renamed, and what implementation simplifications are possible.
+
+### 4. Present Analysis to User
+After the analysis agent returns, present its findings in full:
+
+- **Noun analysis table**: The domain model — what nouns were found, where they live, and where they should live
+- **Proposed changes**: Blueprint items grouped by category — dead code removal, renames, moves, absorptions, dissolutions, new modules
+- **No-change items**: Modules the agent evaluated and explicitly decided to leave alone, with domain justifications
+
+### 5. Iterate on Plan with User
+The user shapes the plan before anything is implemented. They may add, remove, or modify items, ask questions about specific recommendations, or adjust priorities. Continue until the user is satisfied.
+
+### 6. Ask User How to Proceed
+Once the plan is finalized, ask the user how they'd like to proceed. The user decides — implementation, tickets, or something else.
+
+### 7-8. Implement Changes
+If the user chose to proceed with implementation:
+
+Dead code removal happens first (step 7) because it simplifies everything that follows. All dead code is batched together, implemented, verified by QA, and committed.
+
+The orchestrator then works through blueprint items in safety order (step 8):
+
+1. **Linter/formatter fixes** - mechanical, lowest risk
+2. **Renames and stutter fixes** - low risk, no structural change
+3. **File splits within existing modules** - same namespace, better navigability
+4. **Function moves within existing modules** - moderate risk
+5. **Module absorptions** (A absorbs functions from B)
+6. **Module dissolutions** (all of C's functions distributed elsewhere)
+7. **New module creation** - highest structural change
+
+Each item goes through: SME implementation -> QA verification -> atomic commit.
+
+**Available specialists:**
+- `swe-sme-golang` - Go projects
+- `swe-sme-makefile` - Makefiles
+- `swe-sme-docker` - Dockerfiles
+- `swe-sme-graphql` - GraphQL schemas
+- `swe-sme-ansible` - Ansible playbooks
+- `swe-sme-zig` - Zig projects
+- `swe-sme-html` - HTML/markup
+- `swe-sme-css` - CSS/styling
+- `swe-sme-javascript` - Vanilla JavaScript
+- `swe-sme-typescript` - TypeScript
+
+**For other languages** (Python, Rust, Lua, etc.): The orchestrator implements directly, following language idioms.
+
+After each item, the `qa-engineer` agent verifies the change didn't break anything (test suite, linters, formatters). On failure, the SME gets up to 3 repair attempts. After 3 failures: revert the item, log the failure, continue with the next item.
+
+### 9. Completion Summary
+```
+## Arch Review Complete
+
+### Statistics
+- Commits made: 7
+- Net lines changed: -198
+- Blueprint items completed: 5/5
+
+### Blueprint Status
+- snippet.lua: completed (renamed from parser.lua, absorbed frontmatter.lua)
+- keymaps.lua: completed (extracted from init.lua)
+- strings.lua: completed (dissolved, functions distributed)
+- loader.lua: completed (absorbed strip() from strings.lua)
+- init.lua: completed (simplified after extractions)
+
+### Skipped Items
+(none)
+```
+
+### 10. Update Documentation
+After the summary, the workflow runs `/review-doc` to bring project documentation up to date. Architectural changes rename modules, move functions, and change project structure — documentation that references the old structure becomes stale. The review-doc agent audits all documentation files and fixes issues it finds, committing separately from the refactoring commits.
+
+## Tips for Effective Use
+
+1. **Ensure tests exist first.** Restructuring without tests is dangerous. The workflow relies on QA verification to catch regressions.
+
+2. **Start with a clean working tree.** The workflow makes commits. Uncommitted changes will complicate things.
+
+3. **Review the commits afterward.** Each item is an atomic commit. You can review, amend, squash, or revert as needed.
+
+4. **Skipped items are information.** If an item fails 3 times, there may be a deeper issue. Review the skipped item details.
+
+5. **Consider running `/refactor` first.** Cleaning up dead code and DRY violations with `/refactor` simplifies the architectural analysis.
+
+6. **Scope aggressively if needed.** For large codebases, target specific modules: `/review-arch src/core/` rather than everything.
+
+## Agent Coordination
+
+**Sequential execution:**
+- One agent at a time
+- No parallel agent execution
+- Each agent completes before the next spawns
+
+**State maintained by orchestrator:**
+- Current blueprint and progress through it
+- Completed items (brief log)
+- Skipped items (with reasons)
+- Failure count per active item
+- Running totals for summary
+
+## Abort Conditions
+
+**Abort current item:**
+- 3 consecutive QA failures -> revert, log, continue
+
+**Abort entire workflow:**
+- User interrupts
+- Git repository in unclean state
+- Critical system error
+
+**Agent failures:**
+- Spawn failure -> retry once, then abort workflow
+- Malformed output -> log, skip item, continue
+- Timeout -> treat as failure, apply retry logic
+
+## Philosophy
+
+The `/review-arch` workflow embodies several key principles:
+
+**Organization first:**
+- Every module should own a clear domain noun
+- Functions should live where a reader expects to find them
+- The blueprint describes a target architecture, not a grab-bag of fixes
+
+**Recommend boldly, implement collaboratively:**
+- The analysis agent should surface every opportunity, even uncertain ones
+- The user reviews, refines, and decides what to implement
+- Architectural decisions are consequential and benefit from human judgment
+
+**Red diffs within modules:**
+- Once code is in the right place, simplify it
+- Less code is better when it doesn't sacrifice comprehensibility
+- But don't let line count override architectural decisions
+
+**Atomic and reversible:**
+- Each item is one commit
+- Easy to review, bisect, or revert
+- Skipped items don't pollute the history
